@@ -43,33 +43,33 @@
 
     <div id="flashcard" class="container" data-sync="{{ sync | lower }}">
         <div id="question">
-            <div class="question-text">question</div>
+            <div class="question-text">Klausimas</div>
             <img class="image"></img>
             <br />
-            <button type="button" class="btn btn-primary btn-lg">show</button>
+            <button type="button" class="btn btn-primary btn-lg">Atversti</button>
         </div>
         <div id="answer">
-            <div class="answer-text">answer</div>
-            <div class="note-text">note</div>
+            <div class="answer-text">(Teisingas atsakymas)</div>
+            
             <br />
-            <button type="button" class="btn btn-success btn-lg">right</button>
-            <button type="button" class="btn btn-warning btn-lg">wrong</button>
+            <button type="button" class="btn btn-success btn-lg">Teisingai!</button>
+            <button type="button" class="btn btn-warning btn-lg">Neteisingai</button>
         </div>
     </div>
 
     <hr class="soften" />
 
     <div class="container">
-        <button type="button" id="new-card-button" class="btn btn-primary">New card</button>
-        <button type="button" id="edit-card-button" class="btn btn-info">Edit card</button>
-        <button type="button" id="delete-card-button" class="btn btn-danger">Delete card</button>
+        <button type="button" id="new-card-button" class="btn btn-primary">Nauja kortelė</button>
+        <button type="button" id="edit-card-button" class="btn btn-info">Redaguoti kortelę</button>
+        <button type="button" id="delete-card-button" class="btn btn-danger">Panaikinti kortelę</button>
     </div>
 
     <hr class="soften" />
 
     <div class="container">
-        <a id="export-button" download="flashcard.json" class="btn btn-default">Export</a>
-        <a id="import-button" class="btn btn-default">Import</a>
+        <a id="export-button" download="flashcard.json" class="btn btn-default">Exportuoti</a>
+        <a id="import-button" class="btn btn-default">Importuoti</a>
         <input id="import-input" type="file" style="visibility:hidden;" />
     </div>
 
@@ -82,7 +82,7 @@
 
                     <form role="form">
                         <div class="form-group">
-                            <label for="input-question">Question</label>
+                            <label for="input-question">QEUSTION</label>
                             <input type="text" id="input-question" class="form-control" placeholder="Question">
                         </div>
                         <div class="form-group">
