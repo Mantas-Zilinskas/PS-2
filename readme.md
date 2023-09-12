@@ -1,2 +1,4 @@
-Pavogsiu Gita
-o ne 
+#tikslai: 
+1.
+2. 
+3. 
