@@ -1,0 +1,17 @@
+﻿@page
+@model WebApplikacija.Pages.AddFlashcardModel
+@{
+    ViewData["Data"] = "Add a flashacard";
+}
+
+<h1>Make a Flashcard</h1>
+
+<label for="question">FlashCard Question:</label><br>
+<textarea id="question" name="question" rows="7" cols="100" required></textarea>
+<br>
+<br>
+<label for="answer">FlashCard Answer:</label><br>
+<textarea id="answer" name="answer" rows="7" cols="100" required></textarea>
+<br>
+<br>
+<button type="button" class="btn btn-primary" id="submit-new-flashcard">submit</button>
