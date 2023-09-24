@@ -1,15 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OfficeOpenXml;
+using WebApplikacija.Controllers;
+using WebApplikacija.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebApplikacija.Pages
 {
     public class AddFlashcardModel : PageModel
     {
-        public string successMessage = string.Empty;
+        public string flashcardCreationStatus = string.Empty;
 
         public void OnGet()
         {
-            successMessage = string.Empty;
+            flashcardCreationStatus = string.Empty;
         }
 
         public void OnPostSubmitNewFlashcard()
@@ -17,17 +21,20 @@ namespace WebApplikacija.Pages
             string? submitButtonValue = Request.Form["submitButton"];
             string? questionValue = Request.Form["question"];
             string? answerValue = Request.Form["answer"];
-
             if (submitButtonValue == "submit")
             {
-                Console.WriteLine(questionValue);
-                Console.WriteLine(answerValue);
+                Flashcard flashcard = new Flashcard(IdGenerator.generateId(questionValue, answerValue), questionValue, answerValue);
 
-                successMessage = "A new flashcard was successfully created";
+                try
+                {
+                    ExcelController.append(@"Data\data.xlsx", flashcard);
+                    flashcardCreationStatus = "A new flashcard was successfully created";
+                }
+                catch
+                {
+                    flashcardCreationStatus = "An error occured while creating a flashcard";
+                }
             }
-
-
-
         }
     }
 }
