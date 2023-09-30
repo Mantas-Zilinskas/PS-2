@@ -1,6 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WebApplikacija",
+    "\\WebApplikacija\\WebApplikacija",
+    "\\WebApplikacija\\WebApplikacija\\Controllers",
+    "\\WebApplikacija\\WebApplikacija\\Data",
+    "\\WebApplikacija\\WebApplikacija\\Pages",
+    "\\WebApplikacija\\WebApplikacija\\wwwroot",
+    "\\WebApplikacija\\WebApplikacija\\wwwroot\\css"
   ],
+  "SelectedNode": "\\WebApplikacija\\WebApplikacija\\Controllers\\IdGenerator.cs",
   "PreviewInSolutionExplorer": false
 }
