@@ -10,4 +10,8 @@
     <PackageReference Include="EPPlus" Version="6.2.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\study sets\" />
+  </ItemGroup>
+
 </Project>

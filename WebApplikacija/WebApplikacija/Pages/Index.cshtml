@@ -28,6 +28,15 @@
     <div>
         <button id="createStudySet" class="btn btn-info">+ Create Study Set</button>
     </div>
+    <div class="container">
+        <div class="row">
+            @foreach (string studySet in Model.studySetNames)
+            {
+                <div class="col-sm- set-box"> @studySet</div>
+            } 
+            
+        </div>
+    </div>
 
     @await Html.PartialAsync("_ModalPartial")
 
