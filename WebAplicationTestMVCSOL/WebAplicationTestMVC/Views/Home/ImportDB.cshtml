@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Import Excel File";
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="ImportExcel">
+    <input type="file" name="file" />
+    <button type="submit">Upload Excel File</button>
+</form>

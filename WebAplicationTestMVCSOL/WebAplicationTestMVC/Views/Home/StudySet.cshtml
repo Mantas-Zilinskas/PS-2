@@ -1,0 +1,27 @@
+﻿@page
+@model WebAplicationTestMVC.Pages.StudySetModel
+@{
+}
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Study set name</title>@* the name should be as written by the user *@
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .question-text {
+            font-size: 28px
+        }
+    </style>
+</head>
+<body>
+    <h2>Study set name</h2>@* the name should be as written by the user *@
+
+        <hr class="soften" />
+    <h3> All flashcards</h3>
+        <a class="btn btn-primary" asp-area="" asp-page="/AddFlashcard">Create flashcards manually</a>
+        <a class="btn btn-primary" asp-area="" asp-page="/StudySet">Import flashcards</a>
+        <a class="btn btn-primary" asp-area="" asp-page="/Flashcards">Learn flashcards</a>
+</body>
+</html>

@@ -1,0 +1,22 @@
+﻿@page
+
+@using WebAplicationTestMVC.Pages;
+@model AddFlashcardModel
+@{
+  
+}
+
+<h1>Make a Flashcard</h1>
+<form method="post">
+    <label for="question">FlashCard Question:</label><br>
+    <textarea id="question" name="question" rows="7" cols="100" placeholder="Where does England keep their armies?" required></textarea>
+    <br>
+    <br>
+    <label for="answer">FlashCard Answer:</label><br>
+    <textarea id="answer" name="answer" rows="7" cols="100" placeholder="In their sleevies!" required></textarea>
+    <br>
+    <br>
+    <button type="submit" class="btn btn-primary" name="submitButton" value="submit" asp-page-handler="SubmitNewFlashcard">Submit</button>
+    <a class="btn btn-primary" asp-area="" asp-page="/Index">Back</a>
+    
+</form>
