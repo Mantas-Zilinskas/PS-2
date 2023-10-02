@@ -32,9 +32,10 @@
         <div class="row">
             @foreach (string studySet in Model.studySetNames)
             {
-                <div class="col-sm- set-box"> @studySet</div>
+                <a href="StudySet?setName=@studySet" class="col-sm- set-box" style="text-decoration: none; color: inherit;">
+                    @studySet
+                </a>
             } 
-            
         </div>
     </div>
 
