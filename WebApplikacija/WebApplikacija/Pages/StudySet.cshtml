@@ -24,5 +24,16 @@
         <a class="btn btn-primary" asp-area="" asp-page="/AddFlashcard">Create flashcards manually</a>
         <a class="btn btn-primary" asp-area="" asp-page="/StudySet">Import flashcards</a>
         <a class="btn btn-primary" asp-area="" asp-page="/Flashcards">Learn flashcards</a>
+
+    <br>
+    <br>
+    <div class="row">
+        @foreach (var flashcard in Model.flashcards)
+        {
+            <div class="col-sm-1 card">Question:   </div>
+            <div class="col-sm-11 card">@flashcard.question</div>
+        }
+    </div>
+
 </body>
 </html>
