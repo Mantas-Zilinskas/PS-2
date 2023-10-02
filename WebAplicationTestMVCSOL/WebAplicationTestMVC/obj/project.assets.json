@@ -950,19 +950,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\avilc\\.nuget\\packages\\": {}
+    "C:\\Users\\37061\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\avilc\\OneDrive\\Desktop\\MVC2\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\WebAplicationTestMVC.csproj",
+      "projectUniqueName": "C:\\Users\\37061\\Documents\\unikas\\3semestras\\ProgramųSistemųInžinerija\\PS-2\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\WebAplicationTestMVC.csproj",
       "projectName": "WebAplicationTestMVC",
-      "projectPath": "C:\\Users\\avilc\\OneDrive\\Desktop\\MVC2\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\WebAplicationTestMVC.csproj",
-      "packagesPath": "C:\\Users\\avilc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\avilc\\OneDrive\\Desktop\\MVC2\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\obj\\",
+      "projectPath": "C:\\Users\\37061\\Documents\\unikas\\3semestras\\ProgramųSistemųInžinerija\\PS-2\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\WebAplicationTestMVC.csproj",
+      "packagesPath": "C:\\Users\\37061\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\37061\\Documents\\unikas\\3semestras\\ProgramųSistemųInžinerija\\PS-2\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\avilc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\37061\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1012,7 +1012,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

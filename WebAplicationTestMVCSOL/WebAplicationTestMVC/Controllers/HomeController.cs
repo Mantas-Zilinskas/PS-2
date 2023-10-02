@@ -30,6 +30,16 @@ namespace WebAplicationTestMVC.Controllers
             return View();
         }
 
+        public IActionResult Flashcards()
+        {
+            return View();
+        }
+
+        public IActionResult StudySet()
+        {
+            return View();
+        }
+
         public IActionResult ImportDB()
         {
             return View();

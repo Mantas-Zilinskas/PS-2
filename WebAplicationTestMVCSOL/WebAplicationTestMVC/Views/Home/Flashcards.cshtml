@@ -5,20 +5,6 @@
 }
 <!DOCTYPE html>
 
-<!--
- Copyright 2014 Guillaume Chereau <guillaume@noctua-software.com>
-
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
--->
 
 <html manifest="cache.manifest">
 <head>
@@ -38,14 +24,11 @@
 
     <div id="flashcard" class="container" data-sync="{{ sync | lower }}">
         <div id="question">
-            @* <div class="question-text">Klausimas</div> *@
             <img class="image"></img>
             <br />
             <button type="button" class="btn btn-primary btn-lg">Show answer</button>
         </div>
         <div id="answer">
-            @* <div class="answer-text">(Teisingas atsakymas)</div> *@
-
             <br />
             <button type="button" class="btn btn-success btn-lg">Good</button>
             <button type="button" class="btn btn-warning btn-lg">Bad</button>

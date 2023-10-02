@@ -20,8 +20,8 @@
 </head>
 <body>
 
-    @* <a class="nav-link text-dark" asp-area="" asp-page="/Flashcards">Flashcards</a>
- *@
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Flashcards">Flashcards</a>
+
     <div>
         <p>Study sets</p>
     </div>
@@ -44,10 +44,22 @@
 
                 $("#saveStudySet").click(function () {
                     var studySetName = $("#name").val();
-                    // Add logic to save the study set
+
+                    if (studySetName) {  
+                        // Save to local storage
+                        var studySets = JSON.parse(localStorage.getItem('studySets') || '[]');
+                        studySets.push(studySetName);
+                        localStorage.setItem('studySets', JSON.stringify(studySets));
+
+                        // Close the modal
+                        $('#myModal').modal('hide');
+                    } else {
+                        alert('Please enter a name for the study set.');
+                    }
                 });
             });
         </script>
     }
+
 </body>
 </html>
