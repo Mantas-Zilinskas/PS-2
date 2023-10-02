@@ -33,7 +33,7 @@
             @foreach (string studySet in Model.studySetNames)
             {
                 <a href="StudySet?setName=@studySet" class="col-sm- set-box" style="text-decoration: none; color: inherit;">
-                    @studySet
+                    @studySet.Substring(0, studySet.Length - 5)
                 </a>
             } 
         </div>
