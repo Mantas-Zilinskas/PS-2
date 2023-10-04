@@ -9,6 +9,6 @@
     "\\WebAplicationTestMVC\\Views\\Home",
     "\\WebAplicationTestMVC\\Views\\Shared"
   ],
-  "SelectedNode": "\\WebAplicationTestMVCSOL.sln",
+  "SelectedNode": "\\WebAplicationTestMVC\\Views\\Home\\AddFlashcard.cshtml.cs",
   "PreviewInSolutionExplorer": false
 }

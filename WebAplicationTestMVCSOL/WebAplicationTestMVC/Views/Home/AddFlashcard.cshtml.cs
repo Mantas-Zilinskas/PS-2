@@ -27,7 +27,7 @@ namespace WebAplicationTestMVC.Pages
 
                 try
                 {
-                    ExcelController.append(@"Data\data.xlsx", flashcard);
+                    ExcelController.Append(@"Data\data.xlsx", flashcard);
                     flashcardCreationStatus = "A new flashcard was successfully created";
                 }
                 catch

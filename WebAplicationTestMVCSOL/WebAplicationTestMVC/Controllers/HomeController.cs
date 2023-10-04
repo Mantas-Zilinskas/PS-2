@@ -35,7 +35,7 @@ namespace WebAplicationTestMVC.Controllers
             return View();
         }
 
-        public IActionResult StudySet()
+        public IActionResult StudySets()
         {
             return View();
         }

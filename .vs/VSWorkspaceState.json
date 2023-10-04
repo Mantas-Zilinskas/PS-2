@@ -5,10 +5,9 @@
     "\\WebApplikacija\\WebApplikacija",
     "\\WebApplikacija\\WebApplikacija\\Controllers",
     "\\WebApplikacija\\WebApplikacija\\Data",
-    "\\WebApplikacija\\WebApplikacija\\Pages",
-    "\\WebApplikacija\\WebApplikacija\\wwwroot",
-    "\\WebApplikacija\\WebApplikacija\\wwwroot\\css"
+    "\\WebApplikacija\\WebApplikacija\\Models",
+    "\\WebApplikacija\\WebApplikacija\\Pages"
   ],
-  "SelectedNode": "\\WebApplikacija\\WebApplikacija\\Controllers\\IdGenerator.cs",
+  "SelectedNode": "\\WebApplikacija\\WebApplikacija\\Pages\\_ViewImports.cshtml",
   "PreviewInSolutionExplorer": false
 }
