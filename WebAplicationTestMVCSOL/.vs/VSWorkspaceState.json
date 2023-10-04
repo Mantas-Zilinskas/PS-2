@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\WebAplicationTestMVC",
+    "\\WebAplicationTestMVC\\Controllers",
+    "\\WebAplicationTestMVC\\Data",
+    "\\WebAplicationTestMVC\\Models",
+    "\\WebAplicationTestMVC\\Views",
+    "\\WebAplicationTestMVC\\Views\\Home",
+    "\\WebAplicationTestMVC\\Views\\Shared"
+  ],
+  "SelectedNode": "\\WebAplicationTestMVC\\Views\\Home\\AddFlashcard.cshtml.cs",
+  "PreviewInSolutionExplorer": false
+}
