@@ -27,7 +27,8 @@ namespace WebAplicationTestMVC.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            List<StudySet> studySets = ExcelController.getStudySets();
+            return View(studySets);
         }
 
         public IActionResult Flashcards()
@@ -35,9 +36,9 @@ namespace WebAplicationTestMVC.Controllers
             return View();
         }
 
-        public IActionResult StudySets()
+        public IActionResult StudySets(string studySetName)
         {
-            return View();
+            return View(new StudySet(studySetName));
         }
 
         public IActionResult ImportDB()

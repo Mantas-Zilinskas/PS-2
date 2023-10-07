@@ -1,13 +1,19 @@
-﻿@page
-@model WebAplicationTestMVC.Pages.StudySetModel
+﻿@using WebAplicationTestMVC.Controllers
+@model WebAplicationTestMVC.Models.StudySet
 @{
+    if (Model.name == null)
+    {
+        Model.name = "data.xlsx";    
+    }
+    Console.WriteLine(Model.name);
+    List<Flashcard> flashcards = ExcelController.getExcelData(@"Data/" + Model.name);
 }
 <!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Study set</title>@*StudySet.Substring(0, StudySet.Length - 5)*@
+    <title>Study set</title>
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         .question-text {
@@ -17,13 +23,22 @@
 </head>
 <body>
     <h2>
-        study set
-</h2>
-<hr class="soften" />
-<h3> All flashcards</h3>
-<a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="AddFlashcard">Create flashcards manually</a>
-<a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="ImportDB">Import flashcards</a>@*flaschcards should import*@
-<a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Flashcards">Learn flashcards</a>
+        @Model.name.Substring(0, Model.name.Length - 5)
+    </h2>
 
+    <hr class="soften" />
+    <h3> All flashcards</h3>
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="AddFlashcard">Create flashcards manually</a>
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="ImportDB">Import flashcards</a>@*flaschcards should import*@
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Flashcards">Learn flashcards</a>
+
+    <br>
+    <div class="row">
+        @foreach (var flashcard in flashcards)
+        {
+            <div class="col-sm-1 card">Question:   </div>
+            <div class="col-sm-11 card">@flashcard.question</div>
+        }
+    </div>
 </body>
 </html>

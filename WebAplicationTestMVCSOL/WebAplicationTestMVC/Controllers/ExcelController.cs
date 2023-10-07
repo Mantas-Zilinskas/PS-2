@@ -47,16 +47,16 @@ namespace WebAplicationTestMVC.Controllers
             return flashcardList;
         }
 
-        public static List<string> getStudySetNames()
+        public static List<StudySet> getStudySets()
         {
-            List<string> studySets = new List<string>();
+            List<StudySet> studySets = new List<StudySet>();
 
-            string[] filePaths = Directory.GetFiles(@"Data/study sets/");
+            string[] filePaths = Directory.GetFiles(@"Data/");
 
             foreach (string filePath in filePaths)
             {
                 string fileName = Path.GetFileName(filePath);
-                studySets.Add(fileName);
+                studySets.Add(new StudySet(fileName));
             }
 
             return studySets;
