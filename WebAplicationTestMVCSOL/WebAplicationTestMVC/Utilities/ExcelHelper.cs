@@ -2,6 +2,7 @@
 using WebAplicationTestMVC.Models;
 using OfficeOpenXml;
 using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace WebAplicationTestMVC.Utilities
 {
@@ -60,6 +61,29 @@ namespace WebAplicationTestMVC.Utilities
             }
 
             return studySets;
+        }
+
+        public static void CreateStudySet(string name)
+        {
+            string fileName = name + ".xlsx";
+            List<StudySet> studySets = getStudySets();
+
+            using (var package = new ExcelPackage())
+            {
+               
+                var worksheet = package.Workbook.Worksheets.Add("Sheet1");
+
+
+                worksheet.Cells["A1"].Value = "Id";
+                worksheet.Cells["B1"].Value = "Question";
+                worksheet.Cells["C1"].Value = "Answer";
+
+
+                FileInfo fileInfo = new FileInfo(@"Data/" + fileName);
+                package.SaveAs(fileInfo);
+
+            }
+
         }
 
     }

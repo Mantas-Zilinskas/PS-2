@@ -35,6 +35,25 @@ namespace WebAplicationTestMVC.Controllers
             ExcelHelper.Append(@"Data/All flashcards.xlsx", flashcard);
             return RedirectToAction("AddFlashcard", new StudySet(studySetName));
         }
+
+       
+        [HttpPost]
+        public IActionResult ModalSubmit(string name)
+        {
+            StudySet studySet = new StudySet(name + ".xlsx");
+
+            if (ExcelHelper.getStudySets().Any(listStudySet => listStudySet.studySetName == studySet.studySetName))
+            {
+                return RedirectToAction("StudySets", studySet);
+            }
+            else 
+            {
+                ExcelHelper.CreateStudySet(name);
+                return RedirectToAction("StudySets", studySet);
+            }
+        }
+       
+
         public IActionResult Index()
         {
             List<StudySet> studySets = ExcelHelper.getStudySets();
