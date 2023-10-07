@@ -32,9 +32,9 @@
     <div class="row">
         @foreach (StudySet studySet in Model)
         {
-            <a class="col-sm- set-box" style="text-decoration: none; color: inherit;" 
-            asp-area="" asp-controller="Home" asp-action="StudySets" asp-route-studySetName="@studySet.name">
-                @studySet.name.Substring(0, studySet.name.Length - 5)
+            <a class="col-sm- set-box" style="text-decoration: none; color: inherit;"
+               asp-area="" asp-controller="Home" asp-action="StudySets" asp-route-studySetName="@studySet.studySetName">
+                @studySet.studySetName.Substring(0, studySet.studySetName.Length - 5)
             </a>
         }
     </div>

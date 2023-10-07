@@ -1,12 +1,11 @@
-﻿@using WebAplicationTestMVC.Controllers
+﻿@using WebAplicationTestMVC.Utilities
 @model WebAplicationTestMVC.Models.StudySet
 @{
-    if (Model.name == null)
+    if (Model.studySetName == null)
     {
-        Model.name = "data.xlsx";    
+        Model.studySetName = "All flashcards.xlsx";
     }
-    Console.WriteLine(Model.name);
-    List<Flashcard> flashcards = ExcelController.getExcelData(@"Data/" + Model.name);
+    List<Flashcard> flashcards = ExcelHelper.getExcelData(@"Data/" + Model.studySetName);
 }
 <!DOCTYPE html>
 <html manifest="cache.manifest">
@@ -23,12 +22,12 @@
 </head>
 <body>
     <h2>
-        @Model.name.Substring(0, Model.name.Length - 5)
+        @Model.studySetName.Substring(0, Model.studySetName.Length - 5)
     </h2>
 
     <hr class="soften" />
     <h3> All flashcards</h3>
-    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="AddFlashcard">Create flashcards manually</a>
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="AddFlashcard" asp-route-studySetName="@Model.studySetName">Create flashcards manually</a>
     <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="ImportDB">Import flashcards</a>@*flaschcards should import*@
     <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Flashcards">Learn flashcards</a>
 

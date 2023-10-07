@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Hosting;
 using System.IO;
-using WebAplicationTestMVC.Pages;  
-using WebAplicationTestMVC.Controllers;  
+using WebAplicationTestMVC.Pages;
 using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Pages
 {
@@ -23,7 +23,7 @@ namespace WebAplicationTestMVC.Pages
             string studySet = Request.Query["setName"];
             string rootPath = _env.ContentRootPath;
             string filePath = Path.Combine(rootPath, "Data", "study sets", studySet);
-            flashcards = ExcelController.getExcelData(filePath);
+            flashcards = ExcelHelper.getExcelData(filePath);
         }
     }
 }

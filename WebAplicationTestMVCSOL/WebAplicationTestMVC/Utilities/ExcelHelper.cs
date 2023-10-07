@@ -3,12 +3,12 @@ using WebAplicationTestMVC.Models;
 using OfficeOpenXml;
 using Microsoft.AspNetCore.Hosting.Server;
 
-namespace WebAplicationTestMVC.Controllers
+namespace WebAplicationTestMVC.Utilities
 {
-    public class ExcelController
+    public class ExcelHelper
     {
 
-        public static void Append(String filePath, Flashcard flashcard)
+        public static void Append(string filePath, Flashcard flashcard)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage excelPackage = new ExcelPackage(new FileInfo(filePath)))

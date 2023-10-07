@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Controllers
 {
@@ -21,13 +22,22 @@ namespace WebAplicationTestMVC.Controllers
             _logger = logger;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
-        public IActionResult AddFlashcard()
+        public IActionResult AddFlashcard(string studySetName)
         {
-            return View();
+            return View(new StudySet(studySetName));
+        }
+
+        [HttpPost]
+        public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
+        {
+            Flashcard flashcard = new Flashcard(IdGenerator.generateId(question, answer), question, answer);
+            ExcelHelper.Append(@"Data/" + studySetName, flashcard);
+            ExcelHelper.Append(@"Data/All flashcards.xlsx", flashcard);
+            return RedirectToAction("AddFlashcard", new StudySet(studySetName));
         }
         public IActionResult Index()
         {
-            List<StudySet> studySets = ExcelController.getStudySets();
+            List<StudySet> studySets = ExcelHelper.getStudySets();
             return View(studySets);
         }
 

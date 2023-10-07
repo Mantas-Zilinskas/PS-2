@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OfficeOpenXml;
-using WebAplicationTestMVC.Controllers;
 using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Utilities;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebAplicationTestMVC.Pages
@@ -27,7 +27,7 @@ namespace WebAplicationTestMVC.Pages
 
                 try
                 {
-                    ExcelController.Append(@"Data\data.xlsx", flashcard);
+                    ExcelHelper.Append(@"Data\data.xlsx", flashcard);
                     flashcardCreationStatus = "A new flashcard was successfully created";
                 }
                 catch
