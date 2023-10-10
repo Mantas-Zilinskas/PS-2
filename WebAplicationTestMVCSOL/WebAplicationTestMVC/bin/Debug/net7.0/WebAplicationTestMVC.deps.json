@@ -8,13 +8,14 @@
     ".NETCoreApp,Version=v7.0": {
       "WebAplicationTestMVC/1.0.0": {
         "dependencies": {
-          "EPPlus": "6.2.9"
+          "EPPlus": "6.2.10",
+          "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
           "WebAplicationTestMVC.dll": {}
         }
       },
-      "EPPlus/6.2.9": {
+      "EPPlus/6.2.10": {
         "dependencies": {
           "EPPlus.Interfaces": "6.1.1",
           "EPPlus.System.Drawing": "6.1.1",
@@ -25,8 +26,8 @@
         },
         "runtime": {
           "lib/net7.0/EPPlus.dll": {
-            "assemblyVersion": "6.2.9.0",
-            "fileVersion": "6.2.9.0"
+            "assemblyVersion": "6.2.10.0",
+            "fileVersion": "6.2.10.0"
           }
         }
       },
@@ -117,6 +118,14 @@
           }
         }
       },
+      "Newtonsoft.Json/13.0.3": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.3.27908"
+          }
+        }
+      },
       "System.Drawing.Common/7.0.0": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "7.0.0"
@@ -171,12 +180,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "EPPlus/6.2.9": {
+    "EPPlus/6.2.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XDdpsCtcz8Rkz5a69xC6/oBVah8jwKnabvvlJdlR8S8hpJAUx9D5JuzlFmgrk2mUIKYMXLVUwiRmnv6Y7iZHfQ==",
-      "path": "epplus/6.2.9",
-      "hashPath": "epplus.6.2.9.nupkg.sha512"
+      "sha512": "sha512-U/kj9mKoUMOMUvNIMwbD7xy4R/UTyc9baMVxDWQhYaeIueCviC12feQ3qbcUJZc8yyodC8gAj0BhzBg/wFIjTg==",
+      "path": "epplus/6.2.10",
+      "hashPath": "epplus.6.2.10.nupkg.sha512"
     },
     "EPPlus.Interfaces/6.1.1": {
       "type": "package",
@@ -261,6 +270,13 @@
       "sha512": "sha512-2nXPrhdAyAzir0gLl8Yy8S5Mnm/uBSQQA7jEsILOS1MTyS7DbmV1NgViMtvV1sfCD1ebITpNwb1NIinKeJgUVQ==",
       "path": "microsoft.win32.systemevents/7.0.0",
       "hashPath": "microsoft.win32.systemevents.7.0.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "path": "newtonsoft.json/13.0.3",
+      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
     "System.Drawing.Common/7.0.0": {
       "type": "package",
