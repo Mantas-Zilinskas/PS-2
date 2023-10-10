@@ -1,0 +1,73 @@
+﻿@model List<WebAplicationTestMVC.Models.StudySet>
+@{
+   
+}
+
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flashcards</title>
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .question-text {
+            font-size: 28px
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <div>
+        <p>Study sets</p>
+    </div>
+
+    <div>
+        <button id="createStudySet" class="btn btn-info">+ Create Study Set</button>
+    </div>
+
+    <div class="row">
+        @foreach (StudySet studySet in Model)
+        {
+            <a class="col-sm- set-box" style="text-decoration: none; color: inherit;"
+               asp-area="" asp-controller="Home" asp-action="StudySets" asp-route-studySetName="@studySet.studySetName">
+                @studySet.studySetName.Substring(0, studySet.studySetName.Length - 5)
+            </a>
+        }
+    </div>
+ 
+    @await Html.PartialAsync("_ModalPartial")
+
+    @section Scripts {
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("#createStudySet").click(function () {
+                    $('#myModal').modal('show');
+                });
+
+                $("#saveStudySet").click(function () {
+                    var studySetName = $("#name").val();
+
+                    if (studySetName) {  
+                        // Save to local storage
+                        var studySets = JSON.parse(localStorage.getItem('studySets') || '[]');
+                        studySets.push(studySetName);
+                        localStorage.setItem('studySets', JSON.stringify(studySets));
+
+                        // Close the modal
+                        $('#myModal').modal('hide');
+                    } else {
+                        alert('Please enter a name for the study set.');
+                    }
+                });
+            });
+        </script>
+    }
+
+</body>
+</html>

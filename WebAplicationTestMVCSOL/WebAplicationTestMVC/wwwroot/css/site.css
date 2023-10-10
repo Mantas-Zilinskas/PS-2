@@ -1,0 +1,9 @@
+.set-box {
+    background-color: #9b5faa;
+    width: 200px;
+    height: 200px;
+    margin-right: 15px;
+    margin-top: 15px;
+    border-radius: 25px;
+    text-align: center;
+}
