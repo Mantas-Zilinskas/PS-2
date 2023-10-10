@@ -251,3 +251,4 @@ C:\Users\Aurimas\Desktop\PS-2\WebAplicationTestMVCSOL\WebAplicationTestMVC\obj\D
 C:\Users\Aurimas\Desktop\PS-2\WebAplicationTestMVCSOL\WebAplicationTestMVC\obj\Debug\net7.0\WebAplicationTestMVC.pdb
 C:\Users\Aurimas\Desktop\PS-2\WebAplicationTestMVCSOL\WebAplicationTestMVC\obj\Debug\net7.0\WebAplicationTestMVC.genruntimeconfig.cache
 C:\Users\Aurimas\Desktop\PS-2\WebAplicationTestMVCSOL\WebAplicationTestMVC\obj\Debug\net7.0\ref\WebAplicationTestMVC.dll
+C:\Users\37061\Documents\unikas\3semestras\ProgramųSistemųInžinerija\PS-2\WebAplicationTestMVCSOL\WebAplicationTestMVC\bin\Debug\net7.0\Newtonsoft.Json.dll

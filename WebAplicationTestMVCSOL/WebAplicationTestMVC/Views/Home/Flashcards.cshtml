@@ -124,8 +124,11 @@
     <script>
         let currentIndex = -1;
         let cards = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+        let studyStartTime;
+        let studyEndTime;
 
         function startLearning() {
+            studyStartTime = new Date(); // capture the start time
             shuffle(cards);
             $('.btn-start').hide();
             $('.btn-warning, .btn-success, #three-items').show();
@@ -133,8 +136,10 @@
             showNext();
         }
 
+
         shuffle(cards);
 
+       
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 let j = Math.floor(Math.random() * (i + 1));
@@ -155,8 +160,14 @@
                 $('#answer-text').text(cards[currentIndex].answer);
                 hideAnswer();
             } else {
-                alert('You have finished the cards.');
+                studyEndTime = new Date(); // capture the end time
+                let totalSeconds = Math.round((studyEndTime - studyStartTime) / 1000); // calculate the duration in seconds
+                let minutes = Math.floor(totalSeconds / 60);
+                let seconds = totalSeconds % 60;
+
+                alert('You have finished the cards. Total study time: ' + minutes + ' minutes ' + seconds + ' seconds.');
             }
+
         }
 
         $(document).ready(function () {
