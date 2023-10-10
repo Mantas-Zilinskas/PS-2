@@ -1,6 +1,6 @@
 ﻿@model List<WebAplicationTestMVC.Models.StudySet>
 @{
-   
+
 }
 
 <!DOCTYPE html>
@@ -18,8 +18,7 @@
 </head>
 <body>
 
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Flashcards">Flashcards</a>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="StudySets">StudySet</a>
+
 
     <div>
         <p>Study sets</p>
@@ -38,7 +37,7 @@
             </a>
         }
     </div>
- 
+
     @await Html.PartialAsync("_ModalPartial")
 
     @section Scripts {
@@ -54,7 +53,7 @@
                 $("#saveStudySet").click(function () {
                     var studySetName = $("#name").val();
 
-                    if (studySetName) {  
+                    if (studySetName) {
                         // Save to local storage
                         var studySets = JSON.parse(localStorage.getItem('studySets') || '[]');
                         studySets.push(studySetName);

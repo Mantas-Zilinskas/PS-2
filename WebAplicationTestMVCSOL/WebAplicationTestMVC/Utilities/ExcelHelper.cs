@@ -70,7 +70,7 @@ namespace WebAplicationTestMVC.Utilities
 
             using (var package = new ExcelPackage())
             {
-               
+
                 var worksheet = package.Workbook.Worksheets.Add("Sheet1");
 
 

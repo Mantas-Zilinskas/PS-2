@@ -5,7 +5,7 @@ namespace WebAplicationTestMVC.Models
     // Models/ExcelDataModel.cs
     public class ExcelDataModel
     {
-       
+
         public int id { get; set; }
         public string? question { get; set; }
         public string? answer { get; set; }

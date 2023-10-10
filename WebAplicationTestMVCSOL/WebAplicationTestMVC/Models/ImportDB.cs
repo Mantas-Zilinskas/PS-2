@@ -13,7 +13,7 @@ namespace WebAplicationTestMVC.Pages
 
         public void OnGet()
         {
-            
+
         }
-    } 
+    }
 }
