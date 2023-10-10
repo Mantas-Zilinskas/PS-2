@@ -1,88 +1,209 @@
-@page
-@using WebAplicationTestMVC.Pages;
-@model FlashcardsModel
-@{
-}
+@model List<WebAplicationTestMVC.Models.Flashcard>
+
 <!DOCTYPE html>
-
-
 <html manifest="cache.manifest">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title> Flashcards</title>
+    <title>Flashcards</title>
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
     <style>
         .question-text {
-            font-size: 28px
+            font-size: 28px;
+        }
+
+        div#three-items {
+            text-align: center;
+        }
+
+        #answer-content {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #flashcard-container {
+            perspective: 1000px;
+            width: 75em;
+            height: 20em;
+            margin: 50px auto;
+            position: relative;
+            border: groove;
+            border-radius: 50px;
+        }
+
+        .flashcard-content {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flashcard-footer {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dot {
+            width: 20px;
+            height: 20px;
+            background-color: #3498db;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1;
+                }
+
+        #three-items, .btn-warning, .btn-success {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container" id="decks">decks: </div>
     <hr class="soften" />
+    <!-- Add these two empty div elements for indicators -->
+    <div id="bad-indicator" class="flashcard-content" style="background-color: red;"></div>
+    <div id="good-indicator" class="flashcard-content" style="background-color: green;"></div>
 
-    <div id="flashcard" class="container" data-sync="{{ sync | lower }}">
-        <div id="question">
-            <img class="image"></img>
-            <br />
-            <button type="button" class="btn btn-primary btn-lg">Show answer</button>
-        </div>
-        <div id="answer">
-            <br />
-            <button type="button" class="btn btn-success btn-lg">Good</button>
-            <button type="button" class="btn btn-warning btn-lg">Bad</button>
-        </div>
-    </div>
-
-    <hr class="soften" />
-
-   @*  <div class="container">
-        <a class="btn btn-primary" asp-area="" asp-page="/AddFlashcard">Nauja kortel?</a>
-        <button type="button" id="edit-card-button" class="btn btn-info">Redaguoti kortel?</button>
-        <button type="button" id="delete-card-button" class="btn btn-danger">Panaikinti kortel?</button>
-    </div>
-
-    <hr class="soften" />
-
-    <div class="container">
-        <a id="export-button" download="flashcard.json" class="btn btn-default">Exportuoti</a>
-        <a id="import-button" class="btn btn-default">Importuoti</a>
-        <input id="import-input" type="file" style="visibility:hidden;" />
-    </div>
-
-    <div id="new-card" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header"> <h4>Edit card</h4> </div>
-                <div class="modal-body">
-
-                    <form role="form">
-                        <div class="form-group">
-                            <label for="input-question">QEUSTION</label>
-                            <input type="text" id="input-question" class="form-control" placeholder="Question">
-                        </div>
-                        <div class="form-group">
-                            <label for="input-answer">Answer</label>
-                            <input type="text" id="input-answer" class="form-control" placeholder="Answer">
-                        </div>
-                        <div class="form-group">
-                            <label for="input-note">Note</label>
-                            <input type="text" id="input-note" class="form-control" placeholder="Note">
-                        </div>
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" id="add-button" class="btn btn-primary">Add</button>
-                </div>
+    <div id="flashcard-container">
+        <div class="dropdown-container">
+            <div class="dot" onclick="$('.dropdown-content').toggle();"></div>
+            <div class="dropdown-content">
+                <a style="color:brown" href="#" onclick="editFlashcard()">Edit this flashcard</a>
+                <a style="color:red" href="#" onclick="deleteFlashcard()">Delete this flashcard</a>
             </div>
         </div>
-    </div> *@
+        <div id="three-items" style="display:none;">
+            <div id="question" class="flashcard-content">
+                <div id="question-text">Loading question...</div>
+                <button type="button" class="btn btn-primary btn-lg" onclick="showAnswer()">Show answer</button>
+            </div>
+            <div id="answer-content" class="flashcard-content">
+                <button type="button" class="btn btn-primary btn-lg" onclick="hideAnswer()">Hide answer</button>
+                <div id="answer-text">Loading answer...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard-footer">
+        <button type="button" class="btn btn-start btn-lg" onclick="startLearning()">Start</button>
+        <button type="button" class="btn btn-warning btn-lg" onclick="showNext(false)">Bad</button>
+        <button type="button" class="btn btn-success btn-lg" onclick="showNext(true)">Good</button>
+    </div>
+
+    <hr class="soften" />
 
     <script src="static/js/jquery-2.1.0.min.js"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/flashcard-ahhh.js"></script>
+    <script>
+        let currentIndex = -1;
+        let cards = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+
+        function getRandomIndex() {
+            return Math.floor(Math.random() * cards.length);
+        }
+
+        function startLearning() {
+            $('.btn-start').hide();
+            $('.btn-warning, .btn-success, #three-items').show();
+            currentIndex = getRandomIndex();
+            showNext();
+        }
+
+        function showNext(isGood) {
+            if (isGood !== false) {
+                currentIndex = getRandomIndex();
+            }
+
+            if (currentIndex < cards.length) {
+                $('#question-text').text(cards[currentIndex].question);
+                $('#answer-text').text(cards[currentIndex].answer);
+                hideAnswer();
+                $('#three-items').show();
+            } else {
+                alert('You have finished the cards.');
+            }
+        }
+
+        $(document).ready(function () {
+            // If you want to implement the "Start" behavior, remove the immediate call to showNext
+            // showNext(true);
+        });
+
+        function showAnswer() {
+            $('#answer-content').show();
+            $('#question .btn-primary').hide();
+        }
+
+        function hideAnswer() {
+            $('#answer-content').hide();
+            $('#question .btn-primary').show();
+        }
+
+        function editFlashcard() {
+            let newQuestion = prompt("Enter the updated question:", cards[currentIndex].question);
+            let newAnswer = prompt("Enter the updated answer:", cards[currentIndex].answer);
+
+            if (newQuestion !== null && newAnswer !== null) {
+                cards[currentIndex].question = newQuestion;
+                cards[currentIndex].answer = newAnswer;
+                $('#question-text').text(newQuestion);
+                $('#answer-text').text(newAnswer);
+
+                // Inform the server about the change
+                $.post("/Home/EditCard", {
+                    id: cards[currentIndex].id,
+                    question: newQuestion,
+                    answer: newAnswer
+                });
+            }
+        }
+
+        function deleteFlashcard() {
+            if (confirm("Are you sure you want to delete this flashcard?")) {
+                let cardIdToDelete = cards[currentIndex].id;
+                cards.splice(currentIndex, 1);
+
+                if (cards.length === 0) {
+                    alert('No more flashcards available.');
+                    // Reset UI or navigate to another page
+                } else {
+                    if (currentIndex >= cards.length) {
+                        currentIndex--;
+                    }
+                    showNext(true);
+                }
+
+                // Inform the server about the deletion
+                $.post("/Home/DeleteCard", { id: cardIdToDelete });
+            }
+        }
+    </script>
 </body>
 </html>

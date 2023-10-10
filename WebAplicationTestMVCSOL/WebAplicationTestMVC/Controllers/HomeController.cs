@@ -9,18 +9,22 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using WebAplicationTestMVC.Models;
 using WebAplicationTestMVC.Utilities;
+using WebAplicationTestMVC.Views.Home;
+using Microsoft.Extensions.Hosting;
 
 namespace WebAplicationTestMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IWebHostEnvironment _environment;
         private readonly ILogger<HomeController> _logger;
         private readonly string _excelDataPath = Path.Combine("wwwroot", "uploads", "excelData.xlsx");
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IWebHostEnvironment environment)
         {
-            _logger = logger;
+            _environment = environment;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
         }
         public IActionResult AddFlashcard(string studySetName)
         {
@@ -36,7 +40,7 @@ namespace WebAplicationTestMVC.Controllers
             return RedirectToAction("AddFlashcard", new StudySet(studySetName));
         }
 
-       
+
         [HttpPost]
         public IActionResult ModalSubmit(string name)
         {
@@ -46,13 +50,13 @@ namespace WebAplicationTestMVC.Controllers
             {
                 return RedirectToAction("StudySets", studySet);
             }
-            else 
+            else
             {
                 ExcelHelper.CreateStudySet(name);
                 return RedirectToAction("StudySets", studySet);
             }
         }
-       
+
 
         public IActionResult Index()
         {
@@ -60,10 +64,18 @@ namespace WebAplicationTestMVC.Controllers
             return View(studySets);
         }
 
-        public IActionResult Flashcards()
+        public IActionResult Flashcards(string studySetName)
         {
-            return View();
+            // Retrieve flashcards for the specified study set
+            var flashcards = ExcelHelper.getExcelData($"Data/{studySetName}");
+
+            // Pass the flashcards and study set name to the view
+            ViewData["StudySetName"] = studySetName;
+            return View(flashcards);
         }
+
+
+
 
         public IActionResult StudySets(string studySetName)
         {
@@ -100,50 +112,85 @@ namespace WebAplicationTestMVC.Controllers
                 file.CopyTo(stream);
             }
 
-            return RedirectToAction("ShowData");
+            return RedirectToAction("Home");
         }
-
-        public IActionResult ShowData()
+        // Action to import flashcards from a file
+        [HttpPost]
+        public IActionResult ImportDB(IFormFile file)
         {
-            List<ExcelDataModel> excelDataList = new List<ExcelDataModel>();
-
-            if (System.IO.File.Exists(_excelDataPath))
+            if (file != null && file.Length > 0)
             {
-                using (var package = new ExcelPackage(new FileInfo(_excelDataPath)))
+                try
                 {
-                    var workbook = package.Workbook;
-                    var worksheet = workbook.Worksheets.FirstOrDefault(sheet => sheet.Name == "Sheet1");
+                    // Define the file path where the uploaded file will be saved
+                    var filePath = Path.Combine(_environment.ContentRootPath, "Data", file.FileName);
 
-                    if (worksheet != null)
+                    // Save the uploaded file to the specified path
+                    using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        var rowCount = worksheet.Dimension.Rows;
-
-                        for (int row = 2; row <= rowCount; row++)
-                        {
-                            var idCell = worksheet.Cells[$"A{row}"];
-                            var questionCell = worksheet.Cells[$"B{row}"];
-                            var answerCell = worksheet.Cells[$"C{row}"];
-
-                            var idString = idCell.Value?.ToString() ?? string.Empty;
-                            var question = questionCell.Value?.ToString() ?? string.Empty;
-                            var answer = answerCell.Value?.ToString() ?? string.Empty;
-
-                            var id = int.TryParse(idString, out var parsedId) ? parsedId : 0;
-
-                            var excelData = new ExcelDataModel
-                            {
-                                id = id,
-                                question = question,
-                                answer = answer
-                            };
-
-                            excelDataList.Add(excelData);
-                        }
+                        file.CopyTo(stream);
                     }
+
+                    // Import flashcards from the uploaded file using ExcelHelper or your utility
+                    List<Flashcard> flashcards = ExcelHelper.getExcelData(filePath);
+
+                    // Handle flashcards (e.g., save to a database)
+
+                    // Redirect to a success page or display a success message
+                    return RedirectToAction("Index", "Home"); // Replace with the appropriate action and controller
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions (e.g., display an error message)
+                    ModelState.AddModelError("", "An error occurred while importing flashcards: " + ex.Message);
                 }
             }
 
-            return View(excelDataList);
+            // If there was an error or no file was uploaded, return to the previous page
+            return RedirectToAction("Index", "Home"); // Replace with the appropriate action and controller
         }
+
+        /*       public IActionResult ShowData()
+               {
+                   List<ExcelDataModel> excelDataList = new List<ExcelDataModel>();
+
+                   if (System.IO.File.Exists(_excelDataPath))
+                   {
+                       using (var package = new ExcelPackage(new FileInfo(_excelDataPath)))
+                       {
+                           var workbook = package.Workbook;
+                           var worksheet = workbook.Worksheets.FirstOrDefault(sheet => sheet.Name == "Sheet1");
+
+                           if (worksheet != null)
+                           {
+                               var rowCount = worksheet.Dimension.Rows;
+
+                               for (int row = 2; row <= rowCount; row++)
+                               {
+                                   var idCell = worksheet.Cells[$"A{row}"];
+                                   var questionCell = worksheet.Cells[$"B{row}"];
+                                   var answerCell = worksheet.Cells[$"C{row}"];
+
+                                   var idString = idCell.Value?.ToString() ?? string.Empty;
+                                   var question = questionCell.Value?.ToString() ?? string.Empty;
+                                   var answer = answerCell.Value?.ToString() ?? string.Empty;
+
+                                   var id = int.TryParse(idString, out var parsedId) ? parsedId : 0;
+
+                                   var excelData = new ExcelDataModel
+                                   {
+                                       id = id,
+                                       question = question,
+                                       answer = answer
+                                   };
+
+                                   excelDataList.Add(excelData);
+                               }
+                           }
+                       }
+                   }
+
+                   return View(excelDataList);
+               }*/
     }
 }

@@ -21,7 +21,7 @@ namespace WebAplicationTestMVC.Controllers
             }
             catch (Exception ex)
             {
-              
+
                 return BadRequest(new { message = "Failed to create study set", error = ex.Message });
             }
         }

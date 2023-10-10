@@ -1,20 +1,22 @@
 ﻿@model WebAplicationTestMVC.Models.StudySet;
 @{
-  
+
 }
 
 <h1>Make a Flashcard</h1>
 @using (Html.BeginForm("SubmitNewFlashcard", "Home", FormMethod.Post))
 {
-    <label for="question">FlashCard Question:</label><br>
+    <label for="question">FlashCard Question:</label>
+    <br>
     <textarea id="question" name="question" rows="7" cols="100" placeholder="Where does England keep their armies?" required></textarea>
     <br>
     <br>
-    <label for="answer">FlashCard Answer:</label><br>
+    <label for="answer">FlashCard Answer:</label>
+    <br>
     <textarea id="answer" name="answer" rows="7" cols="100" placeholder="In their sleevies!" required></textarea>
     <br>
     <br>
     <button type="submit" value="@Model.studySetName" name="studySetName" class="btn btn-primary">Submit</button>
     <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="StudySets" asp-route-studySetName="@Model.studySetName">Back</a>
-    
+
 }

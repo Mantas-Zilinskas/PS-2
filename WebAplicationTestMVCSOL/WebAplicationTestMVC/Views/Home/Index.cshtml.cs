@@ -11,7 +11,7 @@ namespace WebApplikacija.Pages
         {
             _logger = logger;
         }
-        
+
         public void OnGet()
         {
 
