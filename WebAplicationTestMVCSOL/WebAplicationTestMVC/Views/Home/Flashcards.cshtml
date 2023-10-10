@@ -95,17 +95,17 @@
             <div class="dot" onclick="$('.dropdown-content').toggle();"></div>
             <div class="dropdown-content">
                 <a style="color:brown" href="#" onclick="editFlashcard()">Edit this flashcard</a>
-                <a style="color:red" href="#" onclick="deleteFlashcard()">Delete this flashcard</a>
+                <a style="color:red" href="#" onclick="deleteFlashcard()">Ignore this flashcard</a>
             </div>
         </div>
         <div id="three-items" style="display:none;">
             <div id="question" class="flashcard-content">
-                <div id="question-text">Loading question...</div>
+                <div id="question-text"></div>
                 <button type="button" class="btn btn-primary btn-lg" onclick="showAnswer()">Show answer</button>
             </div>
             <div id="answer-content" class="flashcard-content">
                 <button type="button" class="btn btn-primary btn-lg" onclick="hideAnswer()">Hide answer</button>
-                <div id="answer-text">Loading answer...</div>
+                <div id="answer-text"></div>
             </div>
         </div>
     </div>
@@ -125,27 +125,35 @@
         let currentIndex = -1;
         let cards = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
 
-        function getRandomIndex() {
-            return Math.floor(Math.random() * cards.length);
-        }
-
         function startLearning() {
+            shuffle(cards);
             $('.btn-start').hide();
             $('.btn-warning, .btn-success, #three-items').show();
-            currentIndex = getRandomIndex();
+            currentIndex = 0;
             showNext();
         }
 
+        shuffle(cards);
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
         function showNext(isGood) {
-            if (isGood !== false) {
-                currentIndex = getRandomIndex();
+            if (isGood) {
+                currentIndex++;
+            } else {
+                let badCard = cards[currentIndex];
+                cards.push(badCard);
+                cards.splice(currentIndex, 1); // to remove the bad card from its current position
             }
 
             if (currentIndex < cards.length) {
                 $('#question-text').text(cards[currentIndex].question);
                 $('#answer-text').text(cards[currentIndex].answer);
                 hideAnswer();
-                $('#three-items').show();
             } else {
                 alert('You have finished the cards.');
             }
