@@ -2,13 +2,14 @@
 using WebAplicationTestMVC.Models;
 using OfficeOpenXml;
 using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Routing.Constraints;
 
-namespace WebAplicationTestMVC.Controllers
+namespace WebAplicationTestMVC.Utilities
 {
-    public class ExcelController
+    public class ExcelHelper
     {
 
-        public static void Append(String filePath, Flashcard flashcard)
+        public static void Append(string filePath, Flashcard flashcard)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage excelPackage = new ExcelPackage(new FileInfo(filePath)))
@@ -47,19 +48,42 @@ namespace WebAplicationTestMVC.Controllers
             return flashcardList;
         }
 
-        public static List<string> getStudySetNames()
+        public static List<StudySet> getStudySets()
         {
-            List<string> studySets = new List<string>();
+            List<StudySet> studySets = new List<StudySet>();
 
-            string[] filePaths = Directory.GetFiles(@"Data/study sets/");
+            string[] filePaths = Directory.GetFiles(@"Data/");
 
             foreach (string filePath in filePaths)
             {
                 string fileName = Path.GetFileName(filePath);
-                studySets.Add(fileName);
+                studySets.Add(new StudySet(fileName));
             }
 
             return studySets;
+        }
+
+        public static void CreateStudySet(string name)
+        {
+            string fileName = name + ".xlsx";
+            List<StudySet> studySets = getStudySets();
+
+            using (var package = new ExcelPackage())
+            {
+               
+                var worksheet = package.Workbook.Worksheets.Add("Sheet1");
+
+
+                worksheet.Cells["A1"].Value = "Id";
+                worksheet.Cells["B1"].Value = "Question";
+                worksheet.Cells["C1"].Value = "Answer";
+
+
+                FileInfo fileInfo = new FileInfo(@"Data/" + fileName);
+                package.SaveAs(fileInfo);
+
+            }
+
         }
 
     }

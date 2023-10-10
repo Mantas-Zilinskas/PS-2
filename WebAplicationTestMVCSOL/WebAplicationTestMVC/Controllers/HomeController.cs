@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Controllers
 {
@@ -21,13 +22,42 @@ namespace WebAplicationTestMVC.Controllers
             _logger = logger;
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
-        public IActionResult AddFlashcard()
+        public IActionResult AddFlashcard(string studySetName)
         {
-            return View();
+            return View(new StudySet(studySetName));
         }
+
+        [HttpPost]
+        public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
+        {
+            Flashcard flashcard = new Flashcard(IdGenerator.generateId(question, answer), question, answer);
+            ExcelHelper.Append(@"Data/" + studySetName, flashcard);
+            ExcelHelper.Append(@"Data/All flashcards.xlsx", flashcard);
+            return RedirectToAction("AddFlashcard", new StudySet(studySetName));
+        }
+
+       
+        [HttpPost]
+        public IActionResult ModalSubmit(string name)
+        {
+            StudySet studySet = new StudySet(name + ".xlsx");
+
+            if (ExcelHelper.getStudySets().Any(listStudySet => listStudySet.studySetName == studySet.studySetName))
+            {
+                return RedirectToAction("StudySets", studySet);
+            }
+            else 
+            {
+                ExcelHelper.CreateStudySet(name);
+                return RedirectToAction("StudySets", studySet);
+            }
+        }
+       
+
         public IActionResult Index()
         {
-            return View();
+            List<StudySet> studySets = ExcelHelper.getStudySets();
+            return View(studySets);
         }
 
         public IActionResult Flashcards()
@@ -35,9 +65,9 @@ namespace WebAplicationTestMVC.Controllers
             return View();
         }
 
-        public IActionResult StudySets()
+        public IActionResult StudySets(string studySetName)
         {
-            return View();
+            return View(new StudySet(studySetName));
         }
 
         public IActionResult ImportDB()

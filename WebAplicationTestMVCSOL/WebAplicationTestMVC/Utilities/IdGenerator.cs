@@ -1,9 +1,8 @@
-﻿
-namespace WebAplicationTestMVC.Controllers
+﻿namespace WebAplicationTestMVC.Utilities
 {
     public class IdGenerator
     {
-        public static string generateId(string seed1, string seed2) 
+        public static string generateId(string seed1, string seed2)
         {
             Random random = new Random();
 

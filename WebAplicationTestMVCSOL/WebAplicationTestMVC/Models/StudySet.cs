@@ -4,9 +4,9 @@ namespace WebAplicationTestMVC.Models
     {
         public StudySet(string name)
         {
-            this.name = name;
+            this.studySetName = name;
         }
-        public string? name { get; set; }
+        public string? studySetName { get; set; }
 
     }
 }
