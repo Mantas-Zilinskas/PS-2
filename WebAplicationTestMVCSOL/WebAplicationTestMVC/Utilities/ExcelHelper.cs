@@ -66,7 +66,7 @@ namespace WebAplicationTestMVC.Utilities
         public static void CreateStudySet(string name)
         {
             string fileName = name + ".xlsx";
-            List<StudySet> studySets = getStudySets();
+            //List<StudySet> studySets = getStudySets();
 
             using (var package = new ExcelPackage())
             {

@@ -9,7 +9,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using WebAplicationTestMVC.Models;
 using WebAplicationTestMVC.Utilities;
-using WebAplicationTestMVC.Views.Home;
 using Microsoft.Extensions.Hosting;
 
 namespace WebAplicationTestMVC.Controllers
