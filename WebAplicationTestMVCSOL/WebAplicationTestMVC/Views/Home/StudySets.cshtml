@@ -100,18 +100,29 @@
                 var studyMode = $('input[name="studyMode"]:checked').attr('id');
                 var answerMode = $('input[name="answerMode"]:checked').attr('id');
 
-                if (studyMode === 'flexRadioDefault1') {
-                    // Handle Spaced Repetition
-                } else if (studyMode === 'flexRadioDefault2') {
-                    // Handle Randomised Flashcards
+                if (studyMode === 'flexRadioDefault1' && 'flexRadioDefault3') {
+                    
+                    window.location.href = '@Url.Action("SpacedRepetitionAndSystemCheck", "Flashcards")';
+                } 
+                if (studyMode === 'flexRadioDefault2' && 'flexRadioDefault3') {
+
+                    window.location.href = '@Url.Action("RandomizedAndSystemCheck", "Flashcards")';
+                }
+                if (studyMode === 'flexRadioDefault1' && 'flexRadioDefault4') {
+
+                    window.location.href = '@Url.Action("SpacedRepetitionAndUserCheck", "Flashcards")';
+                }
+                if (studyMode === 'flexRadioDefault4' && 'flexRadioDefault2') {
+
+                    window.location.href = '@Url.Action("RandomizedAndUserCheck", "Flashcards")';
                 }
 
-                if (answerMode === 'flexRadioDefault3') {
+                // if (answerMode === 'flexRadioDefault3') {
                     // Handle Auto Answer Check
-                } else if (answerMode === 'flexRadioDefault4') {
+              //  } else if (answerMode === 'flexRadioDefault4') {
                     // Redirect if 'I'll do it by myself' is selected
-                    window.location.href = '@Url.Action("Flashcards", "Home", new { studySetName = Model.studySetName })';
-                }
+                   // window.location.href = '@Url.Action("Flashcards", "Home", new { studySetName = Model.studySetName })';
+              //  }
 
                 // Close the modal
                 $('#DataSettings').modal('hide');

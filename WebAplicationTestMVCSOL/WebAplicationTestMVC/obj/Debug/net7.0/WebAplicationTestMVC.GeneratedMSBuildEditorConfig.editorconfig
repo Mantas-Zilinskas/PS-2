@@ -16,6 +16,26 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Aurimas\Desktop\2kursas\C#FULL\PS-2.1\WebAplicationTestMVCSOL\WebAplicationTestMVC
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Aurimas/Desktop/2kursas/C\#FULL/PS-2.1/WebAplicationTestMVCSOL/WebAplicationTestMVC/Views/Flashcards/RandomizedAndSystemCheck.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmxhc2hjYXJkc1xSYW5kb21pemVkQW5kU3lzdGVtQ2hlY2suY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Aurimas/Desktop/2kursas/C\#FULL/PS-2.1/WebAplicationTestMVCSOL/WebAplicationTestMVC/Views/Flashcards/RandomizedAndUserCheck.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmxhc2hjYXJkc1xSYW5kb21pemVkQW5kVXNlckNoZWNrLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Aurimas/Desktop/2kursas/C\#FULL/PS-2.1/WebAplicationTestMVCSOL/WebAplicationTestMVC/Views/Flashcards/SpacedRepetitionAndSystemCheck.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmxhc2hjYXJkc1xTcGFjZWRSZXBldGl0aW9uQW5kU3lzdGVtQ2hlY2suY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Aurimas/Desktop/2kursas/C\#FULL/PS-2.1/WebAplicationTestMVCSOL/WebAplicationTestMVC/Views/Flashcards/SpacedRepetitionAndUserCheck.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmxhc2hjYXJkc1xTcGFjZWRSZXBldGl0aW9uQW5kVXNlckNoZWNrLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Aurimas/Desktop/2kursas/C\#FULL/PS-2.1/WebAplicationTestMVCSOL/WebAplicationTestMVC/Views/Flashcards/_ModalPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmxhc2hjYXJkc1xfTW9kYWxQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Aurimas/Desktop/2kursas/C\#FULL/PS-2.1/WebAplicationTestMVCSOL/WebAplicationTestMVC/Views/Home/AddFlashcard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZGRGbGFzaGNhcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
