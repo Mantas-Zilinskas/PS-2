@@ -10,10 +10,17 @@
 <!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Study set</title>
-    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
     <style>
         .question-text {
             font-size: 28px
@@ -26,12 +33,92 @@
     </h2>
 
     <hr class="soften" />
-
+    @*asp-controller="Home" *@
+    @* asp-action="Flashcards" *@
+    @* asp-route-studySetName="@Model.studySetName" *@
     <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="AddFlashcard" asp-route-studySetName="@Model.studySetName">Create flashcards manually</a>
-    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Flashcards" asp-route-studySetName="@Model.studySetName">Learn flashcards</a>
+    <!-- Triggering Link -->
+    <a class="btn btn-primary" data-toggle="modal" data-target="#DataSettings" asp-area="">Learn flashcards</a>
 
-    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="ImportDB">  <label for="file">Upload flashcards:</label><input type="file" name="file" id="file" required accept=".xlsx" /><button type="submit" class="btn btn-primary">Import flashcards</button> </form>
+    <!-- Form (unchanged) -->
+    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="ImportDB">
+        <label for="file">Upload flashcards:</label>
+        <input type="file" name="file" id="file" required accept=".xlsx" />
+        <button type="submit" class="btn btn-primary">Import flashcards</button>
+    </form>
 
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="DataSettings">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <!-- Study Mode -->
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="studyMode" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Spaced Repetition
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="studyMode" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Randomised Flashcards
+                    </label>
+                </div>
+
+                <!-- Answer Mode -->
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="answerMode" id="flexRadioDefault3" checked>
+                    <label class="form-check-label" for="flexRadioDefault3">
+                        Auto Answer Check
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="answerMode" id="flexRadioDefault4" checked>
+                    <label class="form-check-label" for="flexRadioDefault4">
+                        I'll do it by my self
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="saveChangesBtn" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#saveChangesBtn').on('click', function () {
+                var studyMode = $('input[name="studyMode"]:checked').attr('id');
+                var answerMode = $('input[name="answerMode"]:checked').attr('id');
+
+                if (studyMode === 'flexRadioDefault1') {
+                    // Handle Spaced Repetition
+                } else if (studyMode === 'flexRadioDefault2') {
+                    // Handle Randomised Flashcards
+                }
+
+                if (answerMode === 'flexRadioDefault3') {
+                    // Handle Auto Answer Check
+                } else if (answerMode === 'flexRadioDefault4') {
+                    // Redirect if 'I'll do it by myself' is selected
+                    window.location.href = '@Url.Action("Flashcards", "Home", new { studySetName = Model.studySetName })';
+                }
+
+                // Close the modal
+                $('#DataSettings').modal('hide');
+            });
+        });
+
+    </script>
 
 
     <br>
