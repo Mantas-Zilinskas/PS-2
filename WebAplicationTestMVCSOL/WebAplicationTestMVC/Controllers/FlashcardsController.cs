@@ -7,14 +7,15 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class FlashcardsController : Controller
     {
-        public IActionResult RandomizedAndSystemCheck(string param1)
+        public IActionResult RandomizedAndSystemCheck(string setName)
         {
-            List<Flashcard> flashcards = ExcelHelper.getExcelData(@"Data/" + param1);
+            List<Flashcard> flashcards = ExcelHelper.getExcelData(@"Data/" + setName);
             return View(flashcards);
         }
-        public IActionResult RandomizedAndUserCheck()
+        public IActionResult RandomizedAndUserCheck(string setName)
         {
-            return View();
+            List<Flashcard> flashcards = ExcelHelper.getExcelData(@"Data/" + setName);
+            return View(flashcards);
         }
         public IActionResult SpacedRepetitionAndSystemCheck()
         {

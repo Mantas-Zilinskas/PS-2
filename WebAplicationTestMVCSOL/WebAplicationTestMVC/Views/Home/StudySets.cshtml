@@ -100,21 +100,19 @@
                 var studyMode = $('input[name="studyMode"]:checked').attr('id');
                 var answerMode = $('input[name="answerMode"]:checked').attr('id');
 
-                if (studyMode === 'flexRadioDefault1' && 'flexRadioDefault3') {
-                    
-                    window.location.href = '@Url.Action("SpacedRepetitionAndSystemCheck", "Flashcards")';
-                } 
-                if (studyMode === 'flexRadioDefault2' && 'flexRadioDefault3') {
 
-                    window.location.href = '@Url.Action("RandomizedAndSystemCheck", "Flashcards",new { param1 = Model.studySetName} )';
-                }
-                if (studyMode === 'flexRadioDefault1' && 'flexRadioDefault4') {
+                if ((studyMode === 'flexRadioDefault1') && (answerMode === 'flexRadioDefault3')) {
+
+                    window.location.href = '@Url.Action("SpacedRepetitionAndSystemCheck", "Flashcards")';
+                } else if ((studyMode === 'flexRadioDefault2') && (answerMode === 'flexRadioDefault3')) {
+
+                    window.location.href = '@Url.Action("RandomizedAndSystemCheck", "Flashcards",new { setName = Model.studySetName} )';
+                } else if ((studyMode === 'flexRadioDefault1') && (answerMode === 'flexRadioDefault4')) {
 
                     window.location.href = '@Url.Action("SpacedRepetitionAndUserCheck", "Flashcards")';
-                }
-                if (studyMode === 'flexRadioDefault4' && 'flexRadioDefault2') {
-
-                    window.location.href = '@Url.Action("RandomizedAndUserCheck", "Flashcards")';
+                } else {
+                    
+                    window.location.href = '@Url.Action("RandomizedAndUserCheck", "Flashcards", new { setName = Model.studySetName})';
                 }
 
                
