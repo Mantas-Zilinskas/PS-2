@@ -106,7 +106,7 @@
                 } 
                 if (studyMode === 'flexRadioDefault2' && 'flexRadioDefault3') {
 
-                    window.location.href = '@Url.Action("RandomizedAndSystemCheck", "Flashcards")';
+                    window.location.href = '@Url.Action("RandomizedAndSystemCheck", "Flashcards",new { param1 = Model.studySetName} )';
                 }
                 if (studyMode === 'flexRadioDefault1' && 'flexRadioDefault4') {
 
