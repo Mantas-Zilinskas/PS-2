@@ -480,6 +480,7 @@ $RECYCLE.BIN/
 
 #extra stuff
 *.vs/
-
+*bin/
+*obj/
 
 

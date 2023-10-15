@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Controllers
 {
     public class FlashcardsController : Controller
     {
-        public IActionResult RandomizedAndSystemCheck()
+        public IActionResult RandomizedAndSystemCheck(string setName)
         {
-            return View();
+            List<Flashcard> flashcards = ExcelHelper.getExcelData(@"Data/" + setName);
+            return View(flashcards);
         }
-        public IActionResult RandomizedAndUserCheck()
+        public IActionResult RandomizedAndUserCheck(string setName)
         {
-            return View();
+            List<Flashcard> flashcards = ExcelHelper.getExcelData(@"Data/" + setName);
+            return View(flashcards);
         }
         public IActionResult SpacedRepetitionAndSystemCheck()
         {
