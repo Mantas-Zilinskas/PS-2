@@ -33,7 +33,9 @@ namespace WebAplicationTestMVC.Controllers
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {
-            Flashcard flashcard = new Flashcard(IdGenerator.generateId(question, answer), question, answer);
+            var flashcardId = IdGenerator<int>.GenerateId(question, answer);
+
+            Flashcard flashcard = new Flashcard(flashcardId, question, answer);
             ExcelHelper.Append(@"Data/" + studySetName, flashcard);
             ExcelHelper.Append(@"Data/All flashcards.xlsx", flashcard);
             return RedirectToAction("AddFlashcard", new StudySet(studySetName));
@@ -100,7 +102,7 @@ namespace WebAplicationTestMVC.Controllers
 
             return RedirectToAction("Home");
         }
-        // Action to import flashcards from a file
+       
         [HttpPost]
         public IActionResult ImportDB(IFormFile file)
         {
@@ -108,7 +110,6 @@ namespace WebAplicationTestMVC.Controllers
             {
                 try
                 {
-                    // Define the file path where the uploaded file will be saved
                     var filePath = Path.Combine(_environment.ContentRootPath, "Data", file.FileName);
 
                     // Save the uploaded file to the specified path
@@ -117,13 +118,10 @@ namespace WebAplicationTestMVC.Controllers
                         file.CopyTo(stream);
                     }
 
-                    // Import flashcards from the uploaded file using ExcelHelper or your utility
+                    // Import flashcards from the uploaded file 
                     List<Flashcard> flashcards = ExcelHelper.getExcelData(filePath);
 
-                    // Handle flashcards (e.g., save to a database)
-
-                    // Redirect to a success page or display a success message
-                    return RedirectToAction("Index", "Home"); // Replace with the appropriate action and controller
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
                 {
@@ -132,51 +130,7 @@ namespace WebAplicationTestMVC.Controllers
                 }
             }
 
-            // If there was an error or no file was uploaded, return to the previous page
-            return RedirectToAction("Index", "Home"); // Replace with the appropriate action and controller
+            return RedirectToAction("Index", "Home"); 
         }
-
-        /*       public IActionResult ShowData()
-               {
-                   List<ExcelDataModel> excelDataList = new List<ExcelDataModel>();
-
-                   if (System.IO.File.Exists(_excelDataPath))
-                   {
-                       using (var package = new ExcelPackage(new FileInfo(_excelDataPath)))
-                       {
-                           var workbook = package.Workbook;
-                           var worksheet = workbook.Worksheets.FirstOrDefault(sheet => sheet.Name == "Sheet1");
-
-                           if (worksheet != null)
-                           {
-                               var rowCount = worksheet.Dimension.Rows;
-
-                               for (int row = 2; row <= rowCount; row++)
-                               {
-                                   var idCell = worksheet.Cells[$"A{row}"];
-                                   var questionCell = worksheet.Cells[$"B{row}"];
-                                   var answerCell = worksheet.Cells[$"C{row}"];
-
-                                   var idString = idCell.Value?.ToString() ?? string.Empty;
-                                   var question = questionCell.Value?.ToString() ?? string.Empty;
-                                   var answer = answerCell.Value?.ToString() ?? string.Empty;
-
-                                   var id = int.TryParse(idString, out var parsedId) ? parsedId : 0;
-
-                                   var excelData = new ExcelDataModel
-                                   {
-                                       id = id,
-                                       question = question,
-                                       answer = answer
-                                   };
-
-                                   excelDataList.Add(excelData);
-                               }
-                           }
-                       }
-                   }
-
-                   return View(excelDataList);
-               }*/
     }
 }

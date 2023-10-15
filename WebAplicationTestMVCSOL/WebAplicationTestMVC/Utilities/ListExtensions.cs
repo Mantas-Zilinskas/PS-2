@@ -7,7 +7,6 @@ namespace WebAplicationTestMVC.Utilities
     {
         private static Random rng = new Random();
 
-        // Extension method to shuffle a list
         public static void Shuffle<T>(this IList<T> list)
         {
             int n = list.Count;

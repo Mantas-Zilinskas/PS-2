@@ -1,4 +1,6 @@
 ﻿@model List<WebAplicationTestMVC.Models.Flashcard>
+@using WebAplicationTestMVC.Utilities
+
 
 <!DOCTYPE html>
 <html manifest="cache.manifest">
@@ -122,6 +124,7 @@
     <script src="static/js/jquery-2.1.0.min.js"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/flashcard-ahhh.js"></script>
+    
     <script>
         let currentIndex = -1;
         let cards = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
@@ -129,13 +132,15 @@
         let studyEndTime;
 
         function startLearning() {
-            studyStartTime = new Date(); // capture the start time
-            shuffle(cards);
+            studyStartTime = new Date();
+            //cards = ListExtensions.Shuffle(cards);
+            cards = ListExtensions.Shuffle(cards);
             $('.btn-start').hide();
             $('.btn-warning, .btn-success, #three-items').show();
             currentIndex = 0;
             showNext();
         }
+
 
         function sendStudyDurationToServer() {
             $.post("/Flashcards/LogStudyTime", {
