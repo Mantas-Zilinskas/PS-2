@@ -63,19 +63,6 @@ namespace WebAplicationTestMVC.Controllers
             return View(studySets);
         }
 
-        public IActionResult Flashcards(string studySetName)
-        {
-            // Retrieve flashcards for the specified study set
-            var flashcards = ExcelHelper.getExcelData($"Data/{studySetName}");
-
-            // Pass the flashcards and study set name to the view
-            ViewData["StudySetName"] = studySetName;
-            return View(flashcards);
-        }
-
-
-
-
         public IActionResult StudySets(string studySetName)
         {
             return View(new StudySet(studySetName));
