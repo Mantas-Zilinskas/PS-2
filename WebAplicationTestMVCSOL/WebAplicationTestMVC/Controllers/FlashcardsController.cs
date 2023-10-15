@@ -25,5 +25,16 @@ namespace WebAplicationTestMVC.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult LogStudyTime(DateTime startTime, DateTime endTime)
+        {
+            var studySession = new StudySessionTime(startTime, endTime);
+            TimeSpan duration = studySession.Duration;
+
+            return Ok($"{duration.Minutes} minutes {duration.Seconds} seconds");
+        }
+
+
     }
 }

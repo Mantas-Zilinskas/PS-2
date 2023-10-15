@@ -86,7 +86,8 @@
 <body>
     <div class="container" id="decks">decks: </div>
     <hr class="soften" />
-    <!-- Add these two empty div elements for indicators -->
+
+
     <div id="bad-indicator" class="flashcard-content" style="background-color: red;"></div>
     <div id="good-indicator" class="flashcard-content" style="background-color: green;"></div>
 
@@ -136,9 +137,15 @@
             showNext();
         }
 
-
-        shuffle(cards);
-
+        function sendStudyDurationToServer() {
+            $.post("/Flashcards/LogStudyTime", {
+                startTime: studyStartTime.toISOString(),
+                endTime: studyEndTime.toISOString()
+            }).done(function (data) {
+                const studyTime = 'You have finished the cards. Total study time: ' + data;
+                alert(studyTime); 
+            });
+        }
 
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -160,21 +167,12 @@
                 $('#answer-text').text(cards[currentIndex].answer);
                 hideAnswer();
             } else {
-                studyEndTime = (studyEndTime == null) ? new Date() : studyEndTime; // capture the end time
-                let totalSeconds = Math.round((studyEndTime - studyStartTime) / 1000); // calculate the duration in seconds
-                let minutes = Math.floor(totalSeconds / 60);
-                let seconds = totalSeconds % 60;
-
-                alert('You have finished the cards. Total study time: ' + minutes + ' minutes ' + seconds + ' seconds.');
+                studyEndTime = new Date();
+                sendStudyDurationToServer();
             }
 
         }
-
-        $(document).ready(function () {
-            // If you want to implement the "Start" behavior, remove the immediate call to showNext
-            // showNext(true);
-        });
-
+        
         function showAnswer() {
             $('#answer-content').show();
             $('#question .btn-primary').hide();
