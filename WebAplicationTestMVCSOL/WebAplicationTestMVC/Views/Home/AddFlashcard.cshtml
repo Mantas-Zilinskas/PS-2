@@ -19,4 +19,11 @@
     <button type="submit" value="@Model.studySetName" name="studySetName" class="btn btn-primary">Submit</button>
     <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="StudySets" asp-route-studySetName="@Model.studySetName">Back</a>
 
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
 }
