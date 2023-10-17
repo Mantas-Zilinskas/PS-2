@@ -30,7 +30,7 @@ namespace WebAplicationTestMVC.Controllers
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {
-            var flashcardId = IdGenerator<string>.GenerateId(question, answer);
+            var flashcardId = IdGenerator<string>.GenerateId(question, answer, 3);
 
             Flashcard newFlashcard = new Flashcard(flashcardId, question, answer);
             List<Flashcard> oldFlashcards = ExcelHelper.getExcelData(@"Data/" + studySetName);
