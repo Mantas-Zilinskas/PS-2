@@ -130,6 +130,8 @@
         let cards = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
         let studyStartTime;
         let studyEndTime;
+        let isWaitingForGood = false;
+        cards.forEach(card => card.goodCount = 0);
 
         function startLearning() {
             studyStartTime = new Date();
@@ -159,22 +161,37 @@
         }
         function showNext(isGood) {
             if (isGood) {
-                currentIndex++;
+                cards[currentIndex].goodCount += 1;
             } else {
                 let badCard = cards[currentIndex];
-                cards.push(badCard);
-                cards.splice(currentIndex, 1); // to remove the bad card from its current position
-            }
+                cards.splice(currentIndex, 1); 
 
+                if (cards.length >= 4) {
+                    let newPosition = currentIndex + 3;
+                    cards.splice(newPosition, 0, badCard);
+                } else {
+                    cards.push(badCard);
+                }
+            }
+            currentIndex++;
+
+            if (currentIndex >= cards.length) {
+                currentIndex = 0;
+                const allGood = cards.every(card => card.goodCount >= 2);
+
+                if (allGood) {
+                    studyEndTime = new Date();
+                    sendStudyDurationToServer();
+                    return; 
+                } else {
+                    currentIndex = 0;
+                }
+            }
             if (currentIndex < cards.length) {
                 $('#question-text').text(cards[currentIndex].question);
                 $('#answer-text').text(cards[currentIndex].answer);
                 hideAnswer();
-            } else {
-                studyEndTime = new Date();
-                sendStudyDurationToServer();
             }
-
         }
 
         function showAnswer() {

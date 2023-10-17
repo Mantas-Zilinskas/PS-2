@@ -17,13 +17,15 @@ namespace WebAplicationTestMVC.Controllers
             List<Flashcard> flashcards = ExcelHelper.getExcelData(@"Data/" + setName);
             return View(flashcards);
         }
-        public IActionResult SpacedRepetitionAndSystemCheck()
+        public IActionResult SpacedRepetitionAndSystemCheck(string setName)
         {
-            return View();
+            List<Flashcard> flashcards = ExcelHelper.getExcelData(@"Data/" + setName);
+            return View(flashcards);
         }
-        public IActionResult SpacedRepetitionAndUserCheck()
+        public IActionResult SpacedRepetitionAndUserCheck(string setName)
         {
-            return View();
+            List<Flashcard> flashcards = ExcelHelper.getExcelData(@"Data/" + setName);
+            return View(flashcards);
         }
 
         [HttpPost]

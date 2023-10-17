@@ -2,7 +2,7 @@
 
 namespace WebAplicationTestMVC.Models
 {
-    public class Flashcard
+    public class Flashcard : IEquatable<Flashcard>
     {
         public Flashcard(string id, string question, string answer)
         {
@@ -13,5 +13,18 @@ namespace WebAplicationTestMVC.Models
         public string? answer { get; set; }
         public string? question { get; set; }
         public string? id { get; set; }
+
+        public bool Equals(Flashcard? otherCard)
+        {
+            if (otherCard == null)
+                return false;
+
+            if (answer == otherCard.answer && question == otherCard.question)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

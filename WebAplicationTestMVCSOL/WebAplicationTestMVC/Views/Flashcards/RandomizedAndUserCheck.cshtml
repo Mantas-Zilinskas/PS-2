@@ -130,11 +130,11 @@
         let cards = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
         let studyStartTime;
         let studyEndTime;
+        let isWaitingForGood = false;
 
         function startLearning() {
             studyStartTime = new Date();
-            //cards = ListExtensions.Shuffle(cards);
-            cards = ListExtensions.Shuffle(cards);
+            shuffle(cards);
             $('.btn-start').hide();
             $('.btn-warning, .btn-success, #three-items').show();
             currentIndex = 0;
