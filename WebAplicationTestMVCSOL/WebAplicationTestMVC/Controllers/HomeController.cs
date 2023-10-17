@@ -35,7 +35,9 @@ namespace WebAplicationTestMVC.Controllers
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {
-            Flashcard newFlashcard = new Flashcard(IdGenerator.generateId(question, answer), question, answer);
+            var flashcardId = IdGenerator<string>.GenerateId(question, answer);
+
+            Flashcard newFlashcard = new Flashcard(flashcardId, question, answer);
             List<Flashcard> oldFlashcards = ExcelHelper.getExcelData(@"Data/" + studySetName);
 
             if (oldFlashcards.Any(oldFlashcard => oldFlashcard.Equals(newFlashcard)))

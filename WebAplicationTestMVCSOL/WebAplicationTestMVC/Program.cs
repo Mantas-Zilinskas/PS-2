@@ -27,7 +27,7 @@ namespace WebAplicationTestMVC
                             options.Cookie.IsEssential = true;
                         });
 
-                        // Add other services to the container, if needed
+                        
 
                         // Configure controllers, views, and other services here
                         services.AddControllersWithViews();
@@ -36,7 +36,7 @@ namespace WebAplicationTestMVC
                     {
                         var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
 
-                        // Now, you can use 'env' to check the environment
+                        //  'env' to check the environment
                         if (env.IsDevelopment())
                         {
                             app.UseDeveloperExceptionPage();
@@ -44,8 +44,7 @@ namespace WebAplicationTestMVC
                         else
                         {
                             app.UseExceptionHandler("/Home/Error");
-                            // The default HSTS value is 30 days. You may want to change this for production scenarios.
-                            // See https://aka.ms/aspnetcore-hsts.
+                     
                             app.UseHsts();
                         }
 
@@ -54,7 +53,7 @@ namespace WebAplicationTestMVC
                         app.UseRouting();
                         app.UseAuthorization();
 
-                        app.UseSession(); // Add this line to enable sessions
+                        app.UseSession(); 
 
                         app.UseEndpoints(endpoints =>
                         {
