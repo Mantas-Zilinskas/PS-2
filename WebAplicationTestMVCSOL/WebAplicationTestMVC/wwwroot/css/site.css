@@ -1,3 +1,32 @@
+
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+header.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+.dark-mode .navbar {
+    background-color: #333;
+}
+
+/* Style the <a> element */
+/* Style the <a> element */
+a.col-sm.set-box {
+    border-style: inset;
+    border-color: darkturquoise;
+}
+.modal-content{
+    color:black;
+}
+.checking-site {
+    text-align: center;
+}
+.row {
+    color: black;
+}
 .set-box {
     background-color: #9b5faa;
     width: 200px;
@@ -5,5 +34,51 @@
     margin-right: 15px;
     margin-top: 15px;
     border-radius: 25px;
+    align-items: center;
+    display: grid;
     text-align: center;
 }
+
+.set-name {
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    background: #9f9f9f6e;
+    border: 2px solid #fff;
+    border-block: none;
+    padding: 0;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+    .set-name::before,
+    .set-name::after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 0;
+        background-color: #fff;
+        left: 0;
+        z-index: -1;
+        transition: all .25s;
+    }
+
+    .set-name::before {
+        top: 50%;
+    }
+
+    .set-name::after {
+        bottom: 50%;
+    }
+
+    .set-name:hover {
+        color: #639;
+    }
+
+        .set-name:hover::before,
+        .set-name:hover::after {
+            height: 50%;
+        }
