@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using WebAplicationTestMVC.Models;
 using WebAplicationTestMVC.Utilities;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace WebAplicationTestMVC.Controllers
 {
@@ -70,8 +72,12 @@ namespace WebAplicationTestMVC.Controllers
         public IActionResult Index()
         {
             List<StudySet> studySets = ExcelHelper.getStudySets();
+            ColorManager.AssignUniqueColor(studySets, HttpContext);
+           
+
             return View(studySets);
         }
+
 
         public IActionResult StudySets(string studySetName)
         {
@@ -110,7 +116,7 @@ namespace WebAplicationTestMVC.Controllers
 
             return RedirectToAction("Home");
         }
-        // Action to import flashcards from a file
+       
         [HttpPost]
         public IActionResult ImportDB(IFormFile file)
         {
@@ -118,75 +124,34 @@ namespace WebAplicationTestMVC.Controllers
             {
                 try
                 {
-                    // Define the file path where the uploaded file will be saved
+                    
                     var filePath = Path.Combine(_environment.ContentRootPath, "Data", file.FileName);
 
-                    // Save the uploaded file to the specified path
+                    
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         file.CopyTo(stream);
                     }
 
-                    // Import flashcards from the uploaded file using ExcelHelper or your utility
+                 
                     List<Flashcard> flashcards = ExcelHelper.getExcelData(filePath);
 
-                    // Handle flashcards (e.g., save to a database)
+                  
 
-                    // Redirect to a success page or display a success message
-                    return RedirectToAction("Index", "Home"); // Replace with the appropriate action and controller
+                  
+                    return RedirectToAction("Index", "Home"); 
                 }
                 catch (Exception ex)
                 {
-                    // Handle exceptions (e.g., display an error message)
+              
                     ModelState.AddModelError("", "An error occurred while importing flashcards: " + ex.Message);
                 }
             }
 
-            // If there was an error or no file was uploaded, return to the previous page
-            return RedirectToAction("Index", "Home"); // Replace with the appropriate action and controller
+           
+            return RedirectToAction("Index", "Home"); 
         }
 
-        /*       public IActionResult ShowData()
-               {
-                   List<ExcelDataModel> excelDataList = new List<ExcelDataModel>();
-
-                   if (System.IO.File.Exists(_excelDataPath))
-                   {
-                       using (var package = new ExcelPackage(new FileInfo(_excelDataPath)))
-                       {
-                           var workbook = package.Workbook;
-                           var worksheet = workbook.Worksheets.FirstOrDefault(sheet => sheet.Name == "Sheet1");
-
-                           if (worksheet != null)
-                           {
-                               var rowCount = worksheet.Dimension.Rows;
-
-                               for (int row = 2; row <= rowCount; row++)
-                               {
-                                   var idCell = worksheet.Cells[$"A{row}"];
-                                   var questionCell = worksheet.Cells[$"B{row}"];
-                                   var answerCell = worksheet.Cells[$"C{row}"];
-
-                                   var idString = idCell.Value?.ToString() ?? string.Empty;
-                                   var question = questionCell.Value?.ToString() ?? string.Empty;
-                                   var answer = answerCell.Value?.ToString() ?? string.Empty;
-
-                                   var id = int.TryParse(idString, out var parsedId) ? parsedId : 0;
-
-                                   var excelData = new ExcelDataModel
-                                   {
-                                       id = id,
-                                       question = question,
-                                       answer = answer
-                                   };
-
-                                   excelDataList.Add(excelData);
-                               }
-                           }
-                       }
-                   }
-
-                   return View(excelDataList);
-               }*/
+      
     }
 }

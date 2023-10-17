@@ -14,6 +14,10 @@
         .question-text {
             font-size: 28px
         }
+
+        #myForm {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -26,17 +30,27 @@
 
     <div>
         <button id="createStudySet" class="btn btn-info">+ Create Study Set</button>
+        <button id="showFormButton" class="btn btn-info">+Import Flashcard Set</button>
+        <form id="myForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="ImportDB">
+            <label for="file">Upload flashcards:</label>
+            <input type="file" name="file" id="file" required accept=".xlsx" />
+            <button type="submit" class="btn btn-warning">Import</button>
+        </form>
     </div>
+    
 
     <div class="row">
         @foreach (StudySet studySet in Model)
         {
-            <a class="col-sm- set-box" style="text-decoration: none; color: inherit;"
+            <a class="col-sm- set-box"
+               style="background-color: @(studySet.Color.ToString().ToLower());text-decoration: none;"
                asp-area="" asp-controller="Home" asp-action="StudySets" asp-route-studySetName="@studySet.studySetName">
-                @studySet.studySetName.Substring(0, studySet.studySetName.Length - 5)
+                <div class="set-name">@studySet.studySetName.Substring(0, studySet.studySetName.Length - 5) *</div>
             </a>
+
         }
     </div>
+
 
     @await Html.PartialAsync("_ModalPartial")
 
@@ -45,6 +59,14 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <script>
+            document.getElementById('showFormButton').addEventListener('click', function () {
+                var form = document.getElementById('myForm');
+                if (form.style.display === 'none') {
+                    form.style.display = 'block';
+                } else {
+                    form.style.display = 'none';
+                }
+            });
             $(document).ready(function () {
                 $("#createStudySet").click(function () {
                     $('#myModal').modal('show');

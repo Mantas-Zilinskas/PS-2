@@ -1,3 +1,5 @@
+using WebAplicationTestMVC.Utilities;
+
 namespace WebAplicationTestMVC.Models
 {
     public class StudySet
@@ -6,7 +8,9 @@ namespace WebAplicationTestMVC.Models
         {
             this.studySetName = name;
         }
+
         public string? studySetName { get; set; }
+        public StudySetColor Color { get; set; }
 
     }
 }

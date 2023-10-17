@@ -4,11 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Flashcards</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplikacija.styles.css" asp-append-version="true" />
+
+    <!-- Dark Mode Styles -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
+<body class="@ViewData["DarkModeClass"]">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -20,6 +23,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
+                            <form id="darkModeForm" method="post" asp-action="ToggleDarkMode">
+                                @Html.AntiForgeryToken()
+                                <button id="darkModeButton" type="button">Toggle Dark Mode</button>
+                            </form>
+
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="">Study Sets Library</a>
                         </li>
                         <li class="nav-item">
@@ -51,18 +59,46 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+  
     @await RenderSectionAsync("Scripts", required: false)
     <script>
+
+
+ 
+        function toggleDarkMode() {
+            const body = document.body;
+            const isDarkModeEnabled = body.classList.toggle("dark-mode");
+
+
+            localStorage.setItem("darkModeEnabled", isDarkModeEnabled);
+        }
+
+ 
+        document.addEventListener("DOMContentLoaded", function () {
+            const body = document.body;
+            const isDarkModeEnabled = localStorage.getItem("darkModeEnabled") === "true";
+
+            if (isDarkModeEnabled) {
+                body.classList.add("dark-mode");
+            } else {
+                body.classList.remove("dark-mode");
+            }
+        });
+
+
+        document.getElementById("darkModeButton").addEventListener("click", toggleDarkMode);
+    </script>
+    <script>
+        
         $(document).ready(function () {
             $("#createStudySetLink").click(function (e) {
-                e.preventDefault(); // Prevent the default action of the link
-                $('#myModal').modal('show'); // Show the modal
+                e.preventDefault(); 
+                $('#myModal').modal('show'); 
             });
 
             $("#saveStudySet").click(function () {
                 var studySetName = $("#name").val();
-                // Add logic to save the study set
+
             });
         });
     </script>

@@ -40,12 +40,7 @@
     <!-- Triggering Link -->
     <a class="btn btn-primary" data-toggle="modal" data-target="#DataSettings" asp-area="">Learn flashcards</a>
 
-    <!-- Form (unchanged) -->
-    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="ImportDB">
-        <label for="file">Upload flashcards:</label>
-        <input type="file" name="file" id="file" required accept=".xlsx" />
-        <button type="submit" class="btn btn-primary">Import flashcards</button>
-    </form>
+    
 
     <!-- Modal -->
     <div class="modal" tabindex="-1" role="dialog" id="DataSettings">
@@ -60,6 +55,7 @@
                 <div class="modal-body">
                     <p>Modal body text goes here.</p>
                 </div>
+                <div class="checking-site">
                 <!-- Study Mode -->
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="studyMode" id="flexRadioDefault1">
@@ -90,6 +86,7 @@
                 <div class="modal-footer">
                     <button type="button" id="saveChangesBtn" class="btn btn-primary">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
                 </div>
             </div>
         </div>
