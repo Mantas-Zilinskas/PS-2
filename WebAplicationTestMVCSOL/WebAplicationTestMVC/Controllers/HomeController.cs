@@ -1,16 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+
 using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
+
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
+
 using WebAplicationTestMVC.Models;
 using WebAplicationTestMVC.Utilities;
-using Microsoft.Extensions.Hosting;
-using System.Reflection.Emit;
+
 
 namespace WebAplicationTestMVC.Controllers
 {
@@ -81,10 +77,6 @@ namespace WebAplicationTestMVC.Controllers
             return View(new StudySet(studySetName));
         }
 
-        public IActionResult ImportDB()
-        {
-            return View();
-        }
 
         public IActionResult Privacy()
         {

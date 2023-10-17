@@ -2,7 +2,6 @@
 
 namespace WebAplicationTestMVC.Models
 {
-    // Models/ExcelDataModel.cs
     public class ExcelDataModel
     {
 
@@ -13,7 +12,7 @@ namespace WebAplicationTestMVC.Models
         public ExcelDataModel()
         {
             // Initialize properties with default values or set them to null
-            id = 0;// depending on your requirements
+            id = 0;
             question = null;
             answer = null;
         }

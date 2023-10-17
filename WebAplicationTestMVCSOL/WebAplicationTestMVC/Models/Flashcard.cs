@@ -1,5 +1,4 @@
-﻿using OfficeOpenXml.Drawing.Chart;
-
+﻿
 namespace WebAplicationTestMVC.Models
 {
     public class Flashcard : IEquatable<Flashcard>

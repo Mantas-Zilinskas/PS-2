@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.CookiePolicy;
+﻿
 using WebAplicationTestMVC.Models;
 using OfficeOpenXml;
-using Microsoft.AspNetCore.Hosting.Server;
-using Microsoft.AspNetCore.Routing.Constraints;
+
 
 namespace WebAplicationTestMVC.Utilities
 {
@@ -66,7 +65,6 @@ namespace WebAplicationTestMVC.Utilities
         public static void CreateStudySet(string name)
         {
             string fileName = name + ".xlsx";
-            //List<StudySet> studySets = getStudySets();
 
             using (var package = new ExcelPackage())
             {
