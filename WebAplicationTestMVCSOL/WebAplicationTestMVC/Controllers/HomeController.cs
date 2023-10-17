@@ -1,24 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+
 using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
+
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
+
 using WebAplicationTestMVC.Models;
 using WebAplicationTestMVC.Utilities;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using System.Text;
+
 
 namespace WebAplicationTestMVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IWebHostEnvironment _environment;
-        private readonly ILogger<HomeController> _logger;
+
         private readonly string _excelDataPath = Path.Combine("wwwroot", "uploads", "excelData.xlsx");
 
         public HomeController(IWebHostEnvironment environment)
@@ -86,10 +81,6 @@ namespace WebAplicationTestMVC.Controllers
             return View(new StudySet(studySetName));
         }
 
-        public IActionResult ImportDB()
-        {
-            return View();
-        }
 
         public IActionResult Privacy()
         {
