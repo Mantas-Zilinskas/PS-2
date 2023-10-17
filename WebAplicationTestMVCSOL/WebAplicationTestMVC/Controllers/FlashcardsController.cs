@@ -31,9 +31,10 @@ namespace WebAplicationTestMVC.Controllers
         public IActionResult LogStudyTime(DateTime startTime, DateTime endTime)
         {
             var studySession = new StudySessionTime(startTime, endTime);
-            TimeSpan duration = studySession.Duration;
+            string formattedDuration = studySession.FormatDuration();
 
-            return Ok($"{duration.Minutes} minutes {duration.Seconds} seconds");
+            return Ok(formattedDuration);
         }
+
     }
 }
