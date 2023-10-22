@@ -18,8 +18,8 @@ namespace WebAplicationTestMVC.Controllers
             {
                 ExcelHelper.CreateStudySet(name);
             }
-            
-            return RedirectToAction("StudySets", studySet);
+
+            return RedirectToAction("StudySets", "StudySet", studySet);
 
         }
 
