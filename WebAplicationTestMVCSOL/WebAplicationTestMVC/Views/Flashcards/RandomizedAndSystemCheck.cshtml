@@ -108,6 +108,7 @@
             <div id="answer-content" class="flashcard-content">
                 <h1 id="answer-status"></h1>
                 <div id="answer-text"></div>
+                <div id="your-answer"></div>
             </div>
         </div>
     </div>
@@ -180,6 +181,8 @@
                     cards.splice(currentIndex, 1);
                 }
 
+                $('#your-answer').text("Your answer: " + userInput);
+                $('#your-answer').show();
                 $('.btn-submit, #answer-Input').hide();
                 $('.btn-next').show();
             }
@@ -190,9 +193,9 @@
 
             if (currentIndex < cards.length) {
                 $('#question-text').text(cards[currentIndex].question);
-                $('#answer-text').text(cards[currentIndex].answer);
+                $('#answer-text').text("Correct answer: " + cards[currentIndex].answer);
                 $('.btn-submit, #answer-Input').show();
-                $('.btn-next').hide();
+                $('.btn-next, #your-answer').hide();
                 document.getElementById("answer-Input").value = "";
             } else {
                 studyEndTime = new Date();
