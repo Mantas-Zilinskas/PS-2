@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
 using OfficeOpenXml;
-
 using System.Diagnostics;
-
 using WebAplicationTestMVC.Models;
 using WebAplicationTestMVC.Utilities;
 
@@ -26,6 +23,7 @@ namespace WebAplicationTestMVC.Controllers
         {
             return View(new StudySet(studySetName));
         }
+
 
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
@@ -54,15 +52,13 @@ namespace WebAplicationTestMVC.Controllers
         {
             StudySet studySet = new StudySet(name + ".xlsx");
 
-            if (ExcelHelper.getStudySets().Any(listStudySet => listStudySet.studySetName == studySet.studySetName))
-            {
-                return RedirectToAction("StudySets", studySet);
-            }
-            else
+            if (!ExcelHelper.getStudySets().Any(listStudySet => listStudySet.studySetName == studySet.studySetName))
             {
                 ExcelHelper.CreateStudySet(name);
-                return RedirectToAction("StudySets", studySet);
             }
+            
+            return RedirectToAction("StudySets", studySet);
+
         }
 
 
@@ -78,7 +74,7 @@ namespace WebAplicationTestMVC.Controllers
 
         public IActionResult StudySets(string studySetName)
         {
-            return View(new StudySet(studySetName));
+            return View(new StudySet(name: studySetName));
         }
 
 
@@ -93,22 +89,6 @@ namespace WebAplicationTestMVC.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpPost]
-        public IActionResult ImportExcel(IFormFile file)
-        {
-            if (file == null || file.Length == 0)
-            {
-                TempData["ErrorMessage"] = "No file uploaded.";
-                return RedirectToAction("ImportDB");
-            }
-
-            using (var stream = new FileStream(_excelDataPath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-
-            return RedirectToAction("Home");
-        }
        
         [HttpPost]
         public IActionResult ImportDB(IFormFile file)
@@ -117,34 +97,27 @@ namespace WebAplicationTestMVC.Controllers
             {
                 try
                 {
-                    
                     var filePath = Path.Combine(_environment.ContentRootPath, "Data", file.FileName);
 
-                    
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         file.CopyTo(stream);
                     }
 
-                 
                     List<Flashcard> flashcards = ExcelHelper.getExcelData(filePath);
 
-                  
-
-                  
-                    return RedirectToAction("Index", "Home"); 
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
                 {
-              
+
                     ModelState.AddModelError("", "An error occurred while importing flashcards: " + ex.Message);
                 }
             }
 
-           
-            return RedirectToAction("Index", "Home"); 
+            return RedirectToAction("Index", "Home");
         }
 
-      
+
     }
 }
