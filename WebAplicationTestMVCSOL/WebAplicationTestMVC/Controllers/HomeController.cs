@@ -9,44 +9,6 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IWebHostEnvironment _environment;
-
-        private readonly string _excelDataPath = Path.Combine("wwwroot", "uploads", "excelData.xlsx");
-
-        public HomeController(IWebHostEnvironment environment)
-        {
-            _environment = environment;
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-        }
-        public IActionResult AddFlashcard(string studySetName)
-        {
-            return View(new StudySet(studySetName));
-        }
-
-
-        [HttpPost]
-        public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
-        {
-            var flashcardId = IdGenerator<string>.GenerateId(question, answer, 3);
-
-            Flashcard newFlashcard = new Flashcard(flashcardId, question, answer);
-            List<Flashcard> oldFlashcards = ExcelHelper.getExcelData(@"Data/" + studySetName);
-
-            if (oldFlashcards.Any(oldFlashcard => oldFlashcard.Equals(newFlashcard)))
-            {
-                ViewBag.ErrorMessage = "Such Flashcard already exists";
-                return View("AddFlashcard", new StudySet(studySetName));
-            }
-            else
-            {
-                ExcelHelper.Append(@"Data/" + studySetName, newFlashcard);
-                ExcelHelper.Append(@"Data/All flashcards.xlsx", newFlashcard);
-                return View("AddFlashcard", new StudySet(studySetName));
-            }
-        }
-
-
         [HttpPost]
         public IActionResult ModalSubmit(string name)
         {
@@ -72,12 +34,6 @@ namespace WebAplicationTestMVC.Controllers
         }
 
 
-        public IActionResult StudySets(string studySetName)
-        {
-            return View(new StudySet(name: studySetName));
-        }
-
-
         public IActionResult Privacy()
         {
             return View();
@@ -90,34 +46,5 @@ namespace WebAplicationTestMVC.Controllers
         }
 
        
-        [HttpPost]
-        public IActionResult ImportDB(IFormFile file)
-        {
-            if (file != null && file.Length > 0)
-            {
-                try
-                {
-                    var filePath = Path.Combine(_environment.ContentRootPath, "Data", file.FileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-
-                    List<Flashcard> flashcards = ExcelHelper.getExcelData(filePath);
-
-                    return RedirectToAction("Index", "Home");
-                }
-                catch (Exception ex)
-                {
-
-                    ModelState.AddModelError("", "An error occurred while importing flashcards: " + ex.Message);
-                }
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
-
-
     }
 }
