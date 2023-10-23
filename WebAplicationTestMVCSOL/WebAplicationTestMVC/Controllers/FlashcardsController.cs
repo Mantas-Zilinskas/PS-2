@@ -47,6 +47,16 @@ namespace WebAplicationTestMVC.Controllers
         }
 
         [HttpPost]
+        public IActionResult LogStudyTime(DateTime startTime, DateTime endTime)
+        {
+            var studySession = new StudySessionTime(startTime, endTime);
+            string formattedDuration = studySession.FormatDuration();
+
+            return Ok(formattedDuration);
+        }
+
+
+        [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {
             _sqliteService.CreateTable(); 

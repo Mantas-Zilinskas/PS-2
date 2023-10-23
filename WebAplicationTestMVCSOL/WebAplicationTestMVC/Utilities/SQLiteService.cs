@@ -1,6 +1,6 @@
 ﻿using System.Data.SQLite;
 using WebAplicationTestMVC.Models;
-//lets try to avoid of editing this code
+//lets try to avoid editing this code
 namespace WebAplicationTestMVC.Utilities
 {
     public class SQLiteService
@@ -17,7 +17,7 @@ namespace WebAplicationTestMVC.Utilities
             }
             catch (Exception ex)
             {
-                // Handle the exception
+                
             }
             return sqlite_conn;
         }
