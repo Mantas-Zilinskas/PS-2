@@ -1,7 +1,4 @@
 ﻿@model List<WebAplicationTestMVC.Models.StudySet>
-@{
-
-}
 
 <!DOCTYPE html>
 <html manifest="cache.manifest">
@@ -12,7 +9,7 @@
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         .question-text {
-            font-size: 28px
+            font-size: 28px;
         }
 
         #myForm {
@@ -21,7 +18,6 @@
     </style>
 </head>
 <body>
-
     <div>
         <p>Study sets</p>
     </div>
@@ -35,58 +31,76 @@
             <button type="submit" class="btn btn-warning">Import</button>
         </form>
     </div>
-    
+
+    <form id="createStudySetForm" method="post" asp-controller="Home" asp-action="CreateStudySet">
+        <input type="text" name="studySetName" placeholder="Enter study set name" required />
+        <button type="submit" class="btn btn-success">Create Study Set</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            
+            $("#createStudySetForm").submit(function (e) {
+                e.preventDefault(); 
+                var form = this;
+                var studySetName = form.querySelector('input[name="studySetName"]').value;
+
+                if (studySetName) {
+                   
+                    $.post(form.action, { studySetName: studySetName }, function (data) {
+                     
+                        console.log(data);
+                       
+                        location.reload();
+                    });
+                } else {
+                    alert('Please enter a name for the study set.');
+                }
+            });
+
+           
+            $("#showFormButton").click(function () {
+                var form = $("#myForm");
+                form.toggle();
+            });
+
+         
+            $("#createStudySet").click(function () {
+                $('#myModal').modal('show');
+            });
+
+            $("#saveStudySet").click(function () {
+                var studySetName = $("#name").val();
+
+                if (studySetName) {
+                 
+                    var studySets = JSON.parse(localStorage.getItem('studySets') || '[]');
+                    studySets.push(studySetName);
+                    localStorage.setItem('studySets', JSON.stringify(studySets));
+
+                  
+                    $('#myModal').modal('hide');
+                } else {
+                    alert('Please enter a name for the study set.');
+                }
+            });
+        });
+    </script>
 
     <div class="row">
-        @foreach (StudySet studySet in Model)
+        @foreach (var studySet in Model)
         {
             <a class="col-sm- set-box"
                style="background-color: @(studySet.Color.ToString().ToLower());text-decoration: none;"
-               asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@studySet.studySetName">
-                <div class="set-name">@studySet.studySetName.Substring(0, studySet.studySetName.Length - 5) *</div>
+               asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@studySet.StudySetName">
+                <div class="set-name">@studySet.StudySetName</div>
             </a>
-
         }
     </div>
 
     @await Html.PartialAsync("_ModalPartial")
-
-    @section Scripts {
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script>
-            document.getElementById('showFormButton').addEventListener('click', function () {
-                var form = document.getElementById('myForm');
-                if (form.style.display === 'none') {
-                    form.style.display = 'block';
-                } else {
-                    form.style.display = 'none';
-                }
-            });
-            $(document).ready(function () {
-                $("#createStudySet").click(function () {
-                    $('#myModal').modal('show');
-                });
-
-                $("#saveStudySet").click(function () {
-                    var studySetName = $("#name").val();
-
-                    if (studySetName) {
-                        // Save to local storage
-                        var studySets = JSON.parse(localStorage.getItem('studySets') || '[]');
-                        studySets.push(studySetName);
-                        localStorage.setItem('studySets', JSON.stringify(studySets));
-
-                        // Close the modal
-                        $('#myModal').modal('hide');
-                    } else {
-                        alert('Please enter a name for the study set.');
-                    }
-                });
-            });
-        </script>
-    }
-
 </body>
 </html>

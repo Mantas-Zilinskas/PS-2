@@ -4,13 +4,18 @@ namespace WebAplicationTestMVC.Models
 {
     public class StudySet
     {
-        public StudySet(string name)
+        public StudySetColor Color { get; set; }
+        public string StudySetName { get; set; }
+        public List<Flashcard> Flashcards { get; set; } // Define Flashcards property
+
+        public StudySet(string studySetName)
         {
-            this.studySetName = name;
+            StudySetName = studySetName;
+            Flashcards = new List<Flashcard>(); // Initialize the Flashcards list
         }
 
-        public string? studySetName { get; set; }
-        public StudySetColor Color { get; set; }
+  
+      
 
     }
 }

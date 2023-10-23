@@ -132,7 +132,7 @@
         let studyEndTime;
 
         function startLearning() {
-            studyStartTime = new Date(); // capture the start time
+            studyStartTime = new Date(); 
             shuffle(cards);
             $('.btn-start').hide();
             $('.btn-submit, #three-items, #answer-Input').show();
@@ -165,7 +165,7 @@
 
             if (userInput != "") {
 
-                if (0 == userInput.localeCompare(cards[currentIndex].answer)) {
+                if (0 == userInput.localeCompare(cards[currentIndex].Answer)) {
                     $('#answer-status').text("Correct");
                     $('#answer-status').css({ "color": "green" });
                     $('#answer-text').hide();
@@ -192,8 +192,8 @@
             $('#answer-content').hide();
 
             if (currentIndex < cards.length) {
-                $('#question-text').text(cards[currentIndex].question);
-                $('#answer-text').text("Correct answer: " + cards[currentIndex].answer);
+                $('#question-text').text(cards[currentIndex].Question);
+                $('#answer-text').text("Correct answer: " + cards[currentIndex].Answer);
                 $('.btn-submit, #answer-Input').show();
                 $('.btn-next, #your-answer').hide();
                 document.getElementById("answer-Input").value = "";
@@ -205,27 +205,27 @@
 
 
         function editFlashcard() {
-            let newQuestion = prompt("Enter the updated question:", cards[currentIndex].question);
-            let newAnswer = prompt("Enter the updated answer:", cards[currentIndex].answer);
+            let newQuestion = prompt("Enter the updated question:", cards[currentIndex].Question);
+            let newAnswer = prompt("Enter the updated answer:", cards[currentIndex].Answer);
 
             if (newQuestion !== null && newAnswer !== null) {
-                cards[currentIndex].question = newQuestion;
-                cards[currentIndex].answer = newAnswer;
+                cards[currentIndex].Question = newQuestion;
+                cards[currentIndex].Answer = newAnswer;
                 $('#question-text').text(newQuestion);
                 $('#answer-text').text(newAnswer);
 
                 // Inform the server about the change
                 $.post("/Home/EditCard", {
-                    id: cards[currentIndex].id,
-                    question: newQuestion,
-                    answer: newAnswer
+                    Id: cards[currentIndex].Id,
+                    Question: newQuestion,
+                    Answer: newAnswer
                 });
             }
         }
 
         function deleteFlashcard() {
             if (confirm("Are you sure you want to delete this flashcard?")) {
-                let cardIdToDelete = cards[currentIndex].id;
+                let cardIdToDelete = cards[currentIndex].Id;
                 cards.splice(currentIndex, 1);
 
                 if (cards.length === 0) {
@@ -239,7 +239,7 @@
                 }
 
                 // Inform the server about the deletion
-                $.post("/Home/DeleteCard", { id: cardIdToDelete });
+                $.post("/Home/DeleteCard", { Id: cardIdToDelete });
             }
         }
     </script>

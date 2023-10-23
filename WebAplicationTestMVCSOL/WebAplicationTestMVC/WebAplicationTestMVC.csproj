@@ -8,11 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="6.2.10" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\uploads\" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+    <PackageReference Include="xunit" Version="2.5.3" />
   </ItemGroup>
 
   <ItemGroup>

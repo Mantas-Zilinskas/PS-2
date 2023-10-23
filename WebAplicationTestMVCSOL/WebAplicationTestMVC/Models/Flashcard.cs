@@ -4,20 +4,21 @@
     {
         public Flashcard(string id, string question, string answer)
         {
-            this.id = id;
-            this.question = question;
-            this.answer = answer;
+            this.Id = id;
+            this.Question = question;
+            this.Answer = answer;
         }
-        public string? answer { get; set; }
-        public string? question { get; set; }
-        public string? id { get; set; }
 
-        public bool Equals(Flashcard? otherCard)
+        public string Id { get; set; } // Add the Id property
+        public string Question { get; set; }
+        public string Answer { get; set; }
+
+        public bool Equals(Flashcard otherCard)
         {
             if (otherCard == null)
                 return false;
 
-            if (answer == otherCard.answer && question == otherCard.question)
+            if (Id == otherCard.Id && Question == otherCard.Question && Answer == otherCard.Answer)
             {
                 return true;
             }

@@ -1,8 +1,12 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+using WebAplicationTestMVC.Utilities; // Add this line if SQLiteService is in this namespace
 
 namespace WebAplicationTestMVC
 {
@@ -27,16 +31,15 @@ namespace WebAplicationTestMVC
                             options.Cookie.IsEssential = true;
                         });
 
-                        
-
-                        // Configure controllers, views, and other services here
+                        // Add the necessary services here
                         services.AddControllersWithViews();
+                        services.AddScoped<SQLiteService>(); // Add SQLiteService to the services
                     })
                     .Configure(app =>
                     {
                         var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
 
-                        //  'env' to check the environment
+                        // Check the environment to configure middleware
                         if (env.IsDevelopment())
                         {
                             app.UseDeveloperExceptionPage();
@@ -44,7 +47,6 @@ namespace WebAplicationTestMVC
                         else
                         {
                             app.UseExceptionHandler("/Home/Error");
-                     
                             app.UseHsts();
                         }
 
@@ -53,7 +55,7 @@ namespace WebAplicationTestMVC
                         app.UseRouting();
                         app.UseAuthorization();
 
-                        app.UseSession(); 
+                        app.UseSession();
 
                         app.UseEndpoints(endpoints =>
                         {

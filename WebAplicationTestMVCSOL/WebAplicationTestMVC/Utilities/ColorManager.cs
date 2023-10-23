@@ -8,7 +8,7 @@ namespace WebAplicationTestMVC.Utilities
         {
             foreach (var studySet in studySets)
             {
-                string cookieName = $"Color_{studySet.studySetName.Replace(" ", "_").Replace(".", "_")}";
+                string cookieName = $"Color_{studySet.StudySetName.Replace(" ", "_").Replace(".", "_")}";
 
                 if (httpContext.Request.Cookies.TryGetValue(cookieName, out var color))
                 {
@@ -16,7 +16,7 @@ namespace WebAplicationTestMVC.Utilities
                 }
                 else
                 {
-                    // Generate a list of all available colors except those already used
+                    
                     List<StudySetColor> usedColors = studySets.Select(s => s.Color).ToList();
                     List<StudySetColor> availableColors = Enum.GetValues(typeof(StudySetColor))
                         .Cast<StudySetColor>()

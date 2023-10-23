@@ -1,9 +1,7 @@
-﻿@model WebAplicationTestMVC.Models.StudySet;
-@{
-
-}
+﻿@model WebAplicationTestMVC.Models.StudySet
 
 <h1>Make a Flashcard</h1>
+
 @using (Html.BeginForm("SubmitNewFlashcard", "Flashcards", FormMethod.Post))
 {
     <label for="question">FlashCard Question:</label>
@@ -16,14 +14,14 @@
     <textarea id="answer" name="answer" rows="7" cols="100" placeholder="In their sleevies!" required></textarea>
     <br>
     <br>
-    <button type="submit" value="@Model.studySetName" name="studySetName" class="btn btn-primary">Submit</button>
-    <a class="btn btn-primary" asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@Model.studySetName">Back</a>
+    <input type="hidden" id="studySetName" name="studySetName" value="@Model.StudySetName" />
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-primary" asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@Model.StudySetName">Back</a>
 
     @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-        {
-            <div class="alert alert-danger">
-                @ViewBag.ErrorMessage
-            </div>
-        }
-
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
 }
