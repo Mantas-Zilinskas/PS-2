@@ -1,5 +1,4 @@
-﻿
-namespace WebAplicationTestMVC.Utilities
+﻿namespace WebAplicationTestMVC.Utilities
 {
     public enum StudySetColor
     {

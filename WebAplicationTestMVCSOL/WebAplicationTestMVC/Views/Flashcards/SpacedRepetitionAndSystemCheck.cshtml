@@ -171,7 +171,6 @@
                     $('#answer-content').show();
 
                     cards[currentIndex].goodCount += 1;
-                    // Do not increment currentIndex here
                 } else {
                     $('#answer-status').text("Wrong");
                     $('#answer-status').css({ "color": "red" });
@@ -185,10 +184,8 @@
                     } else {
                         cards.push(badCard);
                     }
-
                     $('#answer-text').show();
                     $('#answer-content').show();
-                    //alert("Correct answer: " + badCard.answer);
                 }
                 $('#your-answer').text("Your answer: " + userInput);
                 $('#your-answer').show();
@@ -201,7 +198,6 @@
         function showNext() {
             $('#answer-content').hide();
 
-            // Move the logic for advancing the card index here
             currentIndex++;
 
             if (currentIndex >= cards.length) {
@@ -226,7 +222,6 @@
                 sendStudyDurationToServer();
             }
         }
-
 
 
         function editFlashcard() {

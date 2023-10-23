@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Text;
-using WebAplicationTestMVC.Models;
 
 namespace WebAplicationTestMVC.Utilities
 {
@@ -9,7 +7,6 @@ namespace WebAplicationTestMVC.Utilities
     {
         public static DarkModeSettings GetDarkModeSettings(HttpContext httpContext)
         {
-           
             DarkModeSettings darkModeSettings;
 
             if (httpContext.Session.TryGetValue("DarkModeSettings", out var darkModeBytes))
@@ -26,13 +23,10 @@ namespace WebAplicationTestMVC.Utilities
 
         public static void ToggleDarkMode(HttpContext httpContext)
         {
-           
             DarkModeSettings darkModeSettings = GetDarkModeSettings(httpContext);
 
-       
             darkModeSettings.IsDarkModeEnabled = !darkModeSettings.IsDarkModeEnabled;
 
-          
             var updatedDarkModeBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(darkModeSettings));
             httpContext.Session.Set("DarkModeSettings", updatedDarkModeBytes);
         }

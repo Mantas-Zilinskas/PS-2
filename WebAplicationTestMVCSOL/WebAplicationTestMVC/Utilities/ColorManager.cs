@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using WebAplicationTestMVC.Models;
+﻿using WebAplicationTestMVC.Models;
 
 namespace WebAplicationTestMVC.Utilities
 {
@@ -21,30 +17,21 @@ namespace WebAplicationTestMVC.Utilities
                 else
                 {
                     // Generate a list of all available colors except those already used
+                    List<StudySetColor> usedColors = studySets.Select(s => s.Color).ToList();
                     List<StudySetColor> availableColors = Enum.GetValues(typeof(StudySetColor))
                         .Cast<StudySetColor>()
-                        .Except(studySets.Select(s => s.Color))
                         .Except(usedColors)
                         .ToList();
 
-                    if (availableColors.Count == 0)
-                    {
-                        // No available colors left; handle this case
-                    }
+                        Random random = new Random();
+                        StudySetColor randomColor = availableColors[random.Next(availableColors.Count)];
 
-                    // Get a random available color
-                    Random random = new Random();
-                    StudySetColor randomColor = availableColors[random.Next(availableColors.Count)];
+                        studySet.Color = randomColor;
+                        usedColors.Add(randomColor);
 
-                    studySet.Color = randomColor;
-                    usedColors.Add(randomColor);
-
-                    httpContext.Response.Cookies.Append(cookieName, studySet.Color.ToString());
+                        httpContext.Response.Cookies.Append(cookieName, studySet.Color.ToString());
                 }
             }
         }
-
-        // You may want to keep usedColors as a static or shared field, depending on your application structure.
-        private static List<StudySetColor> usedColors = new List<StudySetColor>();
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebAplicationTestMVC.Utilities
+﻿namespace WebAplicationTestMVC.Utilities
 {
     public static class StudySessionTimeExtensions
     {

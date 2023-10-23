@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http; 
-using OfficeOpenXml;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq; 
+﻿using OfficeOpenXml;
 using WebAplicationTestMVC.Models;
 
 namespace WebAplicationTestMVC.Utilities
@@ -68,12 +64,9 @@ namespace WebAplicationTestMVC.Utilities
         {
             string fileName = name + ".xlsx";
            
-
             using (var package = new ExcelPackage())
             {
-
                 var worksheet = package.Workbook.Worksheets.Add("Sheet1");
-
 
                 worksheet.Cells["A1"].Value = "Id";
                 worksheet.Cells["B1"].Value = "Question";
@@ -84,8 +77,6 @@ namespace WebAplicationTestMVC.Utilities
                 package.SaveAs(fileInfo);
 
             }
-
         }
-
     }
 }
