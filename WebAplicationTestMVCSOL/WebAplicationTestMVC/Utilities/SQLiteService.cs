@@ -28,14 +28,12 @@ namespace WebAplicationTestMVC.Utilities
             {
                 SQLiteCommand sqlite_cmd;
 
-                // Create a table to store study sets
                 string CreateStudySetsTable = @"CREATE TABLE IF NOT EXISTS StudySets (
                                 StudySetName TEXT PRIMARY KEY)";
                 sqlite_cmd = conn.CreateCommand();
                 sqlite_cmd.CommandText = CreateStudySetsTable;
                 sqlite_cmd.ExecuteNonQuery();
 
-                // Create the Flashcards table as well (if it doesn't exist)
                 string Createsql = @"CREATE TABLE IF NOT EXISTS Flashcards (
              Id TEXT PRIMARY KEY,
              Question TEXT NOT NULL,

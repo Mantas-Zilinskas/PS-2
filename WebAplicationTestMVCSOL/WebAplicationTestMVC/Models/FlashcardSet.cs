@@ -1,4 +1,4 @@
-﻿namespace WebAplicationTestMVC.Models
+﻿/*namespace WebAplicationTestMVC.Models
 {
     public class FlashcardSet
     {
@@ -8,3 +8,4 @@
     }
 
 }
+*/

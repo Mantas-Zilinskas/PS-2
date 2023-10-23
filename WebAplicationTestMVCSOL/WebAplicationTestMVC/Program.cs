@@ -26,7 +26,7 @@ namespace WebAplicationTestMVC
                         services.AddDistributedMemoryCache(); // Use an appropriate distributed cache for production
                         services.AddSession(options =>
                         {
-                            options.IdleTimeout = TimeSpan.FromMinutes(30); // Set your desired session timeout
+                            options.IdleTimeout = TimeSpan.FromMinutes(30); 
                             options.Cookie.HttpOnly = true;
                             options.Cookie.IsEssential = true;
                         });

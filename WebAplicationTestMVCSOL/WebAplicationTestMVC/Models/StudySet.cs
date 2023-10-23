@@ -6,12 +6,11 @@ namespace WebAplicationTestMVC.Models
     {
         public StudySetColor Color { get; set; }
         public string StudySetName { get; set; }
-        public List<Flashcard> Flashcards { get; set; } // Define Flashcards property
-
+        public List<Flashcard> Flashcards { get; set; } 
         public StudySet(string studySetName)
         {
             StudySetName = studySetName;
-            Flashcards = new List<Flashcard>(); // Initialize the Flashcards list
+            Flashcards = new List<Flashcard>(); 
         }
 
   
