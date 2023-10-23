@@ -114,6 +114,7 @@
         </div>
     </div>
 
+
     <div class="flashcard-footer">
         <button type="button" class="btn btn-start btn-lg" onclick="startLearning()">Start</button>
         <button type="button" class="btn btn-warning btn-lg" onclick="showNext(false)">Bad</button>
@@ -191,8 +192,8 @@
                 }
             }
             if (currentIndex < cards.length) {
-                $('#question-text').text(cards[currentIndex].question);
-                $('#answer-text').text(cards[currentIndex].answer);
+                $('#question-text').text(cards[currentIndex].Question);
+                $('#answer-text').text(cards[currentIndex].Answer);
                 hideAnswer();
             }
         }
@@ -208,20 +209,20 @@
         }
 
         function editFlashcard() {
-            let newQuestion = prompt("Enter the updated question:", cards[currentIndex].question);
-            let newAnswer = prompt("Enter the updated answer:", cards[currentIndex].answer);
+            let newQuestion = prompt("Enter the updated question:", cards[currentIndex].Question);
+            let newAnswer = prompt("Enter the updated answer:", cards[currentIndex].Answer);
 
             if (newQuestion !== null && newAnswer !== null) {
-                cards[currentIndex].question = newQuestion;
-                cards[currentIndex].answer = newAnswer;
+                cards[currentIndex].Question = newQuestion;
+                cards[currentIndex].Answer = newAnswer;
                 $('#question-text').text(newQuestion);
                 $('#answer-text').text(newAnswer);
 
-                // Inform the server about the change
+              
                 $.post("/Home/EditCard", {
-                    id: cards[currentIndex].id,
-                    question: newQuestion,
-                    answer: newAnswer
+                    Id: cards[currentIndex].Id,
+                    Question: newQuestion,
+                    Answer: newAnswer
                 });
             }
         }
@@ -233,7 +234,7 @@
 
                 if (cards.length === 0) {
                     alert('No more flashcards available.');
-                    // Reset UI or navigate to another page
+               
                 } else {
                     if (currentIndex >= cards.length) {
                         currentIndex--;
@@ -241,8 +242,8 @@
                     showNext(true);
                 }
 
-                // Inform the server about the deletion
-                $.post("/Home/DeleteCard", { id: cardIdToDelete });
+           
+                $.post("/Home/DeleteCard", { Id: cardIdToDelete });
             }
         }
     </script>
