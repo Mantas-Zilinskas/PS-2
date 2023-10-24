@@ -1,13 +1,7 @@
 ﻿
 @using WebAplicationTestMVC.Utilities
 @model WebAplicationTestMVC.Models.StudySet
-@{
-    if (Model.StudySetName == null)
-    {
-        Model.StudySetName = "All flashcards.xlsx";
-    }
 
-}
 <!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
@@ -29,7 +23,7 @@
 </head>
 <body>
     <h2>
-        SetName: @Model.StudySetName.Substring(0, Model.StudySetName.Length - 5)
+        Set name: @Model.StudySetName.Substring(0, Model.StudySetName.Length - 5)
     </h2>
 
     <hr class="soften" />

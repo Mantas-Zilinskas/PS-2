@@ -58,5 +58,14 @@ namespace WebAplicationTestMVC.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult SearchStudySet(string studySetName)
+        {
+            //lambda expression
+            var foundStudySets = _sqliteService.GetStudySets()
+                                   .Where(s => s.StudySetName.Contains(studySetName, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return View("Index", foundStudySets);
+        }
     }
 }

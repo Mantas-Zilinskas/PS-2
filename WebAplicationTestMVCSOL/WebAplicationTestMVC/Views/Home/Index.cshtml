@@ -15,11 +15,22 @@
         #myForm {
             display: none;
         }
+
+        #search{
+            text-align: end;
+        }
     </style>
 </head>
 <body>
     <div>
-        <p>Study sets</p>
+            <h2>Study sets</h2>
+
+        <form id="search" method="post" asp-controller="Home" asp-action="SearchStudySet">
+            <input type="text" name="studySetName" placeholder="Search for study set" />
+            <button type="submit" class="btn btn-success">Search Study Set</button>
+        </form>
+
+
     </div>
 
     <div>
@@ -32,7 +43,8 @@
         </form>
     </div>
 
-    <form id="createStudySetForm" method="post" asp-controller="Home" asp-action="CreateStudySet">
+    <form 
+        m" method="post" asp-controller="Home" asp-action="CreateStudySet">
         <input type="text" name="studySetName" placeholder="Enter study set name" required />
         <button type="submit" class="btn btn-success">Create Study Set</button>
     </form>
