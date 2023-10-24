@@ -19,16 +19,19 @@
         #search{
             text-align: end;
         }
+        
     </style>
 </head>
 <body>
     <div>
             <h2>Study sets</h2>
 
-        <form id="search" method="post" asp-controller="Home" asp-action="SearchStudySet">
-            <input type="text" name="studySetName" placeholder="Search for study set" />
-            <button type="submit" class="btn btn-success">Search Study Set</button>
+        <form class="search-container" method="post" asp-controller="Home" asp-action="SearchStudySet">
+            <input class="search-input" type="text" name="studySetName" placeholder="Search for study set" />
+            <button class="search-button" type="submit">&#x1F50E;&#xFE0E;</button>
         </form>
+        <br >
+        <br />
 
 
     </div>
@@ -42,6 +45,9 @@
             <button type="submit" class="btn btn-warning">Import</button>
         </form>
     </div>
+    
+    <br>
+    <br />
 
     <form 
         m" method="post" asp-controller="Home" asp-action="CreateStudySet">
