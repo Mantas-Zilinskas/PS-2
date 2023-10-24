@@ -55,7 +55,6 @@ namespace WebAplicationTestMVC.Controllers
             return Ok(formattedDuration);
         }
 
-
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {
@@ -65,19 +64,16 @@ namespace WebAplicationTestMVC.Controllers
 
             Flashcard newFlashcard = new Flashcard(flashcardId, question, answer);
 
-
             if (_sqliteService.FlashcardExists(newFlashcard))
             {
                 ViewBag.ErrorMessage = "Such Flashcard already exists";
-                return View("AddFlashcard", new StudySet(studySetName));
             }
             else
             {
-               
                 _sqliteService.InsertFlashcard(question, answer, studySetName); 
-
-                return View("AddFlashcard", new StudySet(studySetName));
             }
+
+            return View("AddFlashcard", new StudySet(studySetName));
         }
 
         [HttpPost]
@@ -89,7 +85,6 @@ namespace WebAplicationTestMVC.Controllers
              
                 Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer);
                 _sqliteService.InsertFlashcard(flashcard.Question, flashcard.Answer, studySetName); 
-
                
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
@@ -99,7 +94,5 @@ namespace WebAplicationTestMVC.Controllers
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
         }
-
-
     }
 }
