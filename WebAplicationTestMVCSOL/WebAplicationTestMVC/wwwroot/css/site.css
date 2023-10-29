@@ -161,3 +161,32 @@ button.btn.btn-info {
 header {
     background-color: #a8dadc;
 }
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.search-container {
+    display: flex;
+    justify-content: right;
+    width: 300px;
+    margin: 20px 0;
+}
+.search-button {
+    padding: 10px;
+    border: none;
+    background-color: #a8dadc;
+    color: white;
+    border-radius: 0 20px 20px 0; 
+    cursor: pointer;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    background-color: #a8dadc;
+    border: 1px solid #a8dadc;
+    border-radius: 20px 0 0 20px; /* Rounded corners on the left */
+}
+

@@ -3,7 +3,5 @@
     public struct DarkModeSettings
     {
         public bool IsDarkModeEnabled { get; set; }
-
     }
-
 }

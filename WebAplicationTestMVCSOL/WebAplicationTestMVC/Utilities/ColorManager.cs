@@ -15,8 +15,7 @@ namespace WebAplicationTestMVC.Utilities
                     studySet.Color = (StudySetColor)Enum.Parse(typeof(StudySetColor), color);
                 }
                 else
-                {
-                    
+                {                    
                     List<StudySetColor> usedColors = studySets.Select(s => s.Color).ToList();
                     List<StudySetColor> availableColors = Enum.GetValues(typeof(StudySetColor))
                         .Cast<StudySetColor>()

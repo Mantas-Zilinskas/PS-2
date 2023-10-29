@@ -1,5 +1,4 @@
-﻿﻿
-@{
+﻿@{
 }
 @model List<WebAplicationTestMVC.Models.Flashcard>
 
@@ -141,7 +140,6 @@
             showNext();
         }
 
-
         function sendStudyDurationToServer() {
             $.post("/Flashcards/LogStudyTime", {
                 startTime: studyStartTime.toISOString(),
@@ -151,7 +149,6 @@
                 alert(studyTime);
             });
         }
-
 
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -204,7 +201,6 @@
             }
         }
 
-
         function editFlashcard() {
             let newQuestion = prompt("Enter the updated question:", cards[currentIndex].Question);
             let newAnswer = prompt("Enter the updated answer:", cards[currentIndex].Answer);
@@ -238,7 +234,6 @@
                     }
                     showNext(true);
                 }
-
                 // Inform the server about the deletion
                 $.post("/Home/DeleteCard", { Id: cardIdToDelete });
             }

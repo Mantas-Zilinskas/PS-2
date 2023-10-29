@@ -7,10 +7,12 @@ a.navbar-brand {
     word-break: break-all;
     font-family: 'Pacifico', cursive;
     font-size: 30px;
+
 }
 
 a {
-  color: #0077cc;
+    color: #0077cc;
+
 }
 
 .btn-primary {

@@ -4,5 +4,4 @@
     {
         public TimeSpan Duration => EndTime - StartTime;
     }
-
 }

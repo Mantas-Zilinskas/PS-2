@@ -142,7 +142,6 @@
             showNext();
         }
 
-
         function sendStudyDurationToServer() {
             $.post("/Flashcards/LogStudyTime", {
                 startTime: studyStartTime.toISOString(),
@@ -152,7 +151,6 @@
                 alert(studyTime);
             });
         }
-
 
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -208,6 +206,7 @@
                 if (allGood) {
                     studyEndTime = new Date();
                     sendStudyDurationToServer();
+
                     return;
                 }
             }
@@ -223,7 +222,6 @@
                 sendStudyDurationToServer();
             }
         }
-
 
         function editFlashcard() {
             let newQuestion = prompt("Enter the updated question:", cards[currentIndex].Question);
@@ -257,11 +255,11 @@
                     }
                     showNext(true);
                 }
-
                
                 $.post("/Home/DeleteCard", { Id: cardIdToDelete });
             }
         }
     </script>
+
 </body>
 </html>

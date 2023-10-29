@@ -19,17 +19,11 @@ namespace WebAplicationTestMVC.Controllers
         {
            
             List<Flashcard> flashcards = _sqliteService.GetFlashcardsBySetName(studySetName);
-
           
             StudySet studySet = new StudySet(studySetName);
             studySet.Flashcards = flashcards;
 
             return View(studySet);
         }
-
-
-       
-
-        
     }
 }
