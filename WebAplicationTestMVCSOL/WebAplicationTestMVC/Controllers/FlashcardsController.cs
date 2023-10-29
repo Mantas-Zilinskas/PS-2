@@ -70,7 +70,7 @@ namespace WebAplicationTestMVC.Controllers
             }
             else
             {
-                _sqliteService.InsertFlashcard(question, answer, studySetName); 
+                _sqliteService.InsertFlashcard(flashcardId, question, answer, studySetName); 
             }
 
             return View("AddFlashcard", new StudySet(studySetName));
@@ -79,13 +79,14 @@ namespace WebAplicationTestMVC.Controllers
         [HttpPost]
         public IActionResult CreateFlashcard(string question, string answer, string studySetName)
         {
-           
+            var flashcardId = IdGenerator.GenerateId(question, answer);
+
             if (!string.IsNullOrEmpty(question) && !string.IsNullOrEmpty(answer))
             {
-             
+
                 Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer);
-                _sqliteService.InsertFlashcard(flashcard.Question, flashcard.Answer, studySetName); 
-               
+                _sqliteService.InsertFlashcard(flashcardId, question, answer, studySetName);
+
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
             else

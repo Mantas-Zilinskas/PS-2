@@ -46,13 +46,13 @@ namespace WebAplicationTestMVC.Utilities
             }
         }
 
-        public void InsertFlashcard(string question, string answer, string setName)
+        public void InsertFlashcard(string id, string question, string answer, string setName)
         {
             using (var conn = CreateConnection())
             {
                 var sqlite_cmd = conn.CreateCommand();
                 sqlite_cmd.CommandText = "INSERT INTO Flashcards (Id, Question, Answer, SetName) VALUES (@id, @question, @answer, @setName);";
-                sqlite_cmd.Parameters.AddWithValue("@id", Guid.NewGuid().ToString());
+                sqlite_cmd.Parameters.AddWithValue("@id", id);
                 sqlite_cmd.Parameters.AddWithValue("@question", question);
                 sqlite_cmd.Parameters.AddWithValue("@answer", answer);
                 sqlite_cmd.Parameters.AddWithValue("@setName", setName);
