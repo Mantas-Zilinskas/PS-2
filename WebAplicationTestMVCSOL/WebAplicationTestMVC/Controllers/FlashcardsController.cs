@@ -58,9 +58,9 @@ namespace WebAplicationTestMVC.Controllers
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {
-            _sqliteService.CreateTable(); 
+            _sqliteService.CreateTable();
 
-            var flashcardId = IdGenerator<string>.GenerateId(question, answer);
+            var flashcardId = IdGenerator.GenerateId(question, answer);
 
             Flashcard newFlashcard = new Flashcard(flashcardId, question, answer);
 
