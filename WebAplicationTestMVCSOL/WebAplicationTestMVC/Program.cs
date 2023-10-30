@@ -6,7 +6,9 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
-using WebAplicationTestMVC.Utilities; // Add this line if SQLiteService is in this namespace
+using Microsoft.EntityFrameworkCore; // Add this line for Entity Framework Core
+using WebAplicationTestMVC.Utilities;
+using WebAplicationTestMVC.Models; // Add this line for your DbContext
 
 namespace WebAplicationTestMVC
 {
@@ -18,52 +20,57 @@ namespace WebAplicationTestMVC
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureServices((hostContext, services) =>
-                    {
-                        services.AddDistributedMemoryCache(); // Use an appropriate distributed cache for production
-                        services.AddSession(options =>
-                        {
-                            options.IdleTimeout = TimeSpan.FromMinutes(30); 
-                            options.Cookie.HttpOnly = true;
-                            options.Cookie.IsEssential = true;
-                        });
+     Host.CreateDefaultBuilder(args)
+         .ConfigureWebHostDefaults(webBuilder =>
+         {
+             webBuilder.ConfigureServices((hostContext, services) =>
+             {
+                 services.AddDistributedMemoryCache(); 
+                 services.AddSession(options =>
+                 {
+                     options.IdleTimeout = TimeSpan.FromMinutes(30);
+                     options.Cookie.HttpOnly = true;
+                     options.Cookie.IsEssential = true;
+                 });
 
-                        // Add the necessary services here
-                        services.AddControllersWithViews();
-                        services.AddScoped<SQLiteService>(); // Add SQLiteService to the services
-                    })
-                    .Configure(app =>
-                    {
-                        var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
+                
+                 services.AddDbContext<ApplicationDbContext>(options =>
+                     options.UseSqlite(hostContext.Configuration.GetConnectionString("DefaultConnection")));
 
-                        // Check the environment to configure middleware
-                        if (env.IsDevelopment())
-                        {
-                            app.UseDeveloperExceptionPage();
-                        }
-                        else
-                        {
-                            app.UseExceptionHandler("/Home/Error");
-                            app.UseHsts();
-                        }
+                
+                 services.AddControllersWithViews();
+                 services.AddScoped<EntityFrameworkService>(); 
+             })
+             .Configure(app =>
+             {
+                 var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
 
-                        app.UseHttpsRedirection();
-                        app.UseStaticFiles();
-                        app.UseRouting();
-                        app.UseAuthorization();
+                
+                 if (env.IsDevelopment())
+                 {
+                     app.UseDeveloperExceptionPage();
+                 }
+                 else
+                 {
+                     app.UseExceptionHandler("/Home/Error");
+                     app.UseHsts();
+                 }
 
-                        app.UseSession();
+                 app.UseHttpsRedirection();
+                 app.UseStaticFiles();
+                 app.UseRouting();
+                 app.UseAuthorization();
 
-                        app.UseEndpoints(endpoints =>
-                        {
-                            endpoints.MapControllerRoute(
-                                name: "default",
-                                pattern: "{controller=Home}/{action=Index}/{id?}");
-                        });
-                    });
-                });
+                 app.UseSession();
+
+                 app.UseEndpoints(endpoints =>
+                 {
+                     endpoints.MapControllerRoute(
+                         name: "default",
+                         pattern: "{controller=Home}/{action=Index}/{id?}");
+                 });
+             });
+         });
+
     }
 }
