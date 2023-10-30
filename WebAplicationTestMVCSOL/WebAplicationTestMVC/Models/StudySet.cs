@@ -12,9 +12,5 @@ namespace WebAplicationTestMVC.Models
             StudySetName = studySetName;
             Flashcards = new List<Flashcard>(); 
         }
-
-  
-      
-
     }
 }

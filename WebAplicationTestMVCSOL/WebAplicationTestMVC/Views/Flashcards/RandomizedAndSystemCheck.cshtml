@@ -1,5 +1,4 @@
-﻿﻿
-@{
+﻿@{
 }
 @model List<WebAplicationTestMVC.Models.Flashcard>
 
@@ -10,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Flashcards</title>
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <style>
         .question-text {
@@ -140,7 +140,6 @@
             showNext();
         }
 
-
         function sendStudyDurationToServer() {
             $.post("/Flashcards/LogStudyTime", {
                 startTime: studyStartTime.toISOString(),
@@ -150,7 +149,6 @@
                 alert(studyTime);
             });
         }
-
 
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -203,7 +201,6 @@
             }
         }
 
-
         function editFlashcard() {
             let newQuestion = prompt("Enter the updated question:", cards[currentIndex].Question);
             let newAnswer = prompt("Enter the updated answer:", cards[currentIndex].Answer);
@@ -237,7 +234,6 @@
                     }
                     showNext(true);
                 }
-
                 // Inform the server about the deletion
                 $.post("/Home/DeleteCard", { Id: cardIdToDelete });
             }

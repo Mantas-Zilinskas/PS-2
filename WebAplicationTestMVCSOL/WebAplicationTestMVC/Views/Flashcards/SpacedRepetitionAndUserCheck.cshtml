@@ -2,7 +2,6 @@
 }﻿
 @model List<WebAplicationTestMVC.Models.Flashcard>
 
-
 <!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
@@ -10,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Flashcards</title>
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <style>
         .question-text {
@@ -69,7 +69,6 @@
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
         }
-
             .dropdown-content a {
                 color: black;
                 padding: 12px 16px;
@@ -86,10 +85,10 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container" id="decks">decks: </div>
     <hr class="soften" />
-
 
     <div id="bad-indicator" class="flashcard-content" style="background-color: red;"></div>
     <div id="good-indicator" class="flashcard-content" style="background-color: green;"></div>
@@ -113,7 +112,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="flashcard-footer">
         <button type="button" class="btn btn-start btn-lg" onclick="startLearning()">Start</button>
@@ -144,7 +142,6 @@
             showNext();
         }
 
-
         function sendStudyDurationToServer() {
             $.post("/Flashcards/LogStudyTime", {
                 startTime: studyStartTime.toISOString(),
@@ -161,7 +158,6 @@
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
-
 
         function showNext(isGood) {
             if (isGood) {
@@ -241,7 +237,6 @@
                     }
                     showNext(true);
                 }
-
            
                 $.post("/Home/DeleteCard", { Id: cardIdToDelete });
             }

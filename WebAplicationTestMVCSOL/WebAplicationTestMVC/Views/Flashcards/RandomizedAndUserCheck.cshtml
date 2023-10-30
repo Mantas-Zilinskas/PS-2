@@ -1,6 +1,5 @@
 ﻿@model List<WebAplicationTestMVC.Models.Flashcard>
 
-
 <!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
@@ -8,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Flashcards</title>
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <style>
         .question-text {
@@ -129,13 +129,10 @@
         let studyStartTime;
         let studyEndTime;
         let isWaitingForGood = false;
-
-
        
         function setFlashcards(flashcards) {
             cards = flashcards;
         }
-
       
         setFlashcards(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
 
@@ -147,7 +144,6 @@
             currentIndex = 0;
             showNext();
         }
-
 
         function sendStudyDurationToServer() {
             $.post("/Flashcards/LogStudyTime", {
@@ -165,6 +161,7 @@
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
+
         function showNext(isGood) {
             if (isGood) {
                 currentIndex++;
@@ -204,7 +201,6 @@
                 cards[currentIndex].Answer = newAnswer;
                 $('#question-text').text(newQuestion);
                 $('#answer-text').text(newAnswer);
-
                
                 $.post("/Home/EditCard", {
                     Id: cards[currentIndex].Id,
@@ -228,8 +224,7 @@
                     }
                     showNext(true);
                 }
-
-               
+                
                 $.post("/Home/DeleteCard", { id: cardIdToDelete });
             }
         }

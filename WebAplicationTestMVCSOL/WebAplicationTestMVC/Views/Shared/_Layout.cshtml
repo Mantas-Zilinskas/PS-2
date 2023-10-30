@@ -4,12 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Flashcards</title>
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebApplikacija.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" /> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Pacifico&family=Poppins:ital@1&family=Roboto+Condensed:ital@1&family=Roboto:wght@300&display=swap" rel="stylesheet">
 
     <!-- Dark Mode Styles -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
 </head>
 <body class="@ViewData["DarkModeClass"]">
     <header>
@@ -63,9 +65,7 @@
   
     @await RenderSectionAsync("Scripts", required: false)
     <script>
-
-
- 
+        
         function toggleDarkMode() {
             const body = document.body;
             const isDarkModeEnabled = body.classList.toggle("dark-mode");
@@ -73,7 +73,6 @@
 
             localStorage.setItem("darkModeEnabled", isDarkModeEnabled);
         }
-
  
         document.addEventListener("DOMContentLoaded", function () {
             const body = document.body;
@@ -86,11 +85,9 @@
             }
         });
 
-
         document.getElementById("darkModeButton").addEventListener("click", toggleDarkMode);
     </script>
-    <script>
-        
+    <script>        
         $(document).ready(function () {
             $("#createStudySetLink").click(function (e) {
                 e.preventDefault(); 
@@ -99,7 +96,6 @@
 
             $("#saveStudySet").click(function () {
                 var studySetName = $("#name").val();
-
             });
         });
     </script>
