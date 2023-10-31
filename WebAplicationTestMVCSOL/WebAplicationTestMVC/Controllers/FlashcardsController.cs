@@ -56,7 +56,6 @@ namespace WebAplicationTestMVC.Controllers
             return Ok(formattedDuration);
         }
 
-
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {
@@ -96,6 +95,7 @@ namespace WebAplicationTestMVC.Controllers
                 Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer, studySetName);
                 _dbContextService.InsertFlashcard(flashcard.Question, flashcard.Answer, flashcard.SetName);
 
+               
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
             else
@@ -103,7 +103,7 @@ namespace WebAplicationTestMVC.Controllers
                 ModelState.AddModelError("", "Please enter both a question and an answer.");
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
-        }
+
 
 
 

@@ -101,7 +101,7 @@ namespace WebAplicationTestMVC.Utilities
 
 /*using System.Data.SQLite;
 using WebAplicationTestMVC.Models;
-//lets try to avoid editing this code
+
 namespace WebAplicationTestMVC.Utilities
 {
     public class SQLiteService
@@ -147,8 +147,6 @@ namespace WebAplicationTestMVC.Utilities
             }
         }
 
-
-
         public void InsertFlashcard(string question, string answer, string setName)
         {
             using (var conn = CreateConnection())
@@ -162,8 +160,6 @@ namespace WebAplicationTestMVC.Utilities
                 sqlite_cmd.ExecuteNonQuery();
             }
         }
-
-
        
         public void InsertStudySet(string studySetName)
         {
@@ -189,7 +185,7 @@ namespace WebAplicationTestMVC.Utilities
                 return count > 0;
             }
         }
-     
+        
         public List<Flashcard> GetFlashcardsBySetName(string setName)
         {
             using (var conn = CreateConnection())
@@ -236,7 +232,6 @@ namespace WebAplicationTestMVC.Utilities
                 return studySets;
             }
         }
-
        
     }
 
