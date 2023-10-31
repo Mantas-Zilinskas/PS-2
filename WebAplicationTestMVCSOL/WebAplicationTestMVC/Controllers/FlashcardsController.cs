@@ -16,28 +16,28 @@ namespace WebAplicationTestMVC.Controllers
 
         public IActionResult RandomizedAndSystemCheck(string setName)
         {
-          
+
             List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
         public IActionResult RandomizedAndUserCheck(string setName)
         {
-          
+
             List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
         public IActionResult SpacedRepetitionAndSystemCheck(string setName)
         {
-          
+
             List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
         public IActionResult SpacedRepetitionAndUserCheck(string setName)
         {
-           
+
             List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
@@ -65,7 +65,7 @@ namespace WebAplicationTestMVC.Controllers
             var studySet = _dbContextService.GetStudySetByName(studySetName);
             if (studySet != null)
             {
-                
+
                 var newFlashcard = new Flashcard(flashcardId, question, answer, studySetName)
                 {
                     StudySet = studySet
@@ -91,11 +91,11 @@ namespace WebAplicationTestMVC.Controllers
         {
             if (!string.IsNullOrEmpty(question) && !string.IsNullOrEmpty(answer))
             {
-                
+
                 Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer, studySetName);
                 _dbContextService.InsertFlashcard(flashcard.Question, flashcard.Answer, flashcard.SetName);
 
-               
+
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
             else
@@ -107,5 +107,6 @@ namespace WebAplicationTestMVC.Controllers
 
 
 
+        }
     }
 }

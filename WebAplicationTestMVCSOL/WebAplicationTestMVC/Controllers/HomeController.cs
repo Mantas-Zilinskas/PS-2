@@ -60,7 +60,7 @@ namespace WebAplicationTestMVC.Controllers
         public IActionResult SearchStudySet(string studySetName)
         {
             //lambda expression
-            var foundStudySets = _sqliteService.GetStudySets()
+            var foundStudySets = _dbContextService.GetStudySets()
                                    .Where(s => s.StudySetName.Contains(studySetName, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return View("Index", foundStudySets);

@@ -6,8 +6,7 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class StudySetController : Controller
     {
-        private readonly IWebHostEnvironment _environment;
-
+        
         private readonly EntityFrameworkService _dbContextService;
 
         public StudySetController(EntityFrameworkService dbContextService)
