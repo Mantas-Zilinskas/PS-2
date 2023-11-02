@@ -102,13 +102,19 @@
             </div>
         </div>
         <div id="three-items" style="display:none;">
-            <div id="question" class="flashcard-content">
-                <div id="question-text"></div>
-                <button type="button" class="btn btn-primary btn-lg" onclick="showAnswer()">Show answer</button>
-            </div>
-            <div id="answer-content" class="flashcard-content">
-                <button type="button" class="btn btn-primary btn-lg" onclick="hideAnswer()">Hide answer</button>
-                <div id="answer-text"></div>
+            <div class="row">
+                <h3 class="col-sm-1" align="right" id="time"></h3>
+                <div class="col-sm-10">
+                    <div id="question" class="flashcard-content">
+                        <div id="question-text"></div>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="showAnswer()">Show answer</button>
+                    </div>
+                    <div id="answer-content" class="flashcard-content">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="hideAnswer()">Hide answer</button>
+                        <div id="answer-text"></div>
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
             </div>
         </div>
     </div>
@@ -132,6 +138,20 @@
         let studyEndTime;
         let isWaitingForGood = false;
         cards.forEach(card => card.goodCount = 0);
+        let time = 0;
+        let flag = true;
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function count() {
+            while (flag) {
+                time++;
+                $('#time').text(time);
+                await sleep(1000);
+            }
+        }
 
         function startLearning() {
             studyStartTime = new Date();
@@ -140,6 +160,7 @@
             $('.btn-warning, .btn-success, #three-items').show();
             currentIndex = 0;
             showNext();
+            count();
         }
 
         function sendStudyDurationToServer() {
@@ -147,7 +168,8 @@
                 startTime: studyStartTime.toISOString(),
                 endTime: studyEndTime.toISOString()
             }).done(function (data) {
-                const studyTime = 'You have finished the cards. Total study time: ' + data;
+                //const studyTime = 'You have finished the cards. Total study time: ' + data;
+                const studyTime = 'You have finished the cards.'
                 alert(studyTime);
             });
         }
@@ -180,6 +202,7 @@
                 const allGood = cards.every(card => card.goodCount >= 2);
 
                 if (allGood) {
+                    flag = false;
                     studyEndTime = new Date();
                     sendStudyDurationToServer();
                     return; 

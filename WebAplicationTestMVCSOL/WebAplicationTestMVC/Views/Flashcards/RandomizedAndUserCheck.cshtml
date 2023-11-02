@@ -79,7 +79,7 @@
                     background-color: #f1f1f1;
                 }
 
-        #three-items, .btn-warning, .btn-success {
+        #three-items, #success-button, .btn-warning {
             display: none;
         }
     </style>
@@ -100,13 +100,19 @@
             </div>
         </div>
         <div id="three-items" style="display:none;">
-            <div id="question" class="flashcard-content">
-                <div id="question-text"></div>
-                <button type="button" class="btn btn-primary btn-lg" onclick="showAnswer()">Show answer</button>
-            </div>
-            <div id="answer-content" class="flashcard-content">
-                <button type="button" class="btn btn-primary btn-lg" onclick="hideAnswer()">Hide answer</button>
-                <div id="answer-text"></div>
+            <div class="row">
+                <h3 class="col-sm-1" align="right" id="time"></h3>
+                <div class="col-sm-10"> 
+                    <div id="question" class="flashcard-content">
+                        <div id="question-text"></div>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="showAnswer()">Show answer</button>
+                    </div>
+                    <div id="answer-content" class="flashcard-content">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="hideAnswer()">Hide answer</button>
+                        <div id="answer-text"></div>
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
             </div>
         </div>
     </div>
@@ -114,7 +120,7 @@
     <div class="flashcard-footer">
         <button type="button" class="btn btn-start btn-lg" onclick="startLearning()">Start</button>
         <button type="button" class="btn btn-warning btn-lg" onclick="showNext(false)">Bad</button>
-        <button type="button" class="btn btn-success btn-lg" onclick="showNext(true)">Good</button>
+        <button type="button" class="btn btn-success btn-lg" id="success-button" onclick="showNext(true)">Good</button>
     </div>
 
     <hr class="soften" />
@@ -129,7 +135,21 @@
         let studyStartTime;
         let studyEndTime;
         let isWaitingForGood = false;
-       
+        let time = 0;
+        let flag = true;
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function count() {
+            while (flag) {
+                time++;
+                $('#time').text(time);
+                await sleep(1000);
+            }
+        }
+
         function setFlashcards(flashcards) {
             cards = flashcards;
         }
@@ -140,9 +160,10 @@
             studyStartTime = new Date();
             shuffle(cards);
             $('.btn-start').hide();
-            $('.btn-warning, .btn-success, #three-items').show();
+            $('.btn-warning, #success-button, #three-items').show();
             currentIndex = 0;
             showNext();
+            count();
         }
 
         function sendStudyDurationToServer() {
@@ -150,7 +171,8 @@
                 startTime: studyStartTime.toISOString(),
                 endTime: studyEndTime.toISOString()
             }).done(function (data) {
-                const studyTime = 'You have finished the cards. Total study time: ' + data;
+                //const studyTime = 'You have finished the cards. Total study time: ' + data;
+                const studyTime = 'You have finished the cards.'
                 alert(studyTime); 
             });
         }
@@ -176,6 +198,7 @@
                 $('#answer-text').text(cards[currentIndex].Answer);
                 hideAnswer();
             } else {
+                flag = false;
                 studyEndTime = new Date();
                 sendStudyDurationToServer();
             }
