@@ -1,29 +1,27 @@
-﻿namespace WebAplicationTestMVC.Models
-{
-    public class Flashcard : IEquatable<Flashcard>
-    {
-        public Flashcard(string id, string question, string answer)
-        {
-            this.Id = id;
-            this.Question = question;
-            this.Answer = answer;
-        }
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-        public string Id { get; set; } // Add the Id property
+namespace WebAplicationTestMVC.Models
+{
+    public class Flashcard
+    {
+        public string Id { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
+        public string SetName { get; set; }
 
-        public bool Equals(Flashcard otherCard)
+        
+        public int StudySetId { get; set; }
+
+        
+        [ForeignKey("StudySetId")]
+        public StudySet StudySet { get; set; }
+
+        public Flashcard(string id, string question, string answer, string setName)
         {
-            if (otherCard == null)
-                return false;
-
-            if (Id == otherCard.Id && Question == otherCard.Question && Answer == otherCard.Answer)
-            {
-                return true;
-            }
-            else
-                return false;
+            Id = id;
+            Question = question;
+            Answer = answer;
+            SetName = setName;
         }
     }
 }

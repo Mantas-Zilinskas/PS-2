@@ -7,28 +7,26 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly SQLiteService _sqliteService;
 
-        public HomeController(SQLiteService sqliteService)
+        private readonly EntityFrameworkService _dbContextService;
+
+        public HomeController(EntityFrameworkService dbContextService)
         {
-            _sqliteService = sqliteService;
+            _dbContextService = dbContextService;
         }
+
+
+
 
         public IActionResult CreateStudySet(string studySetName)
         {
-           
-            _sqliteService.InsertStudySet(studySetName);
-
-          
+            _dbContextService.InsertStudySet(studySetName);
             return RedirectToAction("Index");
         }
 
         public IActionResult AddStudySet(string studySetName)
         {
-           
-            _sqliteService.InsertStudySet(studySetName);
-
-          
+            _dbContextService.InsertStudySet(studySetName);
             return RedirectToAction("Index");
         }
 
@@ -42,7 +40,7 @@ namespace WebAplicationTestMVC.Controllers
         public IActionResult Index()
         {
            
-            List<StudySet> studySets = _sqliteService.GetStudySets();
+            List<StudySet> studySets = _dbContextService.GetStudySets();
             ColorManager.AssignUniqueColor(studySets, HttpContext);
 
             return View(studySets);
@@ -62,7 +60,7 @@ namespace WebAplicationTestMVC.Controllers
         public IActionResult SearchStudySet(string studySetName)
         {
             //lambda expression
-            var foundStudySets = _sqliteService.GetStudySets()
+            var foundStudySets = _dbContextService.GetStudySets()
                                    .Where(s => s.StudySetName.Contains(studySetName, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return View("Index", foundStudySets);

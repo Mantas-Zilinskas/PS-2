@@ -6,24 +6,27 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class StudySetController : Controller
     {
-        private readonly IWebHostEnvironment _environment;
-        private readonly SQLiteService _sqliteService;
+        
+        private readonly EntityFrameworkService _dbContextService;
 
-        public StudySetController(IWebHostEnvironment environment, SQLiteService sqliteService)
+        public StudySetController(EntityFrameworkService dbContextService)
         {
-            _environment = environment;
-            _sqliteService = sqliteService;
+            _dbContextService = dbContextService;
         }
 
         public IActionResult StudySets(string studySetName)
-        {
-           
-            List<Flashcard> flashcards = _sqliteService.GetFlashcardsBySetName(studySetName);
-          
-            StudySet studySet = new StudySet(studySetName);
-            studySet.Flashcards = flashcards;
+    {
+        List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(studySetName);
 
-            return View(studySet);
-        }
+        StudySet studySet = new StudySet(studySetName);
+        studySet.Flashcards = flashcards;
+
+        return View(studySet);
+    }
+
+
+       
+
+        
     }
 }
