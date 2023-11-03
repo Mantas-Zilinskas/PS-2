@@ -6,38 +6,39 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class FlashcardsController : Controller
     {
-        private readonly SQLiteService _sqliteService;
+        private readonly EntityFrameworkService _dbContextService;
 
-        public FlashcardsController(SQLiteService sqliteService)
+
+        public FlashcardsController(EntityFrameworkService dbContextService)
         {
-            _sqliteService = sqliteService;
+            _dbContextService = dbContextService;
         }
 
         public IActionResult RandomizedAndSystemCheck(string setName)
         {
-          
-            List<Flashcard> flashcards = _sqliteService.GetFlashcardsBySetName(setName);
+
+            List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
         public IActionResult RandomizedAndUserCheck(string setName)
         {
-          
-            List<Flashcard> flashcards = _sqliteService.GetFlashcardsBySetName(setName);
+
+            List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
         public IActionResult SpacedRepetitionAndSystemCheck(string setName)
         {
-          
-            List<Flashcard> flashcards = _sqliteService.GetFlashcardsBySetName(setName);
+
+            List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
         public IActionResult SpacedRepetitionAndUserCheck(string setName)
         {
-           
-            List<Flashcard> flashcards = _sqliteService.GetFlashcardsBySetName(setName);
+
+            List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
@@ -58,34 +59,43 @@ namespace WebAplicationTestMVC.Controllers
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {
-            _sqliteService.CreateTable(); 
+            _dbContextService.CreateTable();
 
             var flashcardId = IdGenerator<string>.GenerateId(question, answer);
-
-            Flashcard newFlashcard = new Flashcard(flashcardId, question, answer);
-
-            if (_sqliteService.FlashcardExists(newFlashcard))
+            var studySet = _dbContextService.GetStudySetByName(studySetName);
+            if (studySet != null)
             {
-                ViewBag.ErrorMessage = "Such Flashcard already exists";
+
+                var newFlashcard = new Flashcard(flashcardId, question, answer, studySetName)
+                {
+                    StudySet = studySet
+                };
+
+                _dbContextService.InsertFlashcard(newFlashcard.Question, newFlashcard.Answer, newFlashcard.SetName);
+                return View("AddFlashcard", new StudySet(studySetName));
             }
             else
             {
-                _sqliteService.InsertFlashcard(question, answer, studySetName); 
+                ViewBag.ErrorMessage = "StudySet not found";
+                return View("AddFlashcard", new StudySet(studySetName));
             }
 
-            return View("AddFlashcard", new StudySet(studySetName));
         }
+
+
+
+
 
         [HttpPost]
         public IActionResult CreateFlashcard(string question, string answer, string studySetName)
         {
-           
             if (!string.IsNullOrEmpty(question) && !string.IsNullOrEmpty(answer))
             {
-             
-                Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer);
-                _sqliteService.InsertFlashcard(flashcard.Question, flashcard.Answer, studySetName); 
-               
+
+                Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer, studySetName);
+                _dbContextService.InsertFlashcard(flashcard.Question, flashcard.Answer, flashcard.SetName);
+
+
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
             else
@@ -93,6 +103,10 @@ namespace WebAplicationTestMVC.Controllers
                 ModelState.AddModelError("", "Please enter both a question and an answer.");
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
+
+
+
+
         }
     }
 }
