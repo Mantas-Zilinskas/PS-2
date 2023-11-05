@@ -35,39 +35,56 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title" align="center">Configure study mode</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
+                 <div class="modal-body">
+                    <p></p>
+                </div> 
                 <div class="checking-site">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="studyMode" id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Spaced Repetition
-                        </label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6>Choose flashcard mode:</h6>
+                        </div>
+                        <div class="col-sm-6">
+                            <h6>Choose Validation mode:</h6>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="studyMode" id="spaced">
+                                <label class="form-check-label" for="spaced">
+                                    Spaced Repetition
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="studyMode" id="randomized" checked>
+                                <label class="form-check-label" for="randomized">
+                                    Randomised Flashcards
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="answerMode" id="system" checked>
+                                <label class="form-check-label" for="system">
+                                    Auto Answer Check
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="answerMode" id="user" checked>
+                                <label class="form-check-label" for="user">
+                                    I'll do it by my self
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="studyMode" id="flexRadioDefault2" checked>
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            Randomised Flashcards
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="answerMode" id="flexRadioDefault3" checked>
-                        <label class="form-check-label" for="flexRadioDefault3">
-                            Auto Answer Check
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="answerMode" id="flexRadioDefault4" checked>
-                        <label class="form-check-label" for="flexRadioDefault4">
-                            I'll do it by my self
-                        </label>
-                    </div>
+                    <br>
+                    <p>Flashcard time limit (leave blank or 0 to disable)</p>
+                    <input type="number" min="0" id="time">
+                    <br>
+                    <br>
                     <div class="modal-footer">
                         <button type="button" id="saveChangesBtn" class="btn btn-primary">Save changes</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -80,20 +97,23 @@
     <script>
         $(document).ready(function () {
             $('#saveChangesBtn').on('click', function () {
+
                 var studyMode = $('input[name="studyMode"]:checked').attr('Id');
                 var answerMode = $('input[name="answerMode"]:checked').attr('Id');
+                var time = document.getElementById("time").value;
 
-                if ((studyMode === 'flexRadioDefault1') && (answerMode === 'flexRadioDefault3')) {
-                    window.location.href = '@Url.Action("SpacedRepetitionAndSystemCheck", "Flashcards", new { setName = Model.StudySetName})';
-
-                } else if ((studyMode === 'flexRadioDefault2') && (answerMode === 'flexRadioDefault3')) {
-                    window.location.href = '@Url.Action("RandomizedAndSystemCheck", "Flashcards",new { setName = Model.StudySetName} )';
-
-                } else if ((studyMode === 'flexRadioDefault1') && (answerMode === 'flexRadioDefault4')) {
-                    window.location.href = '@Url.Action("SpacedRepetitionAndUserCheck", "Flashcards",new { setName = Model.StudySetName} )';
-
+                if ((studyMode === 'spaced') && (answerMode === 'system')) {
+                    var url = "/Flashcards/SpacedRepetitionAndSystemCheck?setName=" + '@Model.StudySetName' + "&time=" + time;
+                    window.location.href = url;
+                } else if ((studyMode === 'randomized') && (answerMode === 'system')) {
+                    var url = "/Flashcards/RandomizedAndSystemCheck?setName=" + '@Model.StudySetName' + "&time=" + time;
+                    window.location.href = url;
+                } else if ((studyMode === 'spaced') && (answerMode === 'user')) {
+                    var url = "/Flashcards/SpacedRepetitionAndUserCheck?setName=" + '@Model.StudySetName' + "&time=" + time;
+                    window.location.href = url;
                 } else {
-                    window.location.href = '@Url.Action("RandomizedAndUserCheck", "Flashcards", new { setName = Model.StudySetName})';
+                    var url = "/Flashcards/RandomizedAndUserCheck?setName=" + '@Model.StudySetName' + "&time=" + time;
+                    window.location.href = url;
                 }
 
                 $('#DataSettings').modal('hide');
