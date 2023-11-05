@@ -13,14 +13,6 @@ namespace WebAplicationTestMVC.Controllers
             _dbContextService = dbContextService;
         }
 
-       /* public IActionResult PlayFlashcards(string setName, int viewMode, int time)
-        {
-            ViewBag.viewMode = viewMode;
-            ViewBag.time = time;
-            List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
-            return View(flashcards);
-        }*/
-
         public IActionResult RandomizedAndSystemCheck(string setName, int time)
         {
             ViewBag.time = time;
