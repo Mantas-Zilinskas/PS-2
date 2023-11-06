@@ -101,15 +101,22 @@
                 <a style="color:red" href="#" onclick="deleteFlashcard()">Ignore this flashcard</a>
             </div>
         </div>
-        <div id="three-items" style="display:none;">
-            <div id="question" class="flashcard-content">
-                <div id="question-text"></div>
+        <div class="row">
+            <div align="left" class="col-sm-2" style="margin-left: 20px">
+                <h5 id="time"></h5>
+                <h5 id="card-time"></h5>
             </div>
-            <div id="answer-content" class="flashcard-content">
-                <h1 id="answer-status"></h1>
-                <div id="answer-text"></div>
-                <div id="your-answer"></div>
+            <div id="three-items" style="display:none;" class="col-sm-8">
+                <div id="question" class="flashcard-content">
+                    <div id="question-text"></div>
+                </div>
+                <div id="answer-content" class="flashcard-content">
+                    <h1 id="answer-status"></h1>
+                    <div id="answer-text"></div>
+                    <div id="your-answer"></div>
+                </div>
             </div>
+            <div class="col-sm-2"></div>
         </div>
     </div>
 
@@ -126,27 +133,63 @@
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/flashcard-ahhh.js"></script>
     <script>
+        let cardTime = @ViewBag.time;
+        var studyStartTime;
+        let time = 0;
+        let cardFlag = true;
+        let flag = true;
         let currentIndex = -1;
         let cards = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
-        let studyStartTime;
-        let studyEndTime;
 
         function startLearning() {
-            studyStartTime = new Date(); 
-            shuffle(cards);
-            $('.btn-start').hide();
-            $('.btn-submit, #three-items, #answer-Input').show();
-            currentIndex = 0;
-            showNext();
+            $('#time').text("Total time: 0");
+            $.post("/Flashcards/getCurrentTime").done(function (data) { 
+                studyStartTime = data;
+                shuffle(cards);
+                $('.btn-start').hide();
+                $('.btn-submit, #three-items, #answer-Input').show();
+                currentIndex = 0;
+                count();
+
+                if (cardTime > 0) { 
+                    $('#card-time').text("remaining time: " + cardTime);
+                    decrement();
+                }
+
+                showNext();
+            });
         }
 
-        function sendStudyDurationToServer() {
-            $.post("/Flashcards/LogStudyTime", {
-                startTime: studyStartTime.toISOString(),
-                endTime: studyEndTime.toISOString()
+        async function count() {
+            $.post("/Flashcards/CountUp", {
+                startTime: studyStartTime
             }).done(function (data) {
-                const studyTime = 'You have finished the cards. Total study time: ' + data;
-                alert(studyTime);
+                time = data;
+                $('#time').text("Total time: " + time);
+                if (flag) { 
+                    count();
+                }
+            });
+        }
+
+        async function decrement() {
+            $.post("/Flashcards/CountDown", {
+                time: cardTime
+            }).done(function (data) {
+                if (flag && cardFlag) {
+                    if (data < 0) { 
+                        let badCard = cards[currentIndex];
+                        cards.push(badCard);
+                        cards.splice(currentIndex, 1);
+                        showNext();
+                        cardTime = @ViewBag.time;
+
+                    }else
+                         cardTime = data;
+
+                    $('#card-time').text("remaining time: " + cardTime);
+                        decrement();
+                }
             });
         }
 
@@ -157,13 +200,16 @@
             }
         }
 
-        function checkAnswer() {
+        function checkAnswer(answer = false) {
 
             var userInput = document.getElementById("answer-Input").value;
 
             if (userInput != "") {
 
+                cardFlag = false;
+
                 if (0 == userInput.localeCompare(cards[currentIndex].Answer)) {
+                    cardTime = @ViewBag.time;
                     $('#answer-status').text("Correct");
                     $('#answer-status').css({ "color": "green" });
                     $('#answer-text').hide();
@@ -183,10 +229,21 @@
                 $('#your-answer').show();
                 $('.btn-submit, #answer-Input').hide();
                 $('.btn-next').show();
+                if (currentIndex >= cards.length) {
+                    flag = false;
+                }
             }
         }
 
         function showNext() {
+
+            if (@ViewBag.time > 0 && cardFlag == false) {
+                cardTime = @ViewBag.time;
+                cardFlag = true;
+                $('#card-time').text("remaining time: " + cardTime);
+                decrement();
+            }
+
             $('#answer-content').hide();
 
             if (currentIndex < cards.length) {
@@ -196,8 +253,9 @@
                 $('.btn-next, #your-answer').hide();
                 document.getElementById("answer-Input").value = "";
             } else {
-                studyEndTime = new Date();
-                sendStudyDurationToServer();
+                flag = false;
+                const studyTime = 'You have finished the cards.'
+                alert(studyTime);
             }
         }
 

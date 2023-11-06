@@ -8,36 +8,35 @@ namespace WebAplicationTestMVC.Controllers
     {
         private readonly EntityFrameworkService _dbContextService;
 
-
         public FlashcardsController(EntityFrameworkService dbContextService)
         {
             _dbContextService = dbContextService;
         }
 
-        public IActionResult RandomizedAndSystemCheck(string setName)
+        public IActionResult RandomizedAndSystemCheck(string setName, int time)
         {
-
+            ViewBag.time = time;
             List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
-        public IActionResult RandomizedAndUserCheck(string setName)
+        public IActionResult RandomizedAndUserCheck(string setName, int time)
         {
-
+            ViewBag.time = time;
             List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
-        public IActionResult SpacedRepetitionAndSystemCheck(string setName)
+        public IActionResult SpacedRepetitionAndSystemCheck(string setName, int time)
         {
-
+            ViewBag.time = time;
             List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
 
-        public IActionResult SpacedRepetitionAndUserCheck(string setName)
+        public IActionResult SpacedRepetitionAndUserCheck(string setName, int time)
         {
-
+            ViewBag.time = time;
             List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
             return View(flashcards);
         }
@@ -48,12 +47,25 @@ namespace WebAplicationTestMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult LogStudyTime(DateTime startTime, DateTime endTime)
-        {
-            var studySession = new StudySessionTime(startTime, endTime);
-            string formattedDuration = studySession.FormatDuration();
+        public IActionResult getCurrentTime (){
+            return Ok(DateTime.Now.ToString());
+        }
 
-            return Ok(formattedDuration);
+        [HttpPost]
+        public IActionResult CountUp(DateTime startTime) {
+
+            Thread.Sleep(1000);
+            var time = new StudySessionTime(startTime, DateTime.Now);
+
+            return Ok((int)time.Duration.TotalSeconds);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CountDown(int time)
+        {
+            await Task.Delay(1000);
+            time--;
+            return Ok(time);
         }
 
         [HttpPost]
@@ -82,10 +94,6 @@ namespace WebAplicationTestMVC.Controllers
 
         }
 
-
-
-
-
         [HttpPost]
         public IActionResult CreateFlashcard(string question, string answer, string studySetName)
         {
@@ -103,10 +111,6 @@ namespace WebAplicationTestMVC.Controllers
                 ModelState.AddModelError("", "Please enter both a question and an answer.");
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
-
-
-
-
         }
     }
 }
