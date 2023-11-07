@@ -22,7 +22,6 @@
             text-align: end;
         }
 
-
     </style>
 </head>
 <body>
@@ -34,6 +33,21 @@
         </form>
     </div>
 
+    <div class="col-md-6 text-end">
+        <form class="filter-container" method="post" asp-controller="StudySet" asp-action="GetFilteredStudySets">
+            <select id="filterDropdown" class="form-control">
+                <option value="all">All</option>
+                <option value="lastWeek">Last Week</option>
+                <option value="lastMonth">Last Month</option>
+                <option value="newerToOlder">Newer to Older</option>
+                <option value="olderToNewer">Older to Newer</option>
+            </select>
+        </form>
+
+    </div>
+
+    <br>
+    <br />
 
     <div>
         <button id="createStudySet" class="btn btn-info">+ Create Study Set</button>
@@ -82,6 +96,18 @@
                 var form = $("#myForm");
                 form.toggle();
             });
+
+            $("#filterDropdown").on('change', function () {
+                var selectedFilter = $(this).val();
+                applyFilter(selectedFilter);
+            });
+
+            function applyFilter(filterType) {
+                $.post('/StudySet/GetFilteredStudySets', { filter: filterType }, function (data) {
+                    $('.row').empty(); // Clear the existing content
+                    $('.row').append(data); // Append the filtered study sets
+                });
+            }
          
             $("#createStudySet").click(function () {
                 $('#myModal').modal('show');

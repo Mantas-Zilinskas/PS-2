@@ -4,6 +4,8 @@ namespace WebAplicationTestMVC.Services
 {
     public class EntityFrameworkService
     {
+        public delegate bool StudySetDateFilter(StudySet studySet);
+        public delegate IOrderedEnumerable<StudySet> StudySetOrderFilter(IEnumerable<StudySet> studySets);
         private readonly ApplicationDbContext _context;
 
         public EntityFrameworkService(ApplicationDbContext context)
@@ -51,8 +53,6 @@ namespace WebAplicationTestMVC.Services
             _context.SaveChanges();
         }
 
-
-
         public bool FlashcardExists(Flashcard newFlashcard)
         {
 
@@ -74,6 +74,17 @@ namespace WebAplicationTestMVC.Services
         {
 
             return _context.StudySets.ToList();
+        }
+        public List<StudySet> GetStudySetsByDateFilter(StudySetDateFilter filter)
+        {
+            var allStudySets = GetStudySets();
+            return allStudySets.Where(filter.Invoke).ToList();
+        }
+
+        public List<StudySet> GetStudySetsOrderedBy(StudySetOrderFilter orderFilter)
+        {
+            var allStudySets = GetStudySets();
+            return orderFilter(allStudySets).ToList();
         }
     }
 }

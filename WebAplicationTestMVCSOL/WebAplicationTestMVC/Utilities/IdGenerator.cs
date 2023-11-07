@@ -3,7 +3,7 @@
     public static class IdGenerator
     {
         public static string GenerateId<T>(T seed1, T seed2, int maxRandom = 10000000)
-            where T : class, IComparable<T> // This line enforces that T must implement IComparable<T>
+            where T : class, IComparable<T>
         {
             Random random = new Random();
 
@@ -15,18 +15,18 @@
             // Utilizing IComparable<T> to compare seed1 and seed2
             int comparisonResult = seed1.CompareTo(seed2);
 
-            string comparisonIndicator;
+            ComparisonIndicator comparisonIndicator; // Use the enum type
             if (comparisonResult < 0)
             {
-                comparisonIndicator = "LT"; //enum
+                comparisonIndicator = ComparisonIndicator.LT;
             }
             else if (comparisonResult > 0)
             {
-                comparisonIndicator = "GT";
+                comparisonIndicator = ComparisonIndicator.GT;
             }
             else
             {
-                comparisonIndicator = "EQ";
+                comparisonIndicator = ComparisonIndicator.EQ;
             }
 
             string dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

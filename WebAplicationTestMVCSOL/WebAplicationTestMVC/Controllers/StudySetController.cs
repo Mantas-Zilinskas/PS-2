@@ -7,7 +7,8 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class StudySetController : Controller
     {
-        
+        public delegate bool StudySetDateFilter(StudySet studySet);
+        public delegate IOrderedEnumerable<StudySet> StudySetOrderFilter(IEnumerable<StudySet> studySets);
         private readonly EntityFrameworkService _dbContextService;
 
         public StudySetController(EntityFrameworkService dbContextService)
@@ -48,6 +49,32 @@ namespace WebAplicationTestMVC.Controllers
                 .ToList();
 
             return View("~/Views/Home/Index.cshtml", foundStudySets);
+        }
+        [HttpPost]
+        public IActionResult GetFilteredStudySets(string filter)
+        {
+            List<StudySet> filteredSets;
+
+            switch (filter)
+            {
+                case "lastWeek":
+                    filteredSets = _dbContextService.GetStudySetsByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 7);
+                    break;
+                case "lastMonth":
+                    filteredSets = _dbContextService.GetStudySetsByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 30);
+                    break;
+                case "newerToOlder":
+                    filteredSets = _dbContextService.GetStudySetsOrderedBy(studySets => studySets.OrderByDescending(set => set.DateCreated));
+                    break;
+                case "olderToNewer":
+                    filteredSets = _dbContextService.GetStudySetsOrderedBy(studySets => studySets.OrderBy(set => set.DateCreated));
+                    break;
+                default:
+                    filteredSets = _dbContextService.GetStudySets();
+                    break;
+            }
+
+            return PartialView("_StudySetListPartial", filteredSets);
         }
     }
 }

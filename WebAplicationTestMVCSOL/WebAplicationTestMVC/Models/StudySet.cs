@@ -6,10 +6,10 @@ namespace WebAplicationTestMVC.Models
 {
     public class StudySet
     {
-        public int Id { get; set; } // Primary key property
+        public int Id { get; set; } 
         public StudySetColor Color { get; set; }
         public string StudySetName { get; set; }
-        public DateTime DateCreated { get; set; } // Add this property
+        public DateTime DateCreated { get; set; } 
         public List<Flashcard> Flashcards { get; set; }
 
         public StudySet(string studySetName)

@@ -1,0 +1,10 @@
+﻿@model List<WebAplicationTestMVC.Models.StudySet>
+
+@foreach (var studySet in Model)
+{
+    <a class="col-sm- set-box"
+       style="background-color: @(studySet.Color.ToString().ToLower());text-decoration: none;"
+       asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@studySet.StudySetName">
+        <div class="set-name">@studySet.StudySetName</div>
+    </a>
+}

@@ -1,6 +1,4 @@
 ﻿using WebAplicationTestMVC.Models;
-using WebAplicationTestMVC.Models;
-using WebAplicationTestMVC.Services;
 namespace WebAplicationTestMVC.Utilities
 {
     public class ColorManager
