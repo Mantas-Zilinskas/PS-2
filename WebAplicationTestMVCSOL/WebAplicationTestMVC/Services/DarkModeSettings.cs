@@ -1,4 +1,4 @@
-﻿namespace WebAplicationTestMVC.Utilities
+﻿namespace WebAplicationTestMVC.Services
 {
     public struct DarkModeSettings
     {

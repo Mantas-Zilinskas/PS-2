@@ -22,18 +22,32 @@
             text-align: end;
         }
 
-
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Study sets</h2>
-        <form class="search-container" method="post" asp-controller="Home" asp-action="SearchStudySet">
+        <form class="search-container" method="post" asp-controller="StudySet" asp-action="SearchStudySet">
             <input class="search-input" type="text" name="studySetName" placeholder="Search for study set" />
             <button class="search-button" type="submit">&#x1F50E;&#xFE0E;</button>
         </form>
     </div>
 
+    <div class="col-md-6 text-end">
+        <form class="filter-container" method="post" asp-controller="StudySet" asp-action="GetFilteredStudySets">
+            <select id="filterDropdown" class="form-control">
+                <option value="all">All</option>
+                <option value="lastWeek">Last Week</option>
+                <option value="lastMonth">Last Month</option>
+                <option value="newerToOlder">Newer to Older</option>
+                <option value="olderToNewer">Older to Newer</option>
+            </select>
+        </form>
+
+    </div>
+
+    <br>
+    <br />
 
     <div>
         <button id="createStudySet" class="btn btn-info">+ Create Study Set</button>
@@ -49,7 +63,7 @@
     <br />
 
     <form 
-        m" method="post" asp-controller="Home" asp-action="CreateStudySet">
+        m" method="post" asp-controller="StudySet" asp-action="CreateStudySet">
         <input type="text" name="studySetName" placeholder="Enter study set name" required />
         <button type="submit" class="btn btn-success">Create Study Set</button>
     </form>
@@ -82,6 +96,18 @@
                 var form = $("#myForm");
                 form.toggle();
             });
+
+            $("#filterDropdown").on('change', function () {
+                var selectedFilter = $(this).val();
+                applyFilter(selectedFilter);
+            });
+
+            function applyFilter(filterType) {
+                $.post('/StudySet/GetFilteredStudySets', { filter: filterType }, function (data) {
+                    $('.row').empty(); // Clear the existing content
+                    $('.row').append(data); // Append the filtered study sets
+                });
+            }
          
             $("#createStudySet").click(function () {
                 $('#myModal').modal('show');

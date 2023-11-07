@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Services;
 using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Controllers
@@ -73,7 +74,7 @@ namespace WebAplicationTestMVC.Controllers
         {
             _dbContextService.CreateTable();
 
-            var flashcardId = IdGenerator<string>.GenerateId(question, answer);
+            var flashcardId = IdGenerator.GenerateId(question, answer);
             var studySet = _dbContextService.GetStudySetByName(studySetName);
             if (studySet != null)
             {

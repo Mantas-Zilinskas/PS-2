@@ -1,4 +1,7 @@
-﻿namespace WebAplicationTestMVC.Utilities
+﻿using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Services;
+namespace WebAplicationTestMVC.Utilities
+
 {
     public enum StudySetColor
     {

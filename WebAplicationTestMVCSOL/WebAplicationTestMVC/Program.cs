@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore; // Add this line for Entity Framework Core
-using WebAplicationTestMVC.Utilities;
 using WebAplicationTestMVC.Models; // Add this line for your DbContext
+using WebAplicationTestMVC.Services;
 
 namespace WebAplicationTestMVC
 {
