@@ -1,4 +1,6 @@
-﻿namespace WebAplicationTestMVC.Utilities
+﻿using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Utilities;
+namespace WebAplicationTestMVC.Services
 {
     public record StudySessionTime(DateTime StartTime, DateTime EndTime)
     {

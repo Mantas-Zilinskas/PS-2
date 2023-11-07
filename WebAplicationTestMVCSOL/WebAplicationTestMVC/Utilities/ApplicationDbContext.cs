@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebAplicationTestMVC.Models;
-
+using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Services;
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -20,12 +21,10 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Flashcard>()
             .HasKey(f => f.Id);
 
-        
         modelBuilder.Entity<Flashcard>()
         .HasOne(f => f.StudySet)
         .WithMany(s => s.Flashcards)
         .HasForeignKey(f => f.StudySetId)
         .OnDelete(DeleteBehavior.ClientSetNull); 
-
     }
 }

@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Services;
 using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Controllers
 {
     public class HomeController : Controller
     {
-
         private readonly EntityFrameworkService _dbContextService;
 
         public HomeController(EntityFrameworkService dbContextService)
@@ -15,31 +16,8 @@ namespace WebAplicationTestMVC.Controllers
             _dbContextService = dbContextService;
         }
 
-
-
-
-        public IActionResult CreateStudySet(string studySetName)
-        {
-            _dbContextService.InsertStudySet(studySetName);
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult AddStudySet(string studySetName)
-        {
-            _dbContextService.InsertStudySet(studySetName);
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult ModalSubmit(string name)
-        {
-            StudySet studySet = new StudySet(name);
-
-            return RedirectToAction("StudySets", "StudySet", studySet);
-        }
-
         public IActionResult Index()
         {
-           
             List<StudySet> studySets = _dbContextService.GetStudySets();
             ColorManager.AssignUniqueColor(studySets, HttpContext);
 
@@ -55,15 +33,6 @@ namespace WebAplicationTestMVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public IActionResult SearchStudySet(string studySetName)
-        {
-            //lambda expression
-            var foundStudySets = _dbContextService.GetStudySets()
-                                   .Where(s => s.StudySetName.Contains(studySetName, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            return View("Index", foundStudySets);
         }
     }
 }

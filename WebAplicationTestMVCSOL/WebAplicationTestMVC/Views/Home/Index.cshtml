@@ -28,7 +28,7 @@
 <body>
     <div class="container">
         <h2>Study sets</h2>
-        <form class="search-container" method="post" asp-controller="Home" asp-action="SearchStudySet">
+        <form class="search-container" method="post" asp-controller="StudySet" asp-action="SearchStudySet">
             <input class="search-input" type="text" name="studySetName" placeholder="Search for study set" />
             <button class="search-button" type="submit">&#x1F50E;&#xFE0E;</button>
         </form>
@@ -49,7 +49,7 @@
     <br />
 
     <form 
-        m" method="post" asp-controller="Home" asp-action="CreateStudySet">
+        m" method="post" asp-controller="StudySet" asp-action="CreateStudySet">
         <input type="text" name="studySetName" placeholder="Enter study set name" required />
         <button type="submit" class="btn btn-success">Create Study Set</button>
     </form>

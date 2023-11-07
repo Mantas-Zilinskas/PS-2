@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Models
@@ -7,6 +9,7 @@ namespace WebAplicationTestMVC.Models
         public int Id { get; set; } // Primary key property
         public StudySetColor Color { get; set; }
         public string StudySetName { get; set; }
+        public DateTime DateCreated { get; set; } // Add this property
         public List<Flashcard> Flashcards { get; set; }
 
         public StudySet(string studySetName)
@@ -14,5 +17,4 @@ namespace WebAplicationTestMVC.Models
             StudySetName = studySetName;
         }
     }
-
 }
