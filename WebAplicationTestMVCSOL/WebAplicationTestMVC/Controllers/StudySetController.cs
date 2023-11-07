@@ -35,9 +35,27 @@ namespace WebAplicationTestMVC.Controllers
 
         public IActionResult CreateStudySet(string studySetName)
         {
+            // Check if the original study set name already exists
+            var originalStudySet = _dbContextService.GetStudySetByName(studySetName);
+
+            if (originalStudySet != null)
+            {
+                int counter = 0;
+                string uniqueStudySetName = studySetName;
+
+                while (_dbContextService.GetStudySetByName(uniqueStudySetName) != null)
+                {
+                    counter++;
+                    uniqueStudySetName = $"{studySetName} ({counter})";
+                }
+
+                studySetName = uniqueStudySetName; 
+            }
+
             _dbContextService.InsertStudySet(studySetName);
             return RedirectToAction("Index", "Home");
         }
+
 
         public IActionResult SearchStudySet(string studySetName)
         {
