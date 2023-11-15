@@ -146,7 +146,7 @@
 
         function startLearning() {
             $('#time').text("Total time: 0");
-            $.post("/Flashcards/getCurrentTime").done(function (data) { 
+            $.post("/Flashcards/GetCurrentTime").done(function (data) { 
                 studyStartTime = data;
                 shuffle(cards);
                 $('.btn-start').hide();

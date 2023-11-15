@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore; // Add this line for Entity Framework Core
 using WebAplicationTestMVC.Models; // Add this line for your DbContext
 using WebAplicationTestMVC.Services;
+using WebAplicationTestMVC.Interface;
+using WebAplicationTestMVC.Repository;
 
 namespace WebAplicationTestMVC
 {
@@ -39,7 +41,9 @@ namespace WebAplicationTestMVC
 
                 
                  services.AddControllersWithViews();
-                 services.AddScoped<EntityFrameworkService>(); 
+                 services.AddScoped<EntityFrameworkService>();
+                 services.AddScoped<IFlashcardRepository, FlashcardRepository>();
+                 services.AddScoped<IStudySetRepository, StudySetRepository>();
              })
              .Configure(app =>
              {
