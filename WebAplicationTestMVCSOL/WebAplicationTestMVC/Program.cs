@@ -41,7 +41,6 @@ namespace WebAplicationTestMVC
 
                 
                  services.AddControllersWithViews();
-                 services.AddScoped<EntityFrameworkService>();
                  services.AddScoped<IFlashcardRepository, FlashcardRepository>();
                  services.AddScoped<IStudySetRepository, StudySetRepository>();
              })
