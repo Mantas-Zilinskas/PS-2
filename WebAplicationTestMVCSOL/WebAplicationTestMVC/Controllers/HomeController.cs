@@ -8,16 +8,16 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IStudySetRepository _StudySetRepository;
+        private readonly IStudySetService _StudySetService;
 
-        public HomeController(IStudySetRepository studySetRepository)
+        public HomeController(IStudySetService studySetService)
         {
-            _StudySetRepository = studySetRepository;
+            _StudySetService = studySetService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            List<StudySet> studySets = await _StudySetRepository.GetAll();
+            List<StudySet> studySets = _StudySetService.GetAllStudySets();
             ColorManager.AssignUniqueColor(studySets, HttpContext);
 
             return View(studySets);

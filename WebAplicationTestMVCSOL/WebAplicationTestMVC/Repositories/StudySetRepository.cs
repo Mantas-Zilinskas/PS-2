@@ -1,7 +1,5 @@
 ﻿using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
-using Microsoft.EntityFrameworkCore;
-using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Repository
 {
@@ -14,46 +12,32 @@ namespace WebAplicationTestMVC.Repository
             _context = context;
         }
 
-        public void Add(string studySetName)
+        public void Add(StudySet studySet)
         {
-            var studySet = new StudySet(studySetName)
-            {
-                DateCreated = DateTime.Now // Set the DateCreated property to the current date and time
-            };
-
             _context.StudySets.Add(studySet);
             _context.SaveChanges();
         }
 
-        public Task Delete(string id)
+        public void Delete(string id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<StudySet>> GetAll()
+        public List<StudySet> GetAll()
         {
-            return await _context.StudySets.ToListAsync();
+            return _context.StudySets.ToList();
         }
 
-        public Task<StudySet> GetById(string Id)
+        public StudySet GetById(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<StudySet> GetByName(string studySetName)
+        public StudySet GetByName(string studySetName)
         {
-            return await _context.StudySets.SingleOrDefaultAsync(s => s.StudySetName == studySetName);
+            return _context.StudySets.SingleOrDefault(s => s.StudySetName == studySetName);
         }
 
-        public async Task<List<StudySet>> GetByDateFilter(StudySetDateFilter filter) {
-            var allStudySets = await GetAll();
-            return allStudySets.Where(filter.Invoke).ToList();
-        }
-
-        public async Task<List<StudySet>> GetAllOrderedBy(StudySetOrderFilter orderFilter) {
-            var allStudySets = await GetAll();
-            return orderFilter(allStudySets).ToList();
-        }
         public void Update(StudySet studySet)
         {
             throw new NotImplementedException();

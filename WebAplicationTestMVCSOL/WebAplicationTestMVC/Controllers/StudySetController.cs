@@ -2,7 +2,6 @@
 using System.Text.RegularExpressions;
 using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebAplicationTestMVC.Controllers
 {
@@ -10,18 +9,18 @@ namespace WebAplicationTestMVC.Controllers
     {
         public delegate bool StudySetDateFilter(StudySet studySet);
         public delegate IOrderedEnumerable<StudySet> StudySetOrderFilter(IEnumerable<StudySet> studySets);
-        private readonly IFlashcardRepository _FlashcardRepository;
-        private readonly IStudySetRepository _StudySetRepository;
+        private readonly IFlashcardService _FlashcardService;
+        private readonly IStudySetService _StudySetService;
 
-        public StudySetController(IFlashcardRepository flashcardRepository, IStudySetRepository studySetRepository)
+        public StudySetController(IFlashcardService flashcardService, IStudySetService studySetService)
         {
-            _FlashcardRepository = flashcardRepository;
-            _StudySetRepository = studySetRepository;
+            _FlashcardService = flashcardService;
+            _StudySetService = studySetService;
         }
 
-        public async Task<IActionResult> StudySets(string studySetName)
+        public IActionResult StudySets(string studySetName)
         {
-        List<Flashcard> flashcards = await _FlashcardRepository.GetAllBySetName(studySetName);
+        List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(studySetName);
 
         StudySet studySet = new StudySet(studySetName);
         studySet.Flashcards = flashcards;
@@ -33,63 +32,46 @@ namespace WebAplicationTestMVC.Controllers
         {
             StudySet studySet = new StudySet(name);
 
-            return RedirectToAction("StudySets", "StudySet", studySet);
+            return RedirectToAction("CreateStudySet", "StudySet", studySet);
         }
 
-        public async Task<IActionResult> CreateStudySet(string studySetName)
+        public IActionResult CreateStudySet(string studySetName)
         {
-            // Check if the original study set name already exists
-            var originalStudySet = await _StudySetRepository.GetByName(studySetName);
-
-            if (originalStudySet != null)
-            {
-                int counter = 0;
-                string uniqueStudySetName = studySetName;
-
-                while (await _StudySetRepository.GetByName(uniqueStudySetName) != null)
-                {
-                    counter++;
-                    uniqueStudySetName = $"{studySetName} ({counter})";
-                }
-
-                studySetName = uniqueStudySetName; 
-            }
-
-            _StudySetRepository.Add(studySetName);
+            _StudySetService.AddNewStudySet(studySetName);
             return RedirectToAction("Index", "Home");
         }
 
 
-        public async Task <IActionResult> SearchStudySet(string studySetName)
+        public IActionResult SearchStudySet(string studySetName)
         {
             //Create a Regex object based on the user-provided pattern and ignore uppercase and lowercase 
             var regexPattern = new Regex(studySetName, RegexOptions.IgnoreCase);
 
-            var foundStudySets = await _StudySetRepository.GetAll();
+            var foundStudySets = _StudySetService.GetAllStudySets();
 
             return View("~/Views/Home/Index.cshtml", foundStudySets.Where(s => regexPattern.IsMatch(s.StudySetName)).ToList());
         }
         [HttpPost]
-        public async Task<IActionResult> GetFilteredStudySets(string filter)
+        public IActionResult GetFilteredStudySets(string filter)
         {
             List<StudySet> filteredSets;
 
             switch (filter)
             {
                 case "lastWeek":
-                    filteredSets = await _StudySetRepository.GetByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 7);
+                    filteredSets = _StudySetService.GetByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 7);
                     break;
                 case "lastMonth":
-                    filteredSets = await _StudySetRepository.GetByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 30);
+                    filteredSets = _StudySetService.GetByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 30);
                     break;
                 case "newerToOlder":
-                    filteredSets = await _StudySetRepository.GetAllOrderedBy(studySets => studySets.OrderByDescending(set => set.DateCreated));
+                    filteredSets = _StudySetService.GetAllOrderedBy(studySets => studySets.OrderByDescending(set => set.DateCreated));
                     break;
                 case "olderToNewer":
-                    filteredSets = await _StudySetRepository.GetAllOrderedBy(studySets => studySets.OrderBy(set => set.DateCreated));
+                    filteredSets = _StudySetService.GetAllOrderedBy(studySets => studySets.OrderBy(set => set.DateCreated));
                     break;
                 default:
-                    filteredSets = await _StudySetRepository.GetAll();
+                    filteredSets = _StudySetService.GetAllStudySets();
                     break;
             }
 

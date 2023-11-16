@@ -5,13 +5,11 @@ namespace WebAplicationTestMVC.Interface
 {
     public interface IStudySetRepository
     {
-        Task<List<StudySet>> GetAll();
-        Task<StudySet> GetById(string Id);
-        Task<StudySet> GetByName(string studySetName);
-        Task<List<StudySet>> GetByDateFilter(StudySetDateFilter filter);
-        Task<List<StudySet>> GetAllOrderedBy(StudySetOrderFilter orderFilter);
-        void Add(string studySetName);
+        List<StudySet> GetAll();
+        StudySet GetById(string Id);
+        StudySet GetByName(string studySetName);
+        void Add(StudySet studySet);
         void Update(StudySet studySet);
-        Task Delete(string id);
+        void Delete(string id);
     }
 }

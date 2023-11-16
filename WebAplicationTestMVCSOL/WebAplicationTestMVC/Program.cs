@@ -1,13 +1,4 @@
-using System;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore; // Add this line for Entity Framework Core
-using WebAplicationTestMVC.Models; // Add this line for your DbContext
 using WebAplicationTestMVC.Services;
 using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Repository;
@@ -39,10 +30,12 @@ namespace WebAplicationTestMVC
                  services.AddDbContext<ApplicationDbContext>(options =>
                      options.UseSqlite(hostContext.Configuration.GetConnectionString("DefaultConnection")));
 
-                
                  services.AddControllersWithViews();
+
                  services.AddScoped<IFlashcardRepository, FlashcardRepository>();
                  services.AddScoped<IStudySetRepository, StudySetRepository>();
+                 services.AddScoped<IFlashcardService, FlashcardService>();
+                 services.AddScoped<IStudySetService, StudySetService>();
              })
              .Configure(app =>
              {

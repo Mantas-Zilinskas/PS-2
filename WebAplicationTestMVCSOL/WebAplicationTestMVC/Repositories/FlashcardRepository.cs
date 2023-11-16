@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebAplicationTestMVC.Interface;
+﻿using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
 
 namespace WebAplicationTestMVC.Repository
@@ -13,39 +12,26 @@ namespace WebAplicationTestMVC.Repository
             _context = context;
         }
 
-        public void Add(string question, string answer, string setName)
+        public void Add(Flashcard flashcard)
         {
             _context.Database.EnsureCreated();
-
-            var studySet = _context.StudySets.SingleOrDefault(s => s.StudySetName == setName);
-
-            if (studySet != null)
-            {
-
-                var flashcardId = Guid.NewGuid().ToString();
-                var flashcard = new Flashcard(flashcardId, question, answer, setName)
-                {
-                    StudySetId = studySet.Id
-                };
-
-                _context.Flashcards.Add(flashcard);
-                _context.SaveChanges();
-            }
+            _context.Flashcards.Add(flashcard);
+            _context.SaveChanges();
         }
 
-        public Task Delete(string id)
+        public void Delete(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Flashcard> GetById(string Id)
+        public Flashcard GetById(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<Flashcard>> GetAllBySetName(string setName)
+        public List<Flashcard> GetAllBySetName(string setName)
         {
-            return await _context.Flashcards.Where(f => f.SetName == setName).ToListAsync();
+            return _context.Flashcards.Where(f => f.SetName == setName).ToList();
         }
 
         public void Update(Flashcard flashcard)
