@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebAplicationTestMVC.Models;
-using WebAplicationTestMVC.Models;
-using WebAplicationTestMVC.Services;
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

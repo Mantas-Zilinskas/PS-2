@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
 using WebAplicationTestMVC.Services;
-using WebAplicationTestMVC.Models;
-using WebAplicationTestMVC.Services;
 
 namespace WebAplicationTestMVC.Utilities
 {

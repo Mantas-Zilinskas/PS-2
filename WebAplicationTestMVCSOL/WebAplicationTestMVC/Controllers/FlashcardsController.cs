@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Services;
 using WebAplicationTestMVC.Utilities;
 
@@ -7,39 +8,42 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class FlashcardsController : Controller
     {
-        private readonly EntityFrameworkService _dbContextService;
+        private readonly IFlashcardService _FlashcardService;
+        private readonly IStudySetService _StudySetService;
 
-        public FlashcardsController(EntityFrameworkService dbContextService)
+        public FlashcardsController(IFlashcardService flashcardService, IStudySetService studySetService)
         {
-            _dbContextService = dbContextService;
+            _FlashcardService = flashcardService;
+            _StudySetService = studySetService;
         }
 
         public IActionResult RandomizedAndSystemCheck(string setName, int time)
         {
             ViewBag.time = time;
-            List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
-            return View(flashcards);
+            List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+            
+            return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
 
         public IActionResult RandomizedAndUserCheck(string setName, int time)
         {
             ViewBag.time = time;
-            List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
-            return View(flashcards);
+            List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+            return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
 
         public IActionResult SpacedRepetitionAndSystemCheck(string setName, int time)
         {
             ViewBag.time = time;
-            List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
-            return View(flashcards);
+            List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+            return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
 
         public IActionResult SpacedRepetitionAndUserCheck(string setName, int time)
         {
             ViewBag.time = time;
-            List<Flashcard> flashcards = _dbContextService.GetFlashcardsBySetName(setName);
-            return View(flashcards);
+            List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+            return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
 
         public IActionResult AddFlashcard(string studySetName)
@@ -47,12 +51,10 @@ namespace WebAplicationTestMVC.Controllers
             return View(new StudySet(studySetName));
         }
 
-        [HttpPost]
-        public IActionResult getCurrentTime (){
+        public IActionResult GetCurrentTime (){
             return Ok(DateTime.Now.ToString());
         }
 
-        [HttpPost]
         public IActionResult CountUp(DateTime startTime) {
 
             Thread.Sleep(1000);
@@ -61,7 +63,6 @@ namespace WebAplicationTestMVC.Controllers
             return Ok((int)time.Duration.TotalSeconds);
         }
 
-        [HttpPost]
         public async Task<IActionResult> CountDown(int time)
         {
             await Task.Delay(1000);
@@ -72,10 +73,9 @@ namespace WebAplicationTestMVC.Controllers
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {
-            _dbContextService.CreateTable();
 
             var flashcardId = IdGenerator.GenerateId(question, answer);
-            var studySet = _dbContextService.GetStudySetByName(studySetName);
+            var studySet = _StudySetService.GetStudySetByName(studySetName);
             if (studySet != null)
             {
 
@@ -84,7 +84,7 @@ namespace WebAplicationTestMVC.Controllers
                     StudySet = studySet
                 };
 
-                _dbContextService.InsertFlashcard(newFlashcard.Question, newFlashcard.Answer, newFlashcard.SetName);
+                _FlashcardService.Add(newFlashcard.Question, newFlashcard.Answer, newFlashcard.SetName);
                 return View("AddFlashcard", new StudySet(studySetName));
             }
             else
@@ -102,7 +102,7 @@ namespace WebAplicationTestMVC.Controllers
             {
 
                 Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer, studySetName);
-                _dbContextService.InsertFlashcard(flashcard.Question, flashcard.Answer, flashcard.SetName);
+                _FlashcardService.Add(flashcard.Question, flashcard.Answer, flashcard.SetName);
 
 
                 return RedirectToAction("StudySets", new { studySetName = studySetName });

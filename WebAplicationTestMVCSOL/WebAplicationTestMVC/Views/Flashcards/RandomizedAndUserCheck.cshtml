@@ -1,4 +1,4 @@
-﻿@model List<WebAplicationTestMVC.Models.Flashcard>
+﻿@model List<WebAplicationTestMVC.Models.FlashcardDTO>
 
 <!DOCTYPE html>
 <html manifest="cache.manifest">
@@ -151,7 +151,7 @@
 
         function startLearning() {
             $('#time').text("Total time: 0");
-            $.post("/Flashcards/getCurrentTime").done(function (data) {
+            $.post("/Flashcards/GetCurrentTime").done(function (data) {
                 studyStartTime = data;
                 shuffle(cards);
                 $('.btn-start').hide();

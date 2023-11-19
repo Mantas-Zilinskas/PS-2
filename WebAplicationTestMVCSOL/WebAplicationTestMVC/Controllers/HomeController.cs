@@ -1,24 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
+using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
-using WebAplicationTestMVC.Services;
 using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly EntityFrameworkService _dbContextService;
+        private readonly IStudySetService _StudySetService;
 
-        public HomeController(EntityFrameworkService dbContextService)
+        public HomeController(IStudySetService studySetService)
         {
-            _dbContextService = dbContextService;
+            _StudySetService = studySetService;
         }
 
         public IActionResult Index()
         {
-            List<StudySet> studySets = _dbContextService.GetStudySets();
+            List<StudySet> studySets = _StudySetService.GetAllStudySets();
             ColorManager.AssignUniqueColor(studySets, HttpContext);
 
             return View(studySets);
