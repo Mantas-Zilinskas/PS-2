@@ -1,9 +1,7 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using WebAplicationTestMVC.Controllers;
 using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplicationTestMVCTests
@@ -57,7 +55,31 @@ namespace WebApplicationTestMVCTests
                 Assert.AreEqual(flashcardDTOs[i].SetName, model[i].SetName);
             }
         }
+        [TestMethod]
+        public void AddFlashcard_ReturnsViewWithNewStudySetModel()
+        {
+            var studySetName = "Physics";
 
-        
+            var result = _controller.AddFlashcard(studySetName) as ViewResult;
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result.Model, typeof(StudySet));
+            var model = result.Model as StudySet;
+            Assert.AreEqual(studySetName, model.StudySetName);
+        }
+        [TestMethod]
+        public async Task CountDown_ReturnsDecrementedTime()
+        {
+            int initialTime = 10;
+
+            var result = await _controller.CountDown(initialTime) as OkObjectResult;
+
+            // to check that the result is not null and is of type OkObjectResult
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            
+            var returnedTime = result.Value;
+            Assert.AreEqual(initialTime - 1, returnedTime);
+        }
     }
 }
