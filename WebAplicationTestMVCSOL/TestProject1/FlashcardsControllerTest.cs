@@ -26,7 +26,6 @@ namespace WebApplicationTestMVCTests
         [TestMethod]
         public void RandomizedAndSystemCheck_ReturnsViewWithFlashcards()
         {
-           
             var setName = "TestSet";
             var time = 5;
             var flashcards = new List<Flashcard>
@@ -43,11 +42,9 @@ namespace WebApplicationTestMVCTests
 
             _mockFlashcardService.Setup(s => s.GetAllFlashcardsBySetName(setName)).Returns(flashcards);
             _mockFlashcardService.Setup(s => s.FlashcardsToDTOs(flashcards)).Returns(flashcardDTOs);
-
            
             var result = _controller.RandomizedAndSystemCheck(setName, time) as ViewResult;
 
-           
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result.Model, typeof(List<FlashcardDTO>));
             var model = result.Model as List<FlashcardDTO>;

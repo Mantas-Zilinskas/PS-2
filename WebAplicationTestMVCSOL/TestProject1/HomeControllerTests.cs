@@ -46,7 +46,6 @@ namespace WebApplicationTestMVCTests
         [TestMethod]
         public void Index_ReturnsViewWithStudySets()
         {
-            
             var studySets = new List<StudySet>
             {
                 new StudySet("Mathematics"),
@@ -55,9 +54,7 @@ namespace WebApplicationTestMVCTests
             };
             _mockStudySetService.Setup(s => s.GetAllStudySets()).Returns(studySets);
 
-         
             var result = _controller.Index() as ViewResult;
-
             
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result.Model, typeof(List<StudySet>));
