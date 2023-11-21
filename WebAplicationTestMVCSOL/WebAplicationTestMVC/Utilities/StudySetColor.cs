@@ -1,6 +1,4 @@
-﻿using WebAplicationTestMVC.Models;
-using WebAplicationTestMVC.Services;
-namespace WebAplicationTestMVC.Utilities
+﻿namespace WebAplicationTestMVC.Utilities
 
 {
     public enum StudySetColor
@@ -11,6 +9,7 @@ namespace WebAplicationTestMVC.Utilities
         Yellow,
         Cyan,
         Black,
+        White,
         Gray,
         Brown,
         Purple,

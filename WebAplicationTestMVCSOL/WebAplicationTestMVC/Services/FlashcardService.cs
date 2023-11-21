@@ -43,7 +43,6 @@ namespace WebAplicationTestMVC.Services
             {
                 throw new Exception("study set not found");
             }
-
         }
 
         public List<FlashcardDTO> FlashcardsToDTOs(List<Flashcard> flashcards){
