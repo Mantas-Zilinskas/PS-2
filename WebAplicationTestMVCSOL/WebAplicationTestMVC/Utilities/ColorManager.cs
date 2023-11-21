@@ -3,14 +3,6 @@ using WebAplicationTestMVC.Models;
 
 namespace WebAplicationTestMVC.Utilities
 {
-    // Custom exception type
-    public class CustomCookieNameException : Exception
-    {
-        public CustomCookieNameException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-    }
-
     public class ColorManager
     {
         public static void AssignUniqueColor(List<StudySet> studySets, HttpContext httpContext)
@@ -28,33 +20,32 @@ namespace WebAplicationTestMVC.Utilities
                     }
                     else
                     {
-                        List<StudySetColor> usedColors = studySets.Select(s => s.Color).ToList();
+                        List<StudySetColor> usedColors = studySets.Select(s => s.Color).Distinct().ToList();
                         List<StudySetColor> availableColors = Enum.GetValues(typeof(StudySetColor))
                             .Cast<StudySetColor>()
                             .Except(usedColors)
                             .ToList();
 
+                        if (availableColors.Count == 0)
+                        {
+                            throw new AllColorsUsedException("All colors are used.", studySet);
+                        }
+
                         Random random = new Random();
                         StudySetColor randomColor = availableColors[random.Next(availableColors.Count)];
-
                         studySet.Color = randomColor;
-                        usedColors.Add(randomColor);
-
                         httpContext.Response.Cookies.Append(cookieName, studySet.Color.ToString());
                     }
                 }
-                catch (Exception ex)
+                catch (AllColorsUsedException ex)
                 {
                     LogException(ex);
-                    // Rethrow the exception or handle it as needed
-                    throw new CustomCookieNameException("An error occurred while assigning colors to study sets.", ex);
                 }
             }
         }
 
         private static string SanitizeCookieName(string input)
         {
-            // Replace characters that are not allowed in cookie names with underscores
             string sanitizedName = Regex.Replace(input, "[^a-zA-Z0-9_-]", "_");
 
             return sanitizedName;
@@ -62,7 +53,6 @@ namespace WebAplicationTestMVC.Utilities
 
         private static void LogException(Exception ex)
         {
-            // Log the exception details to a file or server
             string logFilePath = "error.log";
 
             using (StreamWriter writer = new StreamWriter(logFilePath, true))

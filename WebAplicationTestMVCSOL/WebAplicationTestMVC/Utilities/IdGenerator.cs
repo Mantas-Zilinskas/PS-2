@@ -12,7 +12,6 @@
                 throw new ArgumentNullException(nameof(seed1), "The seed arguments cannot be null.");
             }
 
-            // Utilizing IComparable<T> to compare seed1 and seed2
             int comparisonResult = seed1.CompareTo(seed2);
 
             ComparisonIndicator comparisonIndicator; // Use the enum type

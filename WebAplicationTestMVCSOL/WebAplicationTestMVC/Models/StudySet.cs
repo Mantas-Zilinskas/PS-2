@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Models

@@ -41,16 +41,15 @@ namespace WebAplicationTestMVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         public IActionResult SearchStudySet(string studySetName)
         {
-            //Create a Regex object based on the user-provided pattern and ignore uppercase and lowercase 
             var regexPattern = new Regex(studySetName, RegexOptions.IgnoreCase);
 
             var foundStudySets = _StudySetService.GetAllStudySets();
 
             return View("~/Views/Home/Index.cshtml", foundStudySets.Where(s => regexPattern.IsMatch(s.StudySetName)).ToList());
         }
+
         [HttpPost]
         public IActionResult GetFilteredStudySets(string filter)
         {

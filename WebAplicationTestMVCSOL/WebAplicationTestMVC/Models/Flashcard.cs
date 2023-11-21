@@ -8,10 +8,8 @@ namespace WebAplicationTestMVC.Models
         public string Question { get; set; }
         public string Answer { get; set; }
         public string SetName { get; set; }
-
         
         public int StudySetId { get; set; }
-
         
         [ForeignKey("StudySetId")]
         public StudySet StudySet { get; set; }

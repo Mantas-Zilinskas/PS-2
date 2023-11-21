@@ -104,7 +104,6 @@ namespace WebAplicationTestMVC.Controllers
                 Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer, studySetName);
                 _FlashcardService.Add(flashcard.Question, flashcard.Answer, flashcard.SetName);
 
-
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
             else
