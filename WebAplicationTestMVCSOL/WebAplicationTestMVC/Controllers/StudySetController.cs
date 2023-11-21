@@ -7,8 +7,6 @@ namespace WebAplicationTestMVC.Controllers
 {
     public class StudySetController : Controller
     {
-        public delegate bool StudySetDateFilter(StudySet studySet);
-        public delegate IOrderedEnumerable<StudySet> StudySetOrderFilter(IEnumerable<StudySet> studySets);
         private readonly IFlashcardService _FlashcardService;
         private readonly IStudySetService _StudySetService;
 

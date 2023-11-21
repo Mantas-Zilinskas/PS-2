@@ -92,7 +92,6 @@ namespace WebAplicationTestMVC.Controllers
                 ViewBag.ErrorMessage = "StudySet not found";
                 return View("AddFlashcard", new StudySet(studySetName));
             }
-
         }
 
         [HttpPost]

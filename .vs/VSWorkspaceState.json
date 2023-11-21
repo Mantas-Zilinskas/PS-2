@@ -1,15 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\WebAplicationTestMVCSOL",
-    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC",
-    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Controllers",
-    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Data",
-    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Migrations",
-    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Models",
-    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Utilities",
-    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Views"
+    ""
   ],
-  "SelectedNode": "\\WebAplicationTestMVCSOL\\WebAplicationTestMVCSOL.sln",
+  "SelectedNode": "\\WebAplicationTestMVCSOL.sln",
   "PreviewInSolutionExplorer": false
 }

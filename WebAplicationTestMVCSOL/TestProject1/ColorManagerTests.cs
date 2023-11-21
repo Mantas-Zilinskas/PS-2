@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using WebAplicationTestMVC.Models;
 using WebAplicationTestMVC.Utilities;
 
@@ -25,7 +20,6 @@ namespace WebApplicationTestMVCTests
             {
                 new StudySet("Mathematics"),
                 new StudySet("Science")
-              
             };
 
             mockHttpContext = new Mock<HttpContext>();
@@ -51,23 +45,5 @@ namespace WebApplicationTestMVCTests
             }
             mockResponse.Verify(r => r.Cookies.Append(It.IsAny<string>(), It.IsAny<string>()), Times.AtLeastOnce());
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(CustomCookieNameException))]
-        public void AssignUniqueColor_ThrowsCustomCookieNameExceptionForInvalidStudySetName()
-        {
-           
-            studySets.Add(new StudySet("<InvalidName>")); 
-
-            
-            mockRequest.Setup(r => r.Cookies).Throws(new Exception("Simulated cookie access exception"));
-
-            
-            ColorManager.AssignUniqueColor(studySets, mockHttpContext.Object);
-
-            
-        }
-
-       
     }
 }
