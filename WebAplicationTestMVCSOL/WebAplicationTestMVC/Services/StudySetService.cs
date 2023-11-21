@@ -44,18 +44,21 @@ namespace WebAplicationTestMVC.Services
         }
 
         public StudySet GetStudySetByName(string studySetName) {
+
             return _StudySetRepository.GetByName(studySetName);
         }
 
         public List<StudySet> GetByDateFilter(StudySetDateFilter filter)
         {
             var allStudySets = _StudySetRepository.GetAll();
+
             return allStudySets.Where(filter.Invoke).ToList();
         }
 
         public List<StudySet> GetAllOrderedBy(StudySetOrderFilter orderFilter)
         {
             var allStudySets = _StudySetRepository.GetAll();
+
             return orderFilter(allStudySets).ToList();
         }
     }

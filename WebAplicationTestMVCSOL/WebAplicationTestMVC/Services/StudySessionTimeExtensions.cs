@@ -1,6 +1,4 @@
-﻿using WebAplicationTestMVC.Models;
-using WebAplicationTestMVC.Utilities;
-namespace WebAplicationTestMVC.Services
+﻿namespace WebAplicationTestMVC.Services
 {
     public static class StudySessionTimeExtensions
     {
