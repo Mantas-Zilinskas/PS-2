@@ -17,12 +17,6 @@ Vue.component('file-upload', {
         dragging: false,
     }),
 
-    // mounted(){
-    //   document.addEventListener("dragenter", function(){ fileDrag.className = 'dragenter'; });
-    //   document.addEventListener('dragover',function(e){ e.preventDefault(); /* Essential! */ });
-    //   document.addEventListener("drop", FileDragDrop);
-    //   fileDrag.addEventListener("dragleave", FileDragReset);
-    // },
 
     methods: {
 
@@ -40,11 +34,10 @@ Vue.component('file-upload', {
                 var reader = new FileReader();
                 reader.onloadend = (ev) => {
                     this.$emit('load', reader.result, reader, file);
-                    //completed.push(reader.result);
-                    //if ( completed.length >= files.length ) { this.$emit('loaded',completed); }
+
                 };
                 reader.readAsText(file);
-                //reader.readAsDataURL(file);
+               
             });
         },
 
@@ -96,7 +89,7 @@ new Vue({
             window.getSelection().addRange(range);
 
             try {
-                // Now that we've selected the anchor text, execute the copy command  
+    
                 var successful = document.execCommand('copy');
                 var msg = successful ? 'successful' : 'unsuccessful';
                 console.log('Copy email command was ' + msg);
@@ -104,8 +97,6 @@ new Vue({
                 console.log('Oops, unable to copy');
             }
 
-            // Remove the selections - NOTE: Should use
-            // removeRange(range) when it is supported  
             window.getSelection().removeAllRanges();
         },
 
@@ -114,16 +105,16 @@ new Vue({
             var b64 = encodeURIComponent(svg.replace(/\<\?xml.+\?\>|\<\!DOCTYPE.+]\>/g, ''))
                 .replace(/%20/g, " ")
                 .replace(/%3D/g, "=")
-                // Additional optimizations thanks to https://codepen.io/tigt/post/optimizing-svgs-in-data-uris
-                .replace(/%3A/g, ':') // ditto colons
-                .replace(/%2F/g, '/') // ditto slashes
-                .replace(/%22/g, "'"); // replace quotes with apostrophes (may break certain SVGs)
+         https://codepen.io/tigt/post/optimizing-svgs-in-data-uris
+                .replace(/%3A/g, ':') 
+                .replace(/%2F/g, '/') 
+                .replace(/%22/g, "'"); 
             return 'url("data:image/svg+xml;charset=utf-8,' + b64 + '")';
         }
     }
 });
 
-//Measure the dasharray length for each individual letter of your text
+
 
 const logo = document.querySelectorAll("#logo path");
 

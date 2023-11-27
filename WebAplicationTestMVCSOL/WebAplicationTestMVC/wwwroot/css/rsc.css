@@ -10,12 +10,12 @@
 
 .correct-answer {
     color: green;
-    /* Add more styles if needed */
+
 }
 
 .wrong-answer {
     color: red;
-    /* Add more styles if needed */
+
 }
 h5#time {
     color: #eaff48;
