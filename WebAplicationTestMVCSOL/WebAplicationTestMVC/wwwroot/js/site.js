@@ -1,6 +1,4 @@
-﻿
-console.clear();
-
+﻿console.clear();
 Vue.component('file-upload', {
 
     template: `
@@ -12,14 +10,11 @@ Vue.component('file-upload', {
   <div class="file-upload__overlay"></div>
 </div>
 `,
-
     data: () => ({
         dragging: false,
     }),
 
-
     methods: {
-
 
         loadFiles(e) {
             e = e || window.event;
@@ -44,11 +39,8 @@ Vue.component('file-upload', {
         dragOver(e) { e.preventDefault(); /* Essential */ },
         dragEnter() { this.dragging = true },
         dragLeave(e) { this.dragging = false; e.preventDefault(); },
-
-
     }
 });
-
 
 new Vue({
     el: '.svg-bg',
@@ -58,7 +50,6 @@ new Vue({
   <circle cx="5" cy="5" r="1" opacity='0.25' />
 </svg>`
     }),
-
     computed: {
         output() {
             let url = this.encodeSVG(this.optimized);
@@ -114,16 +105,11 @@ new Vue({
     }
 });
 
-
-
 const logo = document.querySelectorAll("#logo path");
-
 for (let i = 0; i < logo.length; i++) {
     console.log(`Letter ${i} is ${logo[i].getTotalLength()}`);
 }
-
 const checkbox = document.querySelector("#input");
-
 function changeTheme() {
     if (checkbox.checked) {
         document.body.id = "dark"
@@ -132,10 +118,6 @@ function changeTheme() {
         document.body.id = "";
     }
 }
-
-
-/*snow*/
-
 (function () {
     var h = '';
     for (var i = 0; i < 600; i++) {
