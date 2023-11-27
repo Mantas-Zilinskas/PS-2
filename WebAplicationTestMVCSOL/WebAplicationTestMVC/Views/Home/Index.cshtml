@@ -8,7 +8,7 @@
     <title>Flashcards</title>
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
+    <link rel="stylesheet" href="~/css/loader.css" asp-append-version="true" />
     <style>
         .question-text {
             font-size: 28px;
@@ -21,10 +21,15 @@
         #search{
             text-align: end;
         }
+      
 
     </style>
 </head>
+
+
+
 <body>
+
     <div class="container">
         <h2>Study sets</h2>
         <form class="search-container" method="post" asp-controller="StudySet" asp-action="SearchStudySet">
@@ -45,7 +50,17 @@
         </form>
 
     </div>
-
+    <div class="waveWrapper waveAnimation">
+        <div class="waveWrapperInner bgTop">
+            <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgMiddle">
+            <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgBottom">
+            <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+        </div>
+    </div>
     <br>
     <br />
 
@@ -62,16 +77,12 @@
     <br>
     <br />
 
-    <form 
-        m" method="post" asp-controller="StudySet" asp-action="CreateStudySet">
-        <input type="text" name="studySetName" placeholder="Enter study set name" required />
-        <button type="submit" class="btn btn-success">Create Study Set</button>
-    </form>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+    <div id="honeycomb"></div>
+  
     <script>
+
         $(document).ready(function () {
             
             $("#createStudySetForm").submit(function (e) {
@@ -104,8 +115,8 @@
 
             function applyFilter(filterType) {
                 $.post('/StudySet/GetFilteredStudySets', { filter: filterType }, function (data) {
-                    $('.row').empty(); // Clear the existing content
-                    $('.row').append(data); // Append the filtered study sets
+                    $('.row').empty(); 
+                    $('.row').append(data); 
                 });
             }
          

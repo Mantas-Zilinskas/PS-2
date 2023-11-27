@@ -1,19 +1,406 @@
 
-
 body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
+    background: grey;
 }
-header.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-.dark-mode .navbar {
-    background-color: #333;
+    body .dark-mode h2 {
+      
+        -webkit-text-stroke: 1px #08e6ff;
+    }
+
+@font-face {
+    font-family: 'neontubes';
+    src: url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.eot");
+    src: url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.eot?#iefix") format("embedded-opentype"), url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.woff2") format("woff2"), url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.woff") format("woff"), url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* Style the <a> element */
-/* Style the <a> element */
+
+
+body.dark-mode h2 {
+    display: block;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: auto;
+    font-family: "neontubes";
+    font-size: 16vw;
+    text-align: center;
+    white-space: nowrap;
+}
+
+body.dark-mode h2 {
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+body.dark-mode h2 {
+    color: #ffd9e2;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ff003c, 0 0 20px rgba(255, 0, 60, 0.5), 0 0 40px #ff003c, 0 0 100px #ff003c, 0 0 200px #ff003c, 0 0 300px #ff003c, 0 0 500px #ff003c, 0 0 1000px #ff003c;
+    -webkit-animation: buzz 1s infinite alternate;
+    animation: blink 2s infinite alternate;
+}
+
+body.dark-mode h2 {
+    font-size: 11vw;
+    color: #d4eaff;
+    text-shadow: 0 0 0 transparent, 0 0 10px #2695ff, 0 0 20px rgba(38, 149, 255, 0.5), 0 0 40px #2695ff, 0 0 100px #2695ff, 0 0 200px #2695ff, 0 0 300px #2695ff, 0 0 500px #2695ff;
+    -webkit-animation: buzz 1s infinite alternate;
+    animation: blink 3s linear infinite,
+        blink 2s linear infinite,
+        buzz 6s linear infinite; /* Buzz every 4.5s */
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    body.dark-mode h2 {
+        width: 400px;
+        font-size: 50px;
+    }
+
+    body.dark-mode h2 {
+        font-size: 50px;
+    }
+}
+
+/*SNOW SEASON EFFECT*/
+
+    body.dark-mode .waveWrapperInner {
+        background-image: linear-gradient(to top, #000000 20%, #27273c 80%);
+        
+    }
+    body.dark-mode .wave {
+        height: 0px;
+    }
+    /*header*/
+.nav-item .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+.nav-logoMain {
+    width:320px;
+    height: auto;
+}
+.nav-logo {
+    width: 42px; 
+    height: auto;
+}
+
+.border-bottom {
+    border-bottom: none !important;
+}
+.bg-white {
+    --bs-bg-opacity: 1;
+    background-color: transparent !important;
+    border-top: solid;
+}
+
+
+#cloud-intro {
+    position: relative;
+    height: 100%;
+    background: url(https://static.radulescu.me/examples/clouds/clouds1000.png);
+    background: url(https://static.radulescu.me/examples/clouds/clouds1000.png) 0 200px, url(https://static.radulescu.me/examples/clouds/clouds1200_1.png) 0 300px, url(https://static.radulescu.me/examples/clouds/clouds1000_blur3.png) 100px 250px;
+    animation: wind 250s linear infinite;
+}
+
+@keyframes wind {
+    0% {
+        background-position: 0 200px, 0 300px, 100px 250px;
+    }
+
+    100% {
+        background-position: 1000px 200px, 1200px 300px, 1100px 250px;
+    }
+}
+/*DARKMODE*/
+:root {
+    --bg: #e0e0e0;
+}
+
+body {
+    background-color: #e0e0e0 -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+body#dark {
+    background-color: #030205;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.switchPos {
+    position: absolute;
+    z-index:1;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+
+    top: 40%;
+
+    width: 140px;
+    height: 70px;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 60px;
+        width: 60px;
+        left: 4px;
+        bottom: 4px;
+        background-color: #f9c20a;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:after {
+        background-color: #27273c;
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        left: -20px;
+        bottom: 9px;
+        width: 50px;
+        opacity: 0;
+        height: 50px;
+        -webkit-transition: .2s;
+        transition: .2s;
+    }
+
+input:checked + .slider:after {
+    left: 7px;
+    opacity: 1;
+    -webkit-transform: translateX(60px);
+    -ms-transform: translateX(60px);
+    transform: translateX(60px);
+    -webkit-transition: .5s;
+    transition: .5s;
+}
+
+input:checked + .slider {
+    background-color: transparent;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px transparent;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(66px);
+    -ms-transform: translateX(66px);
+    transform: translateX(66px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+
+
+
+.WholeHeader {
+    text-align: center;
+    background-color: transparent;
+}
+
+.navbar-nav flex-grow-1{
+
+}
+.container {
+    text-align: center;
+}
+.navbar {
+    display: inline-block !important;
+}
+
+.navbar-nav {
+    background-color: transparent;
+    
+}
+
+
+body .waveWrapper.waveAnimation {
+    z-index: -1;
+}
+
+@keyframes move_wave {
+    0% {
+        transform: translateX(0) translateZ(0) scaleY(1)
+    }
+
+    50% {
+        transform: translateX(-25%) translateZ(0) scaleY(0.55)
+    }
+
+    100% {
+        transform: translateX(-50%) translateZ(0) scaleY(1)
+    }
+}
+
+body .waveWrapper {
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}
+
+body .waveWrapperInner {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+    bottom: -1px;
+    background-image: linear-gradient(to top, #90E0EF 20%, #00b4d8 80%);
+}
+
+body .bgTop {
+    z-index: 15;
+    opacity: 0.5;
+}
+
+body .bgMiddle {
+    z-index: 10;
+    opacity: 0.75;
+}
+
+body .bgBottom {
+    z-index: 5;
+}
+
+body .wave {
+    position: absolute;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-repeat: repeat no-repeat;
+    background-position: 0 bottom;
+    transform-origin: center bottom;
+}
+
+body .waveTop {
+    background-size: 50% 100px;
+}
+
+body .waveAnimation .waveTop {
+    animation: move-wave 3s;
+    -webkit-animation: move-wave 3s;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+body .waveMiddle {
+    background-size: 50% 120px;
+}
+
+body .waveAnimation .waveMiddle {
+    animation: move_wave 10s linear infinite;
+}
+
+body .waveBottom {
+    background-size: 50% 100px;
+}
+
+body .waveAnimation .waveBottom {
+    animation: move_wave 15s linear infinite;
+}
+
+/**/
 a.col-sm.set-box {
     border-style: inset;
     border-color: darkturquoise;
@@ -82,14 +469,141 @@ a.col-sm.set-box {
             height: 50%;
         }
 
+
 body {
-    background-color: #f1faee;
+    width: 100%;
+    height: 100%;
+    background: grey;
+    background-size: 32px;
+}
+.text-dark {
+    font-family: inherit;
+    font-size: larger;
+    color:none !important;
+}
+
+@font-face {
+    font-family: 'neontubes';
+    src: url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.eot");
+    src: url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.eot?#iefix") format("embedded-opentype"), url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.woff2") format("woff2"), url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.woff") format("woff"), url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+h2 {
+    display: block;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: auto;
+    font-family: "neontubes";
+    font-size: 16vw;
+    text-align: center;
+    white-space: nowrap;
 }
 
 h2 {
-    color: #1d3557;
-    font-family: 'Roboto Condensed', sans-serif;
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
 }
+
+h2 {
+    color: #ffffff;
+    text-shadow: 0 0 0 transparent, 0 0 10px #00000063, 0 0 20px rgb(0 0 0 / 61%), 0 0 40px #00000000, 0 0 100px #00000000, 0 0 200px #00000000, 0 0 300px #00000000, 0 0 500px #00000000;
+    /*    -webkit-animation: blink 4s infinite alternate;
+    animation: blink 4s infinite alternate;*/
+}
+
+h2 {
+    font-size: 11vw;
+    color: #ffffff;
+    text-shadow: 0 0 0 transparent, 0 0 10px #00000063, 0 0 20px rgb(0 0 0 / 61%), 0 0 40px #00000000, 0 0 100px #00000000, 0 0 200px #00000000, 0 0 300px #00000000, 0 0 500px #00000000;
+    /* -webkit-animation: buzz 0.01s infinite alternate;*/
+    /*animation: buzz 2s infinite alternate;*/
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+h2 {
+        width: 400px;
+        font-size: 50px;
+    }
+
+ h2 {
+        font-size: 50px;
+    }
+
+    @keyframes back {
+        100% {
+            background-position: 2000px 0;
+        }
+    }
+}
+
 
 
 button.btn.btn-success {
@@ -161,10 +675,14 @@ button.btn.btn-info {
 header {
     background-color: #a8dadc;
 }
-.container {
-    display: flex;
+.container-header {
+    display: table-header-group;
     justify-content: space-between;
     align-items: center; 
+    width:900px;
+}
+.logo-place {
+    padding-right: 420px;
 }
 
 .search-container {
@@ -187,6 +705,648 @@ header {
     padding: 10px;
     background-color: #a8dadc;
     border: 1px solid #a8dadc;
-    border-radius: 20px 0 0 20px; /* Rounded corners on the left */
+    border-radius: 20px 0 0 20px; 
 }
 
+/*footer*/
+@font-face {
+    font-family: 'neontubes';
+    src: url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.eot");
+    src: url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.eot?#iefix") format("embedded-opentype"), url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.woff2") format("woff2"), url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.woff") format("woff"), url("https://bitbucket.org/kennethjensen/webfonts/raw/fc13c1cb430a0e9462da56fe3f421ff7af72db71/neontubes/neontubes-webfont.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+.navbar-light .navbar-nav .nav-link {
+    display: block;
+    position: absolute;
+
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    height: auto;
+    font-family: "neontubes";
+
+    text-align: center;
+    white-space: nowrap;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #fff900 !important;
+    text-shadow: 0 0 0 #fff900, 0 0 10px #fff900, 0 0 20px rgb(0 0 0 / 0%), 0 0 40px #fff9002e, 0 0 100px #fff900, 0 0 200px #fff900, 0 0 300px #fff900, 0 0 500px #fff900;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    font-size: 11vw;
+    color: #fff900 !important;
+    text-shadow: 0 0 0 #fff900, 0 0 10px #fff900, 0 0 20px rgb(0 0 0 / 0%), 0 0 40px #fff9002e, 0 0 100px #fff900, 0 0 200px #fff900, 0 0 300px #fff900, 0 0 500px #fff900;
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 25px;
+        font-weight: bold;
+        letter-spacing: 3.5px;
+        
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 25px;
+        font-weight: bold;
+        letter-spacing: 3.5px;
+    }
+}
+
+/*darkmode*/
+@import url('https://fonts.googleapis.com/css?family=Warnes&display=swap');
+body.dark-mode .navbar-light .navbar-nav .nav-link {
+    display: block;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: auto;
+    font-family: 'neontubes';
+    text-align: center;
+    white-space: nowrap;
+}
+
+body.dark-mode .navbar-light .navbar-nav .nav-link {
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+body.dark-mode .navbar-light .navbar-nav .nav-link {
+    color: #ffd9e2 !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ff003c, 0 0 20px rgba(255, 0, 60, 0.5), 0 0 40px #ff003c, 0 0 100px #ff003c, 0 0 200px #ff003c, 0 0 300px #ff003c, 0 0 500px #ff003c, 0 0 1000px #ff003c;
+    -webkit-animation: blink 4s infinite alternate;
+    animation: blink 4s infinite alternate;
+}
+
+body.dark-mode .navbar-light .navbar-nav .nav-link {
+    font-size: 11vw;
+    color: #d4eaff !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #2695ff, 0 0 20px rgba(38, 149, 255, 0.5), 0 0 40px #2695ff, 0 0 100px #2695ff, 0 0 200px #2695ff, 0 0 300px #2695ff, 0 0 500px #2695ff;
+    -webkit-animation: blink 4s infinite alternate;
+    animation: blink 4s infinite alternate;
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    body.dark-mode .navbar-light .navbar-nav .nav-link {
+        
+        font-size: 25px;
+    }
+
+    body.dark-mode .navbar-light .navbar-nav .nav-link {
+        font-size: 25px;
+        
+    }
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Warnes&display=swap');
+
+body.dark-mode h1 {
+    display: block;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: auto;
+    font-family: 'neontubes';
+    text-align: center;
+    white-space: nowrap;
+}
+
+body.dark-mode h1 {
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+body.dark-mode h1 {
+    color: #6ffeff !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ff003c, 0 0 20px rgba(255, 0, 60, 0.5), 0 0 40px #ff003c, 0 0 100px #ff003c, 0 0 200px #ff003c, 0 0 300px #ff003c, 0 0 500px #ff003c, 0 0 1000px #ff003c;
+    -webkit-animation: blink 7s infinite alternate;
+    animation: blink 7s infinite alternate;
+}
+
+body.dark-mode h1 {
+    font-size: 11vw;
+    color: #6ffeff !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #2695ff, 0 0 20px rgba(38, 149, 255, 0.5), 0 0 40px #2695ff, 0 0 100px #2695ff, 0 0 200px #2695ff, 0 0 300px #2695ff, 0 0 500px #2695ff;
+    -webkit-animation: blink 7s infinite alternate;
+    animation: blink 7s infinite alternate;
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    body.dark-mode h1 {
+        font-size: 70px;
+    }
+
+    body.dark-mode h1 {
+        font-size: 70px;
+    }
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Warnes&display=swap');
+
+h1 {
+    display: block;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: auto;
+    font-family: 'neontubes';
+    text-align: center;
+    white-space: nowrap;
+}
+
+h1 {
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+h1 {
+    color: #ffffff !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ff003c, 0 0 20px rgba(255, 0, 60, 0.5), 0 0 40px #ff003c, 0 0 100px #ff003c, 0 0 200px #ff003c, 0 0 300px #ff003c, 0 0 500px #ff003c, 0 0 1000px #ff003c;
+
+}
+
+h1 {
+    font-size: 11vw;
+    color: #ffffff !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #2695ff, 0 0 20px rgba(38, 149, 255, 0.5), 0 0 40px #2695ff, 0 0 100px #2695ff, 0 0 200px #2695ff, 0 0 300px #2695ff, 0 0 500px #2695ff;
+
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+h1 {
+        font-size: 70px;
+    }
+
+h1 {
+        font-size: 70px;
+    }
+}
+
+
+label.QuestionAnsw {
+    font-family: 'neontubes';
+    font-weight: bold;
+    font-size: xx-large;
+    color: chartreuse;
+}
+
+label.answerQues {
+    font-family: 'neontubes';
+    font-weight: bold;
+    font-size: xx-large;
+    color: chartreuse;
+}
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Warnes&display=swap');
+
+body.dark-mode label.answerQues {
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+body.dark-mode label.answerQues {
+    color: #fddf3d !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #fddf3d, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #fddf3d, 0 0 100px #fddf3d, 0 0 200px #fddf3d, 0 0 300px #fddf3d, 0 0 500px #fddf3d;
+}
+
+body.dark-mode label.answerQues {
+    font-size: 11vw;
+    color: #fddf3d !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #fddf3d, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #fddf3d, 0 0 100px #fddf3d, 0 0 200px #fddf3d, 0 0 300px #fddf3d, 0 0 500px #fddf3d;
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    body.dark-mode label.answerQues {
+        font-size: 20px;
+    }
+
+    body.dark-mode label.answerQues {
+        font-size: 20px;
+    }
+}
+
+/**/
+@import url('https://fonts.googleapis.com/css?family=Warnes&display=swap');
+
+body.dark-mode label.QuestionAnsw {
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+body.dark-mode label.QuestionAnsw {
+    color: #fddf3d !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #fddf3d, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #fddf3d, 0 0 100px #fddf3d, 0 0 200px #fddf3d, 0 0 300px #fddf3d, 0 0 500px #fddf3d;
+}
+
+body.dark-mode label.QuestionAnsw {
+    font-size: 11vw;
+    color: #fddf3d !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #fddf3d, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #fddf3d, 0 0 100px #fddf3d, 0 0 200px #fddf3d, 0 0 300px #fddf3d, 0 0 500px #fddf3d;
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    body.dark-mode label.QuestionAnsw {
+        font-size: 20px;
+    }
+
+    body.dark-mode label.QuestionAnsw {
+        font-size: 20px;
+    }
+}
+
+body.dark-mode textarea {
+    background-color: transparent;
+    color: #fddf3d !important;
+    border-color: yellow;
+    border-inline: none;
+    border-radius: 0px !important;
+}
+
+textarea {
+    background-color: transparent;
+    color: #fddf3d !important;
+    border-color: white;
+    backdrop-filter: blur(100px);
+    border-radius: 20px;
+}

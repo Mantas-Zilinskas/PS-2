@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
+    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Study set</title>
@@ -22,6 +22,17 @@
     </style>
 </head>
 <body>
+    <div class="waveWrapper waveAnimation">
+        <div class="waveWrapperInner bgTop">
+            <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgMiddle">
+            <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgBottom">
+            <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+        </div>
+    </div>
     <h2>
         Set name: @Model.StudySetName
     </h2>
@@ -122,13 +133,17 @@
     </script>
 
     <br>
-    <h3>@Model.StudySetName Contains:</h3>
-    <div class="row">
+    <h3 class="study-set-title">@Model.StudySetName Contains:</h3>
+    <div class="row flashcard-container">
         @foreach (var flashcard in Model.Flashcards)
         {
-            <div class="col-sm-1 card">Question:   </div>
-            <div class="col-sm-11 card">@flashcard.Question</div>
+            <div class="col-md-12 flashcard">
+                <div class="question-label">Question:</div>
+                <div class="question-content">@flashcard.Question</div>
+            </div>
         }
     </div>
+
+
 </body>
 </html>

@@ -8,7 +8,18 @@
     <title>Flashcards</title>
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
+    <link rel="stylesheet" href="~/css/rsc.css" asp-append-version="true" />
+    <div class="waveWrapper waveAnimation">
+        <div class="waveWrapperInner bgTop">
+            <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgMiddle">
+            <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgBottom">
+            <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+        </div>
+    </div>
     <style>
         .question-text {
             font-size: 28px;
@@ -85,12 +96,9 @@
     </style>
 </head>
 <body>
-    <div class="container" id="decks">decks: </div>
     <hr class="soften" />
-
     <div id="bad-indicator" class="flashcard-content" style="background-color: red;"></div>
     <div id="good-indicator" class="flashcard-content" style="background-color: green;"></div>
-
     <div id="flashcard-container">
         <div class="dropdown-container">
             <div class="dot" onclick="$('.dropdown-content').toggle();"></div>
@@ -119,19 +127,15 @@
             </div>
         </div>
     </div>
-
     <div class="flashcard-footer">
         <button type="button" class="btn btn-start btn-lg" onclick="startLearning()">Start</button>
         <button type="button" class="btn btn-warning btn-lg" onclick="showNext(false)">Bad</button>
         <button type="button" class="btn btn-success btn-lg" id="success-button" onclick="showNext(true)">Good</button>
     </div>
-
     <hr class="soften" />
-
     <script src="static/js/jquery-2.1.0.min.js"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/flashcard-ahhh.js"></script>
-    
     <script>
         let currentIndex = -1;
         let cards = []; 
@@ -141,7 +145,6 @@
         let cardTime = @ViewBag.time;
         let flag = true;
         let cardFlag = true;
-
 
         function setFlashcards(flashcards) {
             cards = flashcards;

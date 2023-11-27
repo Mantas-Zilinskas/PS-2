@@ -1,0 +1,378 @@
+﻿.study-set-title {
+    color: #edd13c;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-family: monospace;
+    animation: fadeIn 2s;
+    font-size: -webkit-xxx-large;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 1px 12px 70px #7cff05;
+}
+
+.flashcard-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flashcard {
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 3px 4px 12px 3px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    animation: slideUp 1s;
+}
+
+    .flashcard:hover {
+        transform: translateY(-10px);
+    }
+
+.question-label {
+    font-weight: bold;
+    color: #fde3ff;
+    margin-right: 10px;
+    font-family: "neontubes";
+    font-size: 35px;
+}
+
+.question-content {
+    color: #555;
+    font-size: 20px;
+    font-family: "neontubes";
+    font-weight:bold;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@import url(https://fonts.googleapis.com/css?family=Exo+2:200i);
+
+:root {
+    /* Base font size */
+    font-size: 12px;
+    /* Set neon color */
+    --neon-text-color: white;
+    --neon-border-color: #2695ff;
+}
+
+
+
+.flashcard {
+    backdrop-filter: blur(100px);
+
+    color: transparent;
+    background-color: transparent !important;
+    border-radius: 2rem;
+    text-transform: uppercase;
+    animation: flicker 6s infinite alternate;
+}
+
+    .flashcard ::-moz-selection {
+        background-color: var(--neon-border-color);
+        color: var(--neon-text-color);
+    }
+
+    .flashcard ::selection {
+        background-color: var(--neon-border-color);
+        color: var(--neon-text-color);
+    }
+
+    .flashcard :focus {
+        outline: none;
+    }
+
+
+/*darkmode*/
+@import url('https://fonts.googleapis.com/css?family=Warnes&display=swap');
+
+body.dark-mode .question-label {
+    display: block;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: auto;
+    font-family: 'neontubes';
+    text-align: center;
+    white-space: nowrap;
+}
+
+body.dark-mode .question-label {
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+body.dark-mode .question-label {
+    color: #ffd9e2 !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ff003c, 0 0 20px rgba(255, 0, 60, 0.5), 0 0 40px #ff003c, 0 0 100px #ff003c, 0 0 200px #ff003c, 0 0 300px #ff003c, 0 0 500px #ff003c, 0 0 1000px #ff003c;
+    -webkit-animation: blink 7s infinite alternate;
+    animation: blink 7s infinite alternate;
+}
+
+body.dark-mode .question-label {
+    font-size: 11vw;
+    color: #d4eaff !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #2695ff, 0 0 20px rgba(38, 149, 255, 0.5), 0 0 40px #2695ff, 0 0 100px #2695ff, 0 0 200px #2695ff, 0 0 300px #2695ff, 0 0 500px #2695ff;
+    -webkit-animation: blink 7s infinite alternate;
+    animation: blink 7s infinite alternate;
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    body.dark-mode .question-label {
+        font-size: 25px;
+    }
+
+    body.dark-mode .question-label {
+        font-size: 25px;
+    }
+}
+
+
+/*QUES*/
+/*darkmode*/
+@import url('https://fonts.googleapis.com/css?family=Warnes&display=swap');
+
+body.dark-mode .question-content {
+    display: block;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: auto;
+    font-family: 'neontubes';
+    text-align: center;
+    white-space: nowrap;
+}
+
+body.dark-mode .question-content {
+    display: block;
+    position: relative;
+    -webkit-transform: translateZ(0) translate3D(0, 0, 0);
+    transform: translateZ(0) translate3D(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: opacity;
+}
+
+body.dark-mode .question-content {
+    color: #02ff75eb !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #02ff75eb, 0 0 20px rgba(38, 149, 255, 0.5), 0 0 40px #02ff75eb, 0 0 100px #02ff75eb, 0 0 200px #02ff75eb, 0 0 300px #02ff75eb, 0 0 500px #02ff75eb;
+    -webkit-animation: blink 7s infinite alternate;
+    animation: blink 10s infinite alternate;
+}
+
+body.dark-mode .question-content {
+    font-size: 11vw;
+    color: #02ff75eb !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #02ff75eb, 0 0 20px rgba(38, 149, 255, 0.5), 0 0 40px #02ff75eb, 0 0 100px #02ff75eb, 0 0 200px #02ff75eb, 0 0 300px #02ff75eb, 0 0 500px #02ff75eb;
+    -webkit-animation: blink 7s infinite alternate;
+    animation: blink 10s infinite alternate;
+}
+
+@-webkit-keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@keyframes buzz {
+    70% {
+        opacity: 0.80;
+    }
+}
+
+@-webkit-keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    40% {
+        opacity: 1;
+    }
+
+    42% {
+        opacity: 0.8;
+    }
+
+    43% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 0.2;
+    }
+
+    46% {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    body.dark-mode .question-content {
+        font-size: 20px;
+    }
+
+    body.dark-mode .question-content {
+        font-size: 20px;
+    }
+}
+
+/*MODAL*/
+.modal {
+    font-family: Arial, sans-serif; 
+}
+.background-spec{
+    background-color:red;
+}
+
+.modal-header {
+    background-color: #06007dd1 !important;
+    text-shadow: 0 0 0 transparent, 0 0 10px #35ffbf, 0 0 20px rgb(38 209 255), 0 0 40px #35ffbf, 0 0 100px #35ffbf, 0 0 200px #35ffbf, 0 0 300px #35ffbf, 0 0 500px #35ffbf;
+    padding: 10px;
+    color: #35ffbf;
+    border-bottom: 1px solid #e9ecef;
+    text-transform: uppercase;
+}
+
+.modal-title {
+    margin: 0 auto; 
+
+
+.close {
+    color: white; 
+    opacity: 1; 
+}
+
+.modal-body {
+    padding: 20px; 
+}
+
+.form-check-label {
+    margin-left: 5px; 
+}
+
+.modal-footer {
+    padding: 10px; 
+    border-top: 1px solid #e9ecef;
+
+
+.btn-primary {
+    background-color: #007bff; 
+    border-color: #007bff; 
+}
+
+.btn-secondary {
+    background-color: #6c757d; 
+    border-color: #6c757d; 
+}
+
+
+input[type="number"] {
+    width: 100%; 
+    padding: 5px; 
+    margin-top: 5px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ced4da; 
+    border-radius: 4px; 
+}
+

@@ -1,0 +1,81 @@
+﻿#flashcard-container {
+    font-family: cursive;
+    backdrop-filter:blur(1000px);
+}
+.flashcard-content{
+    font-size:35px; 
+    color:white;
+    text-shadow:0 0 0 transparent, 0 0 10px #054ec85e, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #e82fdddb, 0 0 100px #f034d705, 0 0 200px #f034d78a, 0 0 300px #f034d79e, 0 0 500px #f034d745;
+}
+
+.correct-answer {
+    color: green;
+    /* Add more styles if needed */
+}
+
+.wrong-answer {
+    color: red;
+    /* Add more styles if needed */
+}
+h5#time {
+    color: #eaff48;
+}
+body.dark-mode button.btn.btn-next.btn-lg {
+    font-size: 24px;
+    color: #ffc02c;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ffc02c, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #ffc02c, 0 0 100px #ffc02c, 0 0 200px #ffc02c, 0 0 300px #ffc02c, 0 0 500px #ffc02c;
+}
+
+body.dark-mode button.btn.btn-submit.btn-lg {
+    font-size: 24px;
+    color: #ffc02c;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ffc02c, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #ffc02c, 0 0 100px #ffc02c, 0 0 200px #ffc02c, 0 0 300px #ffc02c, 0 0 500px #ffc02c;
+}
+}
+body.dark-mode button.btn.btn-start.btn-lg {
+    font-size: 24px;
+    color: #ffc02c;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ffc02c, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #ffc02c, 0 0 100px #ffc02c, 0 0 200px #ffc02c, 0 0 300px #ffc02c, 0 0 500px #ffc02c;
+}
+body.dark-mode button.btn.btn-start.btn-lg {
+    font-size: 24px;
+    color: #27cb00;
+    text-shadow: 0 0 0 transparent, 0 0 10px #27cb00, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #27cb00, 0 0 100px #27cb00, 0 0 200px #27cb00, 0 0 300px #27cb00, 0 0 500px #27cb00;
+}
+
+/*notdark*/
+
+button.btn.btn-next.btn-lg {
+    font-size: 24px;
+    color: #bf8c14;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ffc02c, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #ffc02c, 0 0 100px #ffc02c, 0 0 200px #ffc02c, 0 0 300px #ffc02c, 0 0 500px #ffc02c;
+}
+
+button.btn.btn-submit.btn-lg {
+    font-size: 24px;
+    color: #bf8c14;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ffc02c, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #ffc02c, 0 0 100px #ffc02c, 0 0 200px #ffc02c, 0 0 300px #ffc02c, 0 0 500px #ffc02c;
+}
+
+
+button.btn.btn-start.btn-lg {
+    font-size: 24px;
+    color: #bf8c14;
+    text-shadow: 0 0 0 transparent, 0 0 10px #ffc02c, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #ffc02c, 0 0 100px #ffc02c, 0 0 200px #ffc02c, 0 0 300px #ffc02c, 0 0 500px #ffc02c;
+}
+
+button.btn.btn-start.btn-lg {
+    font-size: 24px;
+    color: #008d20;
+    text-shadow: 0 0 0 transparent, 0 0 10px #27cb00, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #27cb00, 0 0 100px #27cb00, 0 0 200px #27cb00, 0 0 300px #27cb00, 0 0 500px #27cb00;
+}
+
+button.btn.btn-warning.btn-lg {
+    background-color: red;
+    color: white;
+    border-radius: 20px;
+}
+button#success-button {
+    background-color: green;
+    color: white;
+}

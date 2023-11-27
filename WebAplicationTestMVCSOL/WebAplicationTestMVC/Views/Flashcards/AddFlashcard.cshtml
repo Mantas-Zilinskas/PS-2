@@ -1,15 +1,25 @@
 ﻿@model WebAplicationTestMVC.Models.StudySet
-
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <h1>Make a Flashcard</h1>
-
+<div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+        <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+        <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+        <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+</div>
 @using (Html.BeginForm("SubmitNewFlashcard", "Flashcards", FormMethod.Post))
 {
-    <label for="question">FlashCard Question:</label>
+    <label class="QuestionAnsw" for="question">FlashCard Question:</label>
     <br>
     <textarea id="question" name="question" rows="7" cols="100" placeholder="Where does England keep their armies?" required></textarea>
     <br>
     <br>
-    <label for="answer">FlashCard Answer:</label>
+    <label class="answerQues" for="answer">FlashCard Answer:</label>
     <br>
     <textarea id="answer" name="answer" rows="7" cols="100" placeholder="In their sleevies!" required></textarea>
     <br>

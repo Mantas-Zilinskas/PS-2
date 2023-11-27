@@ -11,7 +11,18 @@
     <title>Flashcards</title>
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
+    <link rel="stylesheet" href="~/css/rsc.css" asp-append-version="true" />
+    <div class="waveWrapper waveAnimation">
+        <div class="waveWrapperInner bgTop">
+            <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgMiddle">
+            <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgBottom">
+            <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+        </div>
+    </div>
     <style>
         .question-text {
             font-size: 28px;
@@ -88,9 +99,7 @@
     </style>
 </head>
 <body>
-    <div class="container" id="decks">decks: </div>
     <hr class="soften" />
-
     <div id="bad-indicator" class="flashcard-content" style="background-color: red;"></div>
     <div id="good-indicator" class="flashcard-content" style="background-color: green;"></div>
 
@@ -202,23 +211,21 @@
         }
 
         function checkAnswer(answer = false) {
-
             var userInput = document.getElementById("answer-Input").value;
-
             if (userInput != "") {
-
                 cardFlag = false;
+                var answerStatus = document.getElementById("answer-status");
 
                 if (0 == userInput.localeCompare(cards[currentIndex].Answer)) {
                     cardTime = @ViewBag.time;
-                    $('#answer-status').text("Correct");
-                    $('#answer-status').css({ "color": "green" });
+                    answerStatus.textContent = "Correct";
+                    answerStatus.className = "correct-answer"; 
                     $('#answer-text').hide();
                     $('#answer-content').show();
                     currentIndex++;
                 } else {
-                    $('#answer-status').text("Wrong");
-                    $('#answer-status').css({ "color": "red" });
+                    answerStatus.textContent = "Wrong";
+                    answerStatus.className = "wrong-answer"; 
                     $('#answer-text').show();
                     $('#answer-content').show();
                     let badCard = cards[currentIndex];
@@ -235,6 +242,8 @@
                 }
             }
         }
+
+
 
         function showNext() {
 
@@ -270,7 +279,7 @@
                 $('#question-text').text(newQuestion);
                 $('#answer-text').text(newAnswer);
 
-                // Inform the server about the change
+             
                 $.post("/Home/EditCard", {
                     Id: cards[currentIndex].Id,
                     Question: newQuestion,
@@ -286,14 +295,14 @@
 
                 if (cards.length === 0) {
                     alert('No more flashcards available.');
-                    // Reset UI or navigate to another page
+                   
                 } else {
                     if (currentIndex >= cards.length) {
                         currentIndex--;
                     }
                     showNext(true);
                 }
-                // Inform the server about the deletion
+    
                 $.post("/Home/DeleteCard", { Id: cardIdToDelete });
             }
         }
