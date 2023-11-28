@@ -18,7 +18,7 @@ namespace WebAplicationTestMVC.Services
             return _StudySetRepository.GetAll();
         }
 
-        public void AddNewStudySet(string studySetName) {
+        public StudySet AddNewStudySet(string studySetName) {
 
             StudySet originalStudySet = GetStudySetByName(studySetName);
 
@@ -41,6 +41,8 @@ namespace WebAplicationTestMVC.Services
                 DateCreated = DateTime.Now
             };
             _StudySetRepository.Add(studySet);
+
+            return studySet;
         }
 
         public StudySet GetStudySetByName(string studySetName) {

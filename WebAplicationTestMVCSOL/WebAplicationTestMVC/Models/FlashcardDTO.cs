@@ -14,5 +14,11 @@
             Answer = answer;
             SetName = setName;
         }
+
+        public FlashcardDTO(string question, string answer)
+        {
+            Question = question;
+            Answer = answer;
+        }
     }
 }

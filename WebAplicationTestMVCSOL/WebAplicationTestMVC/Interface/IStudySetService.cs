@@ -6,7 +6,7 @@ namespace WebAplicationTestMVC.Interface
     public interface IStudySetService
     {
         List<StudySet> GetAllStudySets();
-        void AddNewStudySet(string studySetName);
+        StudySet AddNewStudySet(string studySetName);
         StudySet GetStudySetByName(string studySetName);
         List<StudySet> GetByDateFilter(StudySetDateFilter filter);
         List<StudySet> GetAllOrderedBy(StudySetOrderFilter orderFilter);

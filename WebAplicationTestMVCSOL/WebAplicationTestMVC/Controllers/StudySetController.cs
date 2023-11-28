@@ -9,11 +9,16 @@ namespace WebAplicationTestMVC.Controllers
     {
         private readonly IFlashcardService _FlashcardService;
         private readonly IStudySetService _StudySetService;
+        private readonly IWebHostEnvironment _WebHostEnvironment;
+        private readonly IExcelService _ExcelService;
 
-        public StudySetController(IFlashcardService flashcardService, IStudySetService studySetService)
+        public StudySetController(IFlashcardService flashcardService, IStudySetService studySetService,
+                                  IWebHostEnvironment hostingEnvironment, IExcelService excelService)
         {
             _FlashcardService = flashcardService;
             _StudySetService = studySetService;
+            _WebHostEnvironment = hostingEnvironment;
+            _ExcelService = excelService;
         }
 
         public IActionResult StudySets(string studySetName)
@@ -73,6 +78,49 @@ namespace WebAplicationTestMVC.Controllers
             }
 
             return PartialView("_StudySetListPartial", filteredSets);
+        }
+
+        public IActionResult ExportDB(string setName)
+        {
+            IEnumerable<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+
+            string filePath = Path.Combine(_WebHostEnvironment.WebRootPath, "Temp", "temp.xlsx");
+
+            _ExcelService.CreateFile(filePath);
+            _ExcelService.Fill(filePath, flashcards);
+
+            return File($"~Temp/temp.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", setName);
+        }
+
+        public IActionResult ImportDB(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                try
+                {
+                    var filePath = Path.Combine(_WebHostEnvironment.WebRootPath, "Temp", "importTemp.xlsx");
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    StudySet newSet = _StudySetService.AddNewStudySet(Path.GetFileNameWithoutExtension(file.FileName));
+                    List<FlashcardDTO> flashcards = _ExcelService.GetExcelData(filePath, newSet.StudySetName);
+
+                    foreach (var card in flashcards)
+                    {
+                        _FlashcardService.Add(card.Question, card.Answer, newSet.StudySetName);
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception ex)
+                {
+
+                    ModelState.AddModelError("", "An error occurred while importing flashcards: " + ex.Message);
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }
