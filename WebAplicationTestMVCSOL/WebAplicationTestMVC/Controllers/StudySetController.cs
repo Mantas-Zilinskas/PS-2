@@ -21,9 +21,9 @@ namespace WebAplicationTestMVC.Controllers
             _ExcelService = excelService;
         }
 
-        public IActionResult StudySets(string studySetName)
+        public async Task<IActionResult> StudySets(string studySetName)
         {
-        List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(studySetName);
+        List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(studySetName);
 
         StudySet studySet = new StudySet(studySetName);
         studySet.Flashcards = flashcards;
@@ -44,45 +44,45 @@ namespace WebAplicationTestMVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult SearchStudySet(string studySetName)
+        public async Task<IActionResult> SearchStudySet(string studySetName)
         {
             var regexPattern = new Regex(studySetName, RegexOptions.IgnoreCase);
 
-            var foundStudySets = _StudySetService.GetAllStudySets();
+            var foundStudySets = await _StudySetService.GetAllStudySets();
 
             return View("~/Views/Home/Index.cshtml", foundStudySets.Where(s => regexPattern.IsMatch(s.StudySetName)).ToList());
         }
 
         [HttpPost]
-        public IActionResult GetFilteredStudySets(string filter)
+        public async Task<IActionResult> GetFilteredStudySets(string filter)
         {
             List<StudySet> filteredSets;
 
             switch (filter)
             {
                 case "lastWeek":
-                    filteredSets = _StudySetService.GetByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 7);
+                    filteredSets = await _StudySetService.GetByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 7);
                     break;
                 case "lastMonth":
-                    filteredSets = _StudySetService.GetByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 30);
+                    filteredSets = await _StudySetService.GetByDateFilter(studySet => (DateTime.Now - studySet.DateCreated).TotalDays <= 30);
                     break;
                 case "newerToOlder":
-                    filteredSets = _StudySetService.GetAllOrderedBy(studySets => studySets.OrderByDescending(set => set.DateCreated));
+                    filteredSets = await _StudySetService.GetAllOrderedBy(studySets => studySets.OrderByDescending(set => set.DateCreated));
                     break;
                 case "olderToNewer":
-                    filteredSets = _StudySetService.GetAllOrderedBy(studySets => studySets.OrderBy(set => set.DateCreated));
+                    filteredSets = await _StudySetService.GetAllOrderedBy(studySets => studySets.OrderBy(set => set.DateCreated));
                     break;
                 default:
-                    filteredSets = _StudySetService.GetAllStudySets();
+                    filteredSets = await _StudySetService.GetAllStudySets();
                     break;
             }
 
             return PartialView("_StudySetListPartial", filteredSets);
         }
 
-        public IActionResult ExportDB(string setName)
+        public async Task<IActionResult> ExportDB(string setName)
         {
-            IEnumerable<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+            IEnumerable<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(setName);
 
             string filePath = Path.Combine(_WebHostEnvironment.WebRootPath, "Temp", "temp.xlsx");
 
@@ -92,7 +92,7 @@ namespace WebAplicationTestMVC.Controllers
             return File($"~Temp/temp.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", setName);
         }
 
-        public IActionResult ImportDB(IFormFile file)
+        public async Task<IActionResult> ImportDB(IFormFile file)
         {
             if (file != null && file.Length > 0)
             {
@@ -104,12 +104,12 @@ namespace WebAplicationTestMVC.Controllers
                         file.CopyTo(stream);
                     }
 
-                    StudySet newSet = _StudySetService.AddNewStudySet(Path.GetFileNameWithoutExtension(file.FileName));
+                    StudySet newSet = await _StudySetService.AddNewStudySet(Path.GetFileNameWithoutExtension(file.FileName));
                     List<FlashcardDTO> flashcards = _ExcelService.GetExcelData(filePath, newSet.StudySetName);
 
                     foreach (var card in flashcards)
                     {
-                        _FlashcardService.Add(card.Question, card.Answer, newSet.StudySetName);
+                        await _FlashcardService.Add(card.Question, card.Answer, newSet.StudySetName);
                     }
 
                     return RedirectToAction("Index", "Home");

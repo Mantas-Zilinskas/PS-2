@@ -13,21 +13,21 @@ namespace WebAplicationTestMVC.Services
             _StudySetRepository = studySetRepository;
         }
 
-        public List<StudySet> GetAllStudySets()
+        public async Task<List<StudySet>> GetAllStudySets()
         {
-            return _StudySetRepository.GetAll();
+            return await _StudySetRepository.GetAll();
         }
 
-        public StudySet AddNewStudySet(string studySetName) {
+        public async Task<StudySet> AddNewStudySet(string studySetName) {
 
-            StudySet originalStudySet = GetStudySetByName(studySetName);
+            StudySet originalStudySet = await GetStudySetByName(studySetName);
 
             if (originalStudySet != null)
             {
                 int counter = 0;
                 string uniqueStudySetName = studySetName;
 
-                while (GetStudySetByName(uniqueStudySetName) != null)
+                while (await GetStudySetByName(uniqueStudySetName) != null)
                 {
                     counter++;
                     uniqueStudySetName = $"{studySetName} ({counter})";
@@ -40,26 +40,26 @@ namespace WebAplicationTestMVC.Services
             {
                 DateCreated = DateTime.Now
             };
-            _StudySetRepository.Add(studySet);
+            await _StudySetRepository.Add(studySet);
 
             return studySet;
         }
 
-        public StudySet GetStudySetByName(string studySetName) {
+        public async Task<StudySet> GetStudySetByName(string studySetName) {
 
-            return _StudySetRepository.GetByName(studySetName);
+            return await _StudySetRepository.GetByName(studySetName);
         }
 
-        public List<StudySet> GetByDateFilter(StudySetDateFilter filter)
+        public async Task<List<StudySet>> GetByDateFilter(StudySetDateFilter filter)
         {
-            var allStudySets = _StudySetRepository.GetAll();
+            var allStudySets = await _StudySetRepository.GetAll();
 
             return allStudySets.Where(filter.Invoke).ToList();
         }
 
-        public List<StudySet> GetAllOrderedBy(StudySetOrderFilter orderFilter)
+        public async Task<List<StudySet>> GetAllOrderedBy(StudySetOrderFilter orderFilter)
         {
-            var allStudySets = _StudySetRepository.GetAll();
+            var allStudySets = await _StudySetRepository.GetAll();
 
             return orderFilter(allStudySets).ToList();
         }

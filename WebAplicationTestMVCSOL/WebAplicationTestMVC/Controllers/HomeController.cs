@@ -15,9 +15,9 @@ namespace WebAplicationTestMVC.Controllers
             _StudySetService = studySetService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<StudySet> studySets = _StudySetService.GetAllStudySets();
+            List<StudySet> studySets = await _StudySetService.GetAllStudySets();
             ColorManager.AssignUniqueColor(studySets, HttpContext);
 
             return View(studySets);
