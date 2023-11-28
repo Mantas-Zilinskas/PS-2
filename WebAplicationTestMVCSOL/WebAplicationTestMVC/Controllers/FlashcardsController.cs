@@ -69,7 +69,7 @@ namespace WebAplicationTestMVC.Controllers
             time--;
             return Ok(time);
         }
-
+        
         [HttpPost]
         public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
         {

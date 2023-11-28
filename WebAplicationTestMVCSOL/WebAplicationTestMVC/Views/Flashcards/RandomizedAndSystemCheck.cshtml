@@ -139,7 +139,11 @@
 
     <hr class="soften" />
 
-    <script src="static/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript">
+        var studySetId = @Model[0].StudySetId;
+    </script>
+
+<script src="static/js/jquery-2.1.0.min.js"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/flashcard-ahhh.js"></script>
     <script>
@@ -243,8 +247,6 @@
             }
         }
 
-
-
         function showNext() {
 
             if (@ViewBag.time > 0 && cardFlag == false) {
@@ -267,6 +269,21 @@
                 const studyTime = 'You have finished the cards.'
                 alert(studyTime);
             }
+        }
+        function finishSession() {
+            flag = false; 
+            var studySetId = ...; 
+            sendTimeToServer(studySetId, time);
+            alert('You have finished the cards. Total time spent: ' + time + ' seconds.');
+        }
+
+        function sendTimeToServer(studySetId, timeSpent) {
+            $.post('/StudySet/RecordStudyTime', { studySetId: studySetId, timeSpent: timeSpent })
+                .done(function (data) {
+                    console.log('Time was recorded successfully.');
+                }).fail(function () {
+                    console.log('Error recording time.');
+                });
         }
 
         function editFlashcard() {

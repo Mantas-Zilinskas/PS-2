@@ -21,12 +21,25 @@
         #search{
             text-align: end;
         }
-      
+
+        .star-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .star-icon {
+            font-size: 30px;
+            color: white;
+        }
+
+        .star-active {
+            color: gold;
+        }
 
     </style>
 </head>
-
-
 
 <body>
 
@@ -83,6 +96,27 @@
   
     <script>
 
+        function toggleStar(event, studySetId) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            var starIcon = event.currentTarget.querySelector('.star-icon');
+            starIcon.classList.toggle('star-active');
+
+            $.ajax({
+                url: '/StudySet/ToggleFavorite',
+                type: 'POST',
+                data: { studySetId: studySetId },
+                success: function (response) {
+                    console.log('Favorite status updated');
+                },
+                error: function () {
+                    alert('Error updating favorite status');
+                }
+            });
+        }
+
+
         $(document).ready(function () {
             
             $("#createStudySetForm").submit(function (e) {
@@ -102,7 +136,7 @@
                     alert('Please enter a name for the study set.');
                 }
             });
-           
+
             $("#showFormButton").click(function () {
                 var form = $("#myForm");
                 form.toggle();
@@ -142,13 +176,18 @@
     </script>
 
     <div class="row">
+
         @foreach (var studySet in Model)
         {
-            <a class="col-sm- set-box"
-               style="background-color: @(studySet.Color.ToString().ToLower());text-decoration: none;"
-               asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@studySet.StudySetName">
-                <div class="set-name">@studySet.StudySetName</div>
-            </a>
+            <div class="col-sm- set-box" style="position: relative; background-color: @(studySet.Color.ToString().ToLower());">
+                <div class="star-container" onclick="toggleStar(event, @studySet.Id)">
+                    <i class="star-icon">★</i>
+                </div>
+
+                <a style="text-decoration: none;" asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@studySet.StudySetName">
+                    <div class="set-name">@studySet.StudySetName</div>
+                </a>
+            </div>
         }
     </div>
 

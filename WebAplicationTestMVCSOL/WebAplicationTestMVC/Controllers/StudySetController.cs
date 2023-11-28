@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
+using WebAplicationTestMVC.Services;
 
 namespace WebAplicationTestMVC.Controllers
 {
@@ -9,11 +11,13 @@ namespace WebAplicationTestMVC.Controllers
     {
         private readonly IFlashcardService _FlashcardService;
         private readonly IStudySetService _StudySetService;
+        private readonly ApplicationDbContext _context;
 
-        public StudySetController(IFlashcardService flashcardService, IStudySetService studySetService)
+        public StudySetController(IFlashcardService flashcardService, IStudySetService studySetService, ApplicationDbContext context)
         {
             _FlashcardService = flashcardService;
             _StudySetService = studySetService;
+            _context = context;
         }
 
         public IActionResult StudySets(string studySetName)
@@ -68,11 +72,51 @@ namespace WebAplicationTestMVC.Controllers
                     filteredSets = _StudySetService.GetAllOrderedBy(studySets => studySets.OrderBy(set => set.DateCreated));
                     break;
                 default:
+
                     filteredSets = _StudySetService.GetAllStudySets();
                     break;
             }
 
             return PartialView("_StudySetListPartial", filteredSets);
         }
+
+        [HttpPost]
+        public IActionResult RecordTimeSpent(int studySetId, int timeSpentInSeconds)
+        {
+            var studySet = _StudySetService.GetStudySetById(studySetId);
+            if (studySet == null)
+            {
+                return NotFound();
+            }
+
+            studySet.StudyTime += TimeSpan.FromSeconds(timeSpentInSeconds);
+            _StudySetService.UpdateStudySet(studySet);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ToggleFavorite(int studySetId)
+        {
+            // Default userIdentifier to "no user"
+            var userIdentifier = User.Identity.IsAuthenticated ? User.Identity.Name : "no user";
+
+            // Your existing logic to check if the favorite already exists
+            var existingFavorite = _context.FavoriteStudySets.FirstOrDefault(f => f.StudySetId == studySetId && f.UserIdentifier == userIdentifier);
+
+            if (existingFavorite != null)
+            {
+                _context.FavoriteStudySets.Remove(existingFavorite);
+            }
+            else
+            {
+                var favoriteStudySet = new FavoriteStudySet { StudySetId = studySetId, UserIdentifier = userIdentifier };
+                _context.FavoriteStudySets.Add(favoriteStudySet);
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }

@@ -6,6 +6,7 @@
         public string Question { get; set; }
         public string Answer { get; set; }
         public string SetName { get; set; }
+        public int StudySetId { get; set; }
 
         public FlashcardDTO(string id, string question, string answer, string setName)
         {

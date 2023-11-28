@@ -1,5 +1,7 @@
 ﻿using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace WebAplicationTestMVC.Repository
 {
@@ -24,6 +26,16 @@ namespace WebAplicationTestMVC.Repository
         public StudySet GetByName(string studySetName)
         {
             return _context.StudySets.SingleOrDefault(s => s.StudySetName == studySetName);
+        }
+        public StudySet GetById(int studySetId)
+        {
+            return _context.StudySets.Find(studySetId);
+        }
+
+        public void Update(StudySet studySet)
+        {
+            _context.Entry(studySet).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

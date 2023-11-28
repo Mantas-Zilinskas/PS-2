@@ -8,7 +8,7 @@ namespace WebAplicationTestMVC.Services
     {
         private readonly IStudySetRepository _StudySetRepository;
 
-        public StudySetService(IFlashcardRepository flashcardRepository, IStudySetRepository studySetRepository)
+        public StudySetService(IStudySetRepository studySetRepository)
         {
             _StudySetRepository = studySetRepository;
         }
@@ -18,8 +18,8 @@ namespace WebAplicationTestMVC.Services
             return _StudySetRepository.GetAll();
         }
 
-        public void AddNewStudySet(string studySetName) {
-
+        public void AddNewStudySet(string studySetName)
+        {
             StudySet originalStudySet = GetStudySetByName(studySetName);
 
             if (originalStudySet != null)
@@ -43,8 +43,8 @@ namespace WebAplicationTestMVC.Services
             _StudySetRepository.Add(studySet);
         }
 
-        public StudySet GetStudySetByName(string studySetName) {
-
+        public StudySet GetStudySetByName(string studySetName)
+        {
             return _StudySetRepository.GetByName(studySetName);
         }
 
@@ -60,6 +60,16 @@ namespace WebAplicationTestMVC.Services
             var allStudySets = _StudySetRepository.GetAll();
 
             return orderFilter(allStudySets).ToList();
+        }
+
+        public StudySet GetStudySetById(int studySetId)
+        {
+            return _StudySetRepository.GetById(studySetId);
+        }
+
+        public void UpdateStudySet(StudySet studySet)
+        {
+            _StudySetRepository.Update(studySet);
         }
     }
 }

@@ -37,11 +37,16 @@
         Set name: @Model.StudySetName
     </h2>
 
-    <hr class="soften" />
+<hr class="soften" />
 
-    <a class="btn btn-primary" asp-area="" asp-controller="Flashcards" asp-action="AddFlashcard" asp-route-studySetName="@Model.StudySetName">Create flashcards manually</a>
+    <div class="study-time-container">
+        <h4>Time Spent Studying:</h4>
+        <p>@Model.StudyTime.ToString("c")</p> 
+    </div>
+
+<a class="btn btn-primary" asp-area="" asp-controller="Flashcards" asp-action="AddFlashcard" asp-route-studySetName="@Model.StudySetName">Create flashcards manually</a>
     <a class="btn btn-primary" data-toggle="modal" data-target="#DataSettings" asp-area="">Learn flashcards</a>
-
+    
     <div class="modal" tabindex="-1" role="dialog" id="DataSettings">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -130,6 +135,8 @@
                 $('#DataSettings').modal('hide');
             });
         });
+
+
     </script>
 
     <br>
@@ -143,7 +150,5 @@
             </div>
         }
     </div>
-
-
 </body>
 </html>

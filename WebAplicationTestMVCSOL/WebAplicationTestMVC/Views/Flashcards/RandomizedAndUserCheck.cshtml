@@ -131,7 +131,8 @@
         <button type="button" class="btn btn-start btn-lg" onclick="startLearning()">Start</button>
         <button type="button" class="btn btn-warning btn-lg" onclick="showNext(false)">Bad</button>
         <button type="button" class="btn btn-success btn-lg" id="success-button" onclick="showNext(true)">Good</button>
-    </div>
+        <button type="button" class="btn btn-success btn-lg" onclick="showNext(true)">Good</button>
+</div>
     <hr class="soften" />
     <script src="static/js/jquery-2.1.0.min.js"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
@@ -171,6 +172,25 @@
             });
         }
 
+        function finishSession() {
+            var studySetId = @Model[0].StudySetId; // Make sure this is correctly set
+            sendTimeToServer(studySetId, time);
+        }
+
+        function sendTimeToServer(studySetId, timeSpent) {
+            $.ajax({
+                type: 'POST',
+                url: '/StudySet/RecordTimeSpent',
+                data: { studySetId: studySetId, timeSpentInSeconds: timeSpent },
+                success: function () {
+                    console.log('Time saved successfully');
+                },
+                error: function () {
+                    console.log('Error saving time');
+                }
+            });
+        }
+
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 let j = Math.floor(Math.random() * (i + 1));
@@ -201,7 +221,6 @@
                 const studyTime = 'You have finished the cards.'
                 alert(studyTime);
             }
-
         }
 
         async function count() {
@@ -231,7 +250,7 @@
                     decrement();
                 }
             });
-        }
+        }z
 
         function showAnswer() {
             $('#answer-content').show();
