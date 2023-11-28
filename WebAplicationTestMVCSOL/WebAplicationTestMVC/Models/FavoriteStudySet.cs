@@ -5,7 +5,7 @@ namespace WebAplicationTestMVC.Models
     public class FavoriteStudySet
     {
         public int Id { get; set; }
-        public string UserIdentifier { get; set; } // Unique identifier for the user session
+        public string UserIdentifier { get; set; }
         public int StudySetId { get; set; }
 
         [ForeignKey("StudySetId")]

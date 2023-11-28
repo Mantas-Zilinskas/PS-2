@@ -1,9 +1,8 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
-using WebAplicationTestMVC.Services;
+using WebAplicationTestMVC.Utilities;
 
 namespace WebAplicationTestMVC.Controllers
 {
@@ -28,6 +27,17 @@ namespace WebAplicationTestMVC.Controllers
         studySet.Flashcards = flashcards;
 
         return View(studySet);
+        }
+
+        public IActionResult FavoriteStudySet()
+        {
+            var userIdentifier = User.Identity.IsAuthenticated ? User.Identity.Name : "no user";
+            var favoriteStudySets = _context.FavoriteStudySets
+                .Where(f => f.UserIdentifier == userIdentifier)
+                .Select(f => f.StudySet)
+                .ToList();
+
+            return View(favoriteStudySets);
         }
 
         public IActionResult ModalSubmit(string name)
@@ -98,10 +108,8 @@ namespace WebAplicationTestMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> ToggleFavorite(int studySetId)
         {
-            // Default userIdentifier to "no user"
             var userIdentifier = User.Identity.IsAuthenticated ? User.Identity.Name : "no user";
 
-            // Your existing logic to check if the favorite already exists
             var existingFavorite = _context.FavoriteStudySets.FirstOrDefault(f => f.StudySetId == studySetId && f.UserIdentifier == userIdentifier);
 
             if (existingFavorite != null)
@@ -115,6 +123,13 @@ namespace WebAplicationTestMVC.Controllers
             }
 
             await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ToggleArchived(int studySetId, StudySetColor color, string studySetName, TimeSpan studyTime)
+        {
+
             return Ok();
         }
 

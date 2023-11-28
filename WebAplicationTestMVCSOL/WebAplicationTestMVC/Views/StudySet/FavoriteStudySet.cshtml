@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WebAplicationTestMVC.Models.StudySet>
+
+@{
+    ViewData["Title"] = "Favorite Study Sets";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="~/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" />
+
+</head>
+<body>
+<div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+        <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+        <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+        <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+</div>
+
+<div class="container-fav">
+    <h2>Favorite Study Sets</h2>
+    <div class="row">
+        @foreach (var studySet in Model)
+        {
+                <div class="col-sm- set-box">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@studySet.StudySetName</h5>
+                        <p class="card-text">Created on: @studySet.DateCreated.ToShortDateString()</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="removeFromFavorites(@studySet.Id)">Remove from Favorites</button>
+                                <a href="@Url.Action("StudySets", "StudySet", new { studySetName = studySet.StudySetName })" class="btn btn-sm btn-outline-secondary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+        function removeFromFavorites(studySetId) {
+            $.ajax({
+                url: '/StudySet/RemoveFromFavorites',
+                type: 'POST',
+                data: { id: studySetId },
+                success: function (response) {
+                    alert("Study Set removed from favorites.");
+                    location.reload();
+                },
+                error: function () {
+                    alert('Error removing from favorites.');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

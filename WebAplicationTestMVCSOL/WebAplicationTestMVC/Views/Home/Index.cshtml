@@ -38,6 +38,22 @@
             color: gold;
         }
 
+        .archived-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+        }
+
+        .archived-icon {
+            font-size: 20px;
+            color: white;
+        }
+
+        .archived-active {
+            color: brown;
+        }
+
     </style>
 </head>
 
@@ -116,6 +132,13 @@
             });
         }
 
+        function toggleArchived(event, studySetId) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            var archivedIcon = event.currentTarget.querySelector('.archived-icon');
+            archivedIcon.classList.toggle('archived-active');
+        }
 
         $(document).ready(function () {
             
@@ -182,6 +205,10 @@
             <div class="col-sm- set-box" style="position: relative; background-color: @(studySet.Color.ToString().ToLower());">
                 <div class="star-container" onclick="toggleStar(event, @studySet.Id)">
                     <i class="star-icon">★</i>
+                </div>
+
+                <div class="archived-container" onclick="toggleArchived(event, @studySet.Id)">
+                    <i class="archived-icon">🢃</i>
                 </div>
 
                 <a style="text-decoration: none;" asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@studySet.StudySetName">

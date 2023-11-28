@@ -14,7 +14,7 @@ namespace WebAplicationTestMVC.Models
 
         public int OriginalStudySetId { get; set; }
 
-        [ForeignKey("StudySetId")]
+        [ForeignKey("OriginalStudySetId")]
         public StudySet OriginalStudySet { get; set; }
 
         public ArchivedStudySet()
