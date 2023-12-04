@@ -1,4 +1,5 @@
-﻿using WebAplicationTestMVC.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
 
 namespace WebAplicationTestMVC.Repository
@@ -12,15 +13,15 @@ namespace WebAplicationTestMVC.Repository
             _context = context;
         }
 
-        public void Add(Flashcard flashcard)
+        public async Task Add(Flashcard flashcard)
         {
             _context.Database.EnsureCreated();
-            _context.Flashcards.Add(flashcard);
+            await _context.Flashcards.AddAsync(flashcard);
             _context.SaveChanges();
         }
-        public List<Flashcard> GetAllBySetName(string setName)
+        public async Task<List<Flashcard>> GetAllBySetName(string setName)
         {
-            return _context.Flashcards.Where(f => f.SetName == setName).ToList();
+            return await _context.Flashcards.Where(f => f.SetName == setName).ToListAsync();
         }
     }
 }

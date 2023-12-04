@@ -17,32 +17,32 @@ namespace WebAplicationTestMVC.Controllers
             _StudySetService = studySetService;
         }
 
-        public IActionResult RandomizedAndSystemCheck(string setName, int time)
+        public async Task<IActionResult> RandomizedAndSystemCheck(string setName, int time)
         {
             ViewBag.time = time;
-            List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+            List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(setName);
             
             return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
 
-        public IActionResult RandomizedAndUserCheck(string setName, int time)
+        public async Task<IActionResult> RandomizedAndUserCheck(string setName, int time)
         {
             ViewBag.time = time;
-            List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+            List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(setName);
             return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
 
-        public IActionResult SpacedRepetitionAndSystemCheck(string setName, int time)
+        public async Task<IActionResult> SpacedRepetitionAndSystemCheck(string setName, int time)
         {
             ViewBag.time = time;
-            List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+            List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(setName);
             return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
 
-        public IActionResult SpacedRepetitionAndUserCheck(string setName, int time)
+        public async Task<IActionResult> SpacedRepetitionAndUserCheck(string setName, int time)
         {
             ViewBag.time = time;
-            List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(setName);
+            List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(setName);
             return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
 
@@ -71,11 +71,11 @@ namespace WebAplicationTestMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult SubmitNewFlashcard(string question, string answer, string studySetName)
+        public async Task<IActionResult> SubmitNewFlashcard(string question, string answer, string studySetName)
         {
 
             var flashcardId = IdGenerator.GenerateId(question, answer);
-            var studySet = _StudySetService.GetStudySetByName(studySetName);
+            var studySet = await _StudySetService.GetStudySetByName(studySetName);
             if (studySet != null)
             {
 
@@ -84,7 +84,7 @@ namespace WebAplicationTestMVC.Controllers
                     StudySet = studySet
                 };
 
-                _FlashcardService.Add(newFlashcard.Question, newFlashcard.Answer, newFlashcard.SetName);
+                await _FlashcardService.Add(newFlashcard.Question, newFlashcard.Answer, newFlashcard.SetName);
                 return View("AddFlashcard", new StudySet(studySetName));
             }
             else
@@ -95,13 +95,13 @@ namespace WebAplicationTestMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateFlashcard(string question, string answer, string studySetName)
+        public async Task<IActionResult> CreateFlashcard(string question, string answer, string studySetName)
         {
             if (!string.IsNullOrEmpty(question) && !string.IsNullOrEmpty(answer))
             {
 
                 Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer, studySetName);
-                _FlashcardService.Add(flashcard.Question, flashcard.Answer, flashcard.SetName);
+                await _FlashcardService.Add(flashcard.Question, flashcard.Answer, flashcard.SetName);
 
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }

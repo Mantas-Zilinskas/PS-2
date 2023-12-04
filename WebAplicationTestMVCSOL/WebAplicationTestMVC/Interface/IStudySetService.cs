@@ -5,10 +5,10 @@ namespace WebAplicationTestMVC.Interface
 {
     public interface IStudySetService
     {
-        List<StudySet> GetAllStudySets();
-        void AddNewStudySet(string studySetName);
-        StudySet GetStudySetByName(string studySetName);
-        List<StudySet> GetByDateFilter(StudySetDateFilter filter);
-        List<StudySet> GetAllOrderedBy(StudySetOrderFilter orderFilter);
+        Task<List<StudySet>> GetAllStudySets();
+        Task<StudySet> AddNewStudySet(string studySetName);
+        Task<StudySet> GetStudySetByName(string studySetName);
+        Task<List<StudySet>> GetByDateFilter(StudySetDateFilter filter);
+        Task<List<StudySet>> GetAllOrderedBy(StudySetOrderFilter orderFilter);
     }
 }

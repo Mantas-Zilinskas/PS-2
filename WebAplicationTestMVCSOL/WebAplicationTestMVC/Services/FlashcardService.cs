@@ -14,30 +14,22 @@ namespace WebAplicationTestMVC.Services
             _StudySetRepository = studySetRepository;
         }
 
-        public List<Flashcard> GetAllFlashcardsBySetName(string setName)
+        public async Task<List<Flashcard>> GetAllFlashcardsBySetName(string setName)
         {
-            StudySet set = _StudySetRepository.GetByName(setName);
-
-            if (set != null)
-            {
-                List<Flashcard> flashcards = _FlashCardRepository.GetAllBySetName(setName);
+                List<Flashcard> flashcards = await _FlashCardRepository.GetAllBySetName(setName);
                 return flashcards;
-            }
-            else {
-                throw new Exception("study set not found");
-            }
         }
 
-        public void Add(string question, string answer, string setName) {
+        public async Task Add(string question, string answer, string setName) {
 
-            var studySet = _StudySetRepository.GetByName(setName);
+            var studySet = await _StudySetRepository.GetByName(setName);
 
             if (studySet != null)
             {
                 Flashcard flashcard = new Flashcard(Guid.NewGuid().ToString(), question, answer, setName);
                 flashcard.StudySetId = studySet.Id;
 
-                _FlashCardRepository.Add(flashcard);
+                await _FlashCardRepository.Add(flashcard);
             }
             else
             {

@@ -41,6 +41,7 @@
 
     <a class="btn btn-primary" asp-area="" asp-controller="Flashcards" asp-action="AddFlashcard" asp-route-studySetName="@Model.StudySetName">Create flashcards manually</a>
     <a class="btn btn-primary" data-toggle="modal" data-target="#DataSettings" asp-area="">Learn flashcards</a>
+    <a class="btn btn-primary" asp-area="" asp-controller="StudySet" asp-action="ExportDB" asp-route-SetName="@Model.StudySetName">Export</a>
 
     <div class="modal" tabindex="-1" role="dialog" id="DataSettings">
         <div class="modal-dialog" role="document">

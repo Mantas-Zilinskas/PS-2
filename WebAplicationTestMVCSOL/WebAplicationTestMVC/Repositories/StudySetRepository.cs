@@ -1,4 +1,5 @@
-﻿using WebAplicationTestMVC.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
 
 namespace WebAplicationTestMVC.Repository
@@ -12,18 +13,18 @@ namespace WebAplicationTestMVC.Repository
             _context = context;
         }
 
-        public void Add(StudySet studySet)
+        public async Task Add(StudySet studySet)
         {
-            _context.StudySets.Add(studySet);
+           await _context.StudySets.AddAsync(studySet);
             _context.SaveChanges();
         }
-        public List<StudySet> GetAll()
+        public async Task<List<StudySet>> GetAll()
         {
-            return _context.StudySets.ToList();
+            return await _context.StudySets.ToListAsync();
         }
-        public StudySet GetByName(string studySetName)
+        public async Task<StudySet> GetByName(string studySetName)
         {
-            return _context.StudySets.SingleOrDefault(s => s.StudySetName == studySetName);
+            return await _context.StudySets.SingleOrDefaultAsync(s => s.StudySetName == studySetName);
         }
     }
 }

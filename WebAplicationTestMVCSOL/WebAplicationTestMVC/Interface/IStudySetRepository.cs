@@ -4,8 +4,8 @@ namespace WebAplicationTestMVC.Interface
 {
     public interface IStudySetRepository
     {
-        List<StudySet> GetAll();
-        StudySet GetByName(string studySetName);
-        void Add(StudySet studySet);
+        Task<List<StudySet>> GetAll();
+        Task<StudySet> GetByName(string studySetName);
+        Task Add(StudySet studySet);
     }
 }
