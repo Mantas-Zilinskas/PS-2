@@ -10,8 +10,6 @@
 }
 .dropped {
     margin: 10px; 
- 
-    
 }
 .draggable, .droppable {
     overflow-wrap: break-word;
