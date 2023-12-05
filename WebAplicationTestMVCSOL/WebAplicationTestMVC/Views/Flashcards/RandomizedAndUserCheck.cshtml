@@ -141,6 +141,8 @@
         let currentIndex = -1;
         let cards = []; 
         var studyStartTime;
+        let studyEndTime;
+        let studyStartTimeForCounting;
         let isWaitingForGood = false;
         let time = 0;
         let cardTime = @ViewBag.time;
@@ -159,7 +161,7 @@
                 studyStartTime = data;
                 shuffle(cards);
                 $('.btn-start').hide();
-                $('.btn-warning, #success-button, #three-items').show();
+                $('.btn-warning, .btn-success, #three-items').show();
                 currentIndex = 0;
                 count();
 
@@ -173,20 +175,25 @@
         }
 
         function finishSession() {
-            var studySetId = @Model[0].StudySetId; // Make sure this is correctly set
-            sendTimeToServer(studySetId, time);
+            studyEndTime = new Date();
+            var studySetId = @Model[0].Id;
+            sendTimeToServer(Id, studyStartTime, studyEndTime);
         }
 
-        function sendTimeToServer(studySetId, timeSpent) {
+        function sendTimeToServer(studySetId, startTime, endTime) {
             $.ajax({
                 type: 'POST',
-                url: '/StudySet/RecordTimeSpent',
-                data: { studySetId: studySetId, timeSpentInSeconds: timeSpent },
+                url: '/StudySet/RecordStudySession',
+                data: {
+                    studySetId: studySetId,
+                    startTime: startTime.toISOString(),
+                    endTime: endTime.toISOString()
+                },
                 success: function () {
-                    console.log('Time saved successfully');
+                    console.log('Study session time saved successfully');
                 },
                 error: function () {
-                    console.log('Error saving time');
+                    console.log('Error saving study session time');
                 }
             });
         }

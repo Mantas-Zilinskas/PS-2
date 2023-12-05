@@ -133,5 +133,21 @@ namespace WebAplicationTestMVC.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult RecordStudySession(int studySetId, DateTime startTime, DateTime endTime)
+        {
+            var studySet = _StudySetService.GetStudySetById(studySetId);
+            if (studySet == null)
+            {
+                return NotFound();
+            }
+
+            TimeSpan studyDuration = endTime - startTime;
+            studySet.StudyTime += studyDuration;
+            _StudySetService.UpdateStudySet(studySet);
+
+            return Ok();
+        }
+
     }
 }

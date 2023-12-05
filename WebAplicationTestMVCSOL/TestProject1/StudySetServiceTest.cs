@@ -2,6 +2,7 @@
 using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Models;
 using WebAplicationTestMVC.Services;
+using WebAplicationTestMVC.Utilities;
 
 namespace WebApplicationTestMVCTests
 {
@@ -15,36 +16,92 @@ namespace WebApplicationTestMVCTests
         public void SetUp()
         {
             mockRepository = new Mock<IStudySetRepository>();
-            service = new StudySetService(null, mockRepository.Object);
+            service = new StudySetService(mockRepository.Object);
         }
 
         [TestMethod]
-        public void GetAllStudySets_ReturnsAllStudySets()
+        public void GetStudySetByName_ReturnsStudySet_WhenExists()
         {
+            // Arrange
+            var studySetName = "Mathematics";
+            var expectedStudySet = new StudySet(studySetName) { Id = 1, DateCreated = DateTime.Now };
+            mockRepository.Setup(repo => repo.GetByName(studySetName)).Returns(expectedStudySet);
 
-            var expectedStudySets = new List<StudySet>
+            // Act
+            var result = service.GetStudySetByName(studySetName);
+
+            // Assert
+            Assert.AreEqual(expectedStudySet, result);
+        }
+
+        [TestMethod]
+        public void GetByDateFilter_ReturnsFilteredStudySets()
+        {
+            // Arrange
+            var studySets = new List<StudySet>
             {
                 new StudySet("Mathematics") { DateCreated = DateTime.Now.AddDays(-10), Id = 1 },
                 new StudySet("Science") { DateCreated = DateTime.Now.AddDays(-5), Id = 2 },
-                new StudySet("History") { DateCreated = DateTime.Now, Id = 3 }
+                new StudySet("History") { DateCreated = DateTime.Now.AddDays(-1), Id = 3 }
             };
+            var filter = new StudySetDateFilter((studySet) => studySet.DateCreated > DateTime.Now.AddDays(-7));
+            mockRepository.Setup(repo => repo.GetAll()).Returns(studySets);
 
-            mockRepository.Setup(repo => repo.GetAll()).Returns(expectedStudySets);
+            // Act
+            var result = service.GetByDateFilter(filter);
 
-            var result = service.GetAllStudySets();
-
-            Assert.AreEqual(expectedStudySets, result);
+            // Assert
+            var expected = studySets.Where(s => s.DateCreated > DateTime.Now.AddDays(-7)).ToList();
+            CollectionAssert.AreEqual(expected, result);
         }
 
         [TestMethod]
-        public void AddNewStudySet_AddsStudySetWhenNotExisting()
+        public void GetAllOrderedBy_ReturnsStudySetsInOrder()
         {
-            var studySetName = "New Study Set";
-            mockRepository.Setup(repo => repo.GetByName(studySetName)).Returns((StudySet)null);
+            // Arrange
+            var studySets = new List<StudySet>
+            {
+                new StudySet("Science") { DateCreated = DateTime.Now.AddDays(-5), Id = 2 },
+                new StudySet("Mathematics") { DateCreated = DateTime.Now.AddDays(-10), Id = 1 },
+                new StudySet("History") { DateCreated = DateTime.Now.AddDays(-1), Id = 3 }
+            };
+            var orderFilter = new StudySetOrderFilter((sets) => sets.OrderBy(s => s.DateCreated));
+            mockRepository.Setup(repo => repo.GetAll()).Returns(studySets);
 
-            service.AddNewStudySet(studySetName);
+            // Act
+            var result = service.GetAllOrderedBy(orderFilter);
 
-            mockRepository.Verify(repo => repo.Add(It.Is<StudySet>(s => s.StudySetName == studySetName)), Times.Once);
+            // Assert
+            var expected = studySets.OrderBy(s => s.DateCreated).ToList();
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void GetStudySetById_ReturnsStudySet_WhenExists()
+        {
+            // Arrange
+            var studySetId = 1;
+            var expectedStudySet = new StudySet("Mathematics") { DateCreated = DateTime.Now.AddDays(-10), Id = studySetId };
+            mockRepository.Setup(repo => repo.GetById(studySetId)).Returns(expectedStudySet);
+
+            // Act
+            var result = service.GetStudySetById(studySetId);
+
+            // Assert
+            Assert.AreEqual(expectedStudySet, result);
+        }
+
+        [TestMethod]
+        public void UpdateStudySet_CallsUpdateOnRepository()
+        {
+            // Arrange
+            var studySet = new StudySet("Mathematics") { DateCreated = DateTime.Now.AddDays(-10), Id = 1 };
+
+            // Act
+            service.UpdateStudySet(studySet);
+
+            // Assert
+            mockRepository.Verify(repo => repo.Update(studySet), Times.Once);
         }
     }
 }

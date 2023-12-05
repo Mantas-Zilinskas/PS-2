@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WebAplicationTestMVCSOL",
+    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC",
+    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Models",
+    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Utilities"
   ],
-  "SelectedNode": "\\WebAplicationTestMVCSOL.sln",
+  "SelectedNode": "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Models\\StudySet.cs",
   "PreviewInSolutionExplorer": false
 }
