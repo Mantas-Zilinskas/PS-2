@@ -7,5 +7,6 @@ namespace WebAplicationTestMVC.Interface
         Task<List<Flashcard>> GetAllFlashcardsBySetName(string setName);
         Task Add(string question, string answer, string setName);
         List<FlashcardDTO> FlashcardsToDTOs(List<Flashcard> flashcards);
+        Task<List<FlashcardDTO>> GetAllFlashcardsAsDTOs();
     }
 }

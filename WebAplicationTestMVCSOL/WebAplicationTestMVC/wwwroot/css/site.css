@@ -14,10 +14,23 @@ body.dark-mode {
     font-weight: normal;
     font-style: normal;
 }
+form.filter-container {
+    display: flex;
+    position: absolute;
+    border-style: ridge;
+    border-radius: 9px;
+    background-color:white;
+}
+.form-control {
+    background-color:transparent;
+    border:none;
 
-
-
-body.dark-mode h2 {
+}
+.F-Icon {
+    width: 35px;
+    cursor:pointer;
+}
+body .dark-mode h2 {
     display: block;
     position: absolute;
     top: 50%;

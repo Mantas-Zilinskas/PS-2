@@ -1,0 +1,117 @@
+﻿
+
+
+/* Add styles for the flashcards container */
+#flashcards-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.dropped {
+    margin: 10px; /* Adjust the space as needed */
+    /* Add other styles if necessary */
+    
+}
+.draggable, .droppable {
+    /* Other styling properties */
+    /* Handling text wrapping and overflow */
+    overflow-wrap: break-word; /* Allows long words to be broken and wrapped onto the next line */
+    word-wrap: break-word; /* Older, alternate name for overflow-wrap */
+    white-space: normal; /* Allows text to wrap naturally */
+    max-width: 200px; /* Set a maximum width for draggables and droppables, adjust as needed */
+    padding: 5px; /* Adjust padding as needed for better text display */
+    box-sizing: border-box; /* Ensures that padding and border are included in the width and height */
+}
+
+/* Style the draggable and droppable elements */
+.draggable {
+    cursor: pointer;
+    user-select: none;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    min-height: 50px;
+    width: 150px;
+    text-align: center;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .draggable:active {
+        transform: scale(1.05);
+    }
+
+.droppable {
+    border: 1px solid #ccc;
+    min-height: 50px;
+    width: 150px;
+    display: inline-table;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+/* Add CSS for correct and incorrect animations */
+.correct-answer {
+    color: green;
+    animation: correct-animation 1s ease-in-out;
+}
+
+.incorrect-answer {
+    color: red;
+    animation: incorrect-animation 1s ease-in-out;
+}
+
+/* Style the score container */
+#score-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#score {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Keyframes for animations */
+@keyframes correct-animation {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes incorrect-animation {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}

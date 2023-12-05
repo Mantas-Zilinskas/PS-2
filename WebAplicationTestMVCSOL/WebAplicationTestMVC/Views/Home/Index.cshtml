@@ -9,6 +9,8 @@
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/loader.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-GLhl2r/7FARzTfDIa0jFIOh6Iq3Q10wF5c5jVvvcDmqC2lgRk7K+AMxLsD7f+9N6R" crossorigin="anonymous">
+
     <style>
         .question-text {
             font-size: 28px;
@@ -40,7 +42,12 @@
 
     <div class="col-md-6 text-end">
         <form class="filter-container" method="post" asp-controller="StudySet" asp-action="GetFilteredStudySets">
+            <div class="filter-icon">
+                <img src="data:image/png;base64,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"
+                class="F-Icon" alt="Filter Icon">
+            </div>
             <select id="filterDropdown" class="form-control">
+                <option value="-1">Filter Sets</option>
                 <option value="all">All</option>
                 <option value="lastWeek">Last Week</option>
                 <option value="lastMonth">Last Month</option>
@@ -48,8 +55,8 @@
                 <option value="olderToNewer">Older to Newer</option>
             </select>
         </form>
-
     </div>
+    <a href="@Url.Action("FlashcardMatchGame", "Flashcards")" class="btn btn-success">Enter Flashcard Match Game</a>
     <div class="waveWrapper waveAnimation">
         <div class="waveWrapperInner bgTop">
             <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>

@@ -1,0 +1,169 @@
+﻿@model WebAplicationTestMVC.Models.FlashcardGameViewModel
+
+<link rel="stylesheet" href="~/css/game.css" asp-append-version="true" />
+<style>
+
+</style>
+<div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+        <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+        <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+        <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+</div>
+<div id="flashcards-container">
+    <div id="questions-container">
+        @foreach (var flashcard in Model.Questions.OrderBy(x => Guid.NewGuid()))
+        {
+            <div class="draggable" draggable="true" data-flashcard-id="@flashcard.Id">
+                @flashcard.Question
+            </div>
+        }
+    </div>
+    <div id="answers-container">
+        @foreach (var flashcard in Model.Answers.OrderBy(x => Guid.NewGuid()))
+        {
+            <div class="droppable" draggable="true" data-flashcard-id="@flashcard.Id">
+                @flashcard.Answer
+            </div>
+        }
+    </div>
+</div>
+<div id="scoreModal" class="modal">
+    <div class="modal-content">
+        <h2>Your Score</h2>
+        <p>Your score is: <span id="modal-score">0</span></p>
+        <div class="modal-buttons">
+            <button id="restartButton">Restart</button>
+            <button id="mainPageButton">Go to Main Page</button>
+        </div>
+    </div>
+</div>
+<!-- Add a button to restart or go to the main page after no flashcards left -->
+<div id="noFlashcardsMessage" style="display: none;">
+    <p>No more flashcards left.</p>
+    <button id="restartOrMainPageButton">Restart or Go to Main Page</button>
+</div>
+
+
+
+<script>
+    // Your existing game code
+    const draggables = document.querySelectorAll('.draggable');
+    const droppables = document.querySelectorAll('.droppable');
+    const scoreElement = document.getElementById('score');
+    const noFlashcardsMessage = document.getElementById('noFlashcardsMessage');
+    const restartOrMainPageButton = document.getElementById('restartOrMainPageButton');
+
+    let score = 0; // Initialize the score
+    let flashcardsLeft = draggables.length;
+
+    // Function to reset the game elements and score
+    function resetGame() {
+        // Reset score and update display
+        score = 0;
+        scoreElement.textContent = 'Score: 0';
+        window.location.href = '/Flashcards/FlashcardMatchGame';
+        // Reset flashcards state
+        draggables.forEach(draggable => {
+            draggable.style.display = '';
+            draggable.classList.remove('correct-answer', 'incorrect-answer', 'dropped');
+        });
+        droppables.forEach(droppable => droppable.style.display = '');
+
+        // Reset flashcards count
+        flashcardsLeft = draggables.length;
+
+        // Hide no flashcards message
+        noFlashcardsMessage.style.display = 'none';
+    }
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
+        });
+
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+        });
+    });
+
+    droppables.forEach(droppable => {
+        droppable.addEventListener('dragover', e => {
+            e.preventDefault();
+            const draggable = document.querySelector('.dragging');
+            if (draggable && draggable.getAttribute('data-flashcard-id') === droppable.getAttribute('data-flashcard-id')) {
+                droppable.classList.add('highlight');
+            } else {
+                droppable.classList.remove('highlight');
+            }
+        });
+
+        droppable.addEventListener('dragleave', () => {
+            droppable.classList.remove('highlight');
+        });
+
+        droppable.addEventListener('drop', e => {
+            e.preventDefault();
+            const draggable = document.querySelector('.dragging');
+            if (draggable && draggable.getAttribute('data-flashcard-id') === droppable.getAttribute('data-flashcard-id')) {
+                // Logic for a correct match
+                droppable.appendChild(draggable);
+                draggable.classList.add('correct-answer', 'dropped');
+                score++;
+                scoreElement.textContent = `Score: ${score}`;
+                flashcardsLeft--;
+
+                // Check if the game is finished
+                if (flashcardsLeft === 0) {
+                    openScoreModal(score);
+                }
+            } else if (draggable) {
+                // Logic for an incorrect match
+                draggable.classList.add('shake');
+                setTimeout(() => {
+                    draggable.classList.remove('shake');
+                }, 500); // Shake duration
+            }
+        });
+    });
+
+    // Function to open the modal with the score
+    function openScoreModal(score) {
+        const modalScore = document.getElementById('modal-score');
+        modalScore.textContent = `Score: ${score}`;
+        const scoreModal = document.getElementById('scoreModal');
+        scoreModal.style.display = 'block';
+    }
+
+    // Function to close the modal
+    function closeScoreModal() {
+        const scoreModal = document.getElementById('scoreModal');
+        scoreModal.style.display = 'none';
+    }
+
+    // Event listener for the restart button
+    const restartButton = document.getElementById('restartButton');
+    restartButton.addEventListener('click', () => {
+        closeScoreModal();
+        resetGame();
+    });
+
+    // Event listener for the main page button
+    const mainPageButton = document.getElementById('mainPageButton');
+    mainPageButton.addEventListener('click', () => {
+        closeScoreModal();
+        window.location.href = '/';
+    });
+
+    // Event listener for the restart or go to the main page button after no flashcards left
+    restartOrMainPageButton.addEventListener('click', () => {
+        closeScoreModal();
+        resetGame();
+    });
+</script>
+
