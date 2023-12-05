@@ -122,14 +122,5 @@ public async Task<IActionResult> FlashcardMatchGame()
 
     return View(viewModel);
 }
-
-
-
-
-
-
-
-
-
     }
 }
