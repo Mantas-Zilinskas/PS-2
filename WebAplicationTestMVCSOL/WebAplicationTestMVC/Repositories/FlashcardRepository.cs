@@ -23,5 +23,9 @@ namespace WebAplicationTestMVC.Repository
         {
             return await _context.Flashcards.Where(f => f.SetName == setName).ToListAsync();
         }
+        public async Task<List<Flashcard>> GetAll()
+        {
+            return await _context.Flashcards.ToListAsync();
+        }
     }
 }

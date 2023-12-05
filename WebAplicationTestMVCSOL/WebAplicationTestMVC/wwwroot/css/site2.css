@@ -73,7 +73,7 @@
 :root {
     /* Base font size */
     font-size: 12px;
-    /* Set neon color */
+    
     --neon-text-color: white;
     --neon-border-color: #2695ff;
 }

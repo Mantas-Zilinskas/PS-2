@@ -111,5 +111,16 @@ namespace WebAplicationTestMVC.Controllers
                 return RedirectToAction("StudySets", new { studySetName = studySetName });
             }
         }
+public async Task<IActionResult> FlashcardMatchGame()
+{
+    var flashcards = await _FlashcardService.GetAllFlashcardsAsDTOs(); 
+    var viewModel = new FlashcardGameViewModel
+    {
+        Questions = flashcards,
+        Answers = flashcards
+    };
+
+    return View(viewModel);
+}
     }
 }
