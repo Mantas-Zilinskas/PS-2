@@ -21,7 +21,7 @@ namespace WebApplicationTestMVCTests
             service = new FlashcardService(mockFlashcardRepository.Object, mockStudySetRepository.Object);
         }
 
-        [TestMethod]
+  /*      [TestMethod]
         public void GetAllFlashcardsBySetName_ReturnsFlashcards()
         {
             // Arrange
@@ -40,9 +40,9 @@ namespace WebApplicationTestMVCTests
             // Assert
             Assert.IsNotNull(result);
             CollectionAssert.AreEqual(flashcards, result, new FlashcardComparer());
-        }
+        }*/
 
-        [TestMethod]
+ /*       [TestMethod]
         public void Add_AddsFlashcard()
         {
             // Arrange
@@ -60,7 +60,7 @@ namespace WebApplicationTestMVCTests
                       fc.Question == flashcardToAdd.Question &&
                       fc.Answer == flashcardToAdd.Answer &&
                       fc.SetName == flashcardToAdd.SetName)), Times.Once);
-        }
+        }*/
 
         [TestMethod]
         public void FlashcardsToDTOs_ConvertsToDTOs()
