@@ -113,7 +113,7 @@ namespace WebAplicationTestMVC.Controllers
         }
 public async Task<IActionResult> FlashcardMatchGame()
 {
-    var flashcards = await _FlashcardService.GetAllFlashcardsAsDTOs(); // Retrieve all flashcards as DTOs
+    var flashcards = await _FlashcardService.GetAllFlashcardsAsDTOs(); 
     var viewModel = new FlashcardGameViewModel
     {
         Questions = flashcards,

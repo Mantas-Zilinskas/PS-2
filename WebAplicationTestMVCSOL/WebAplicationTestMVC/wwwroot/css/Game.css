@@ -1,8 +1,4 @@
-﻿
-
-
-/* Add styles for the flashcards container */
-#flashcards-container {
+﻿#flashcards-container {
     display: flex;
     justify-content: space-between;
     max-width: 800px;
@@ -13,22 +9,19 @@
     border-radius: 10px;
 }
 .dropped {
-    margin: 10px; /* Adjust the space as needed */
-    /* Add other styles if necessary */
+    margin: 10px; 
+ 
     
 }
 .draggable, .droppable {
-    /* Other styling properties */
-    /* Handling text wrapping and overflow */
-    overflow-wrap: break-word; /* Allows long words to be broken and wrapped onto the next line */
-    word-wrap: break-word; /* Older, alternate name for overflow-wrap */
-    white-space: normal; /* Allows text to wrap naturally */
-    max-width: 200px; /* Set a maximum width for draggables and droppables, adjust as needed */
-    padding: 5px; /* Adjust padding as needed for better text display */
-    box-sizing: border-box; /* Ensures that padding and border are included in the width and height */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 200px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
-/* Style the draggable and droppable elements */
 .draggable {
     cursor: pointer;
     user-select: none;
@@ -56,7 +49,6 @@
     background-color: #f0f0f0;
 }
 
-/* Add CSS for correct and incorrect animations */
 .correct-answer {
     color: green;
     animation: correct-animation 1s ease-in-out;
@@ -67,7 +59,6 @@
     animation: incorrect-animation 1s ease-in-out;
 }
 
-/* Style the score container */
 #score-container {
     text-align: center;
     margin-top: 20px;
@@ -79,7 +70,6 @@
     color: #333;
 }
 
-/* Keyframes for animations */
 @keyframes correct-animation {
     0% {
         transform: scale(1);

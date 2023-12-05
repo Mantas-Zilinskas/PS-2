@@ -1,6 +1,4 @@
-﻿
-
-.drawing {
+﻿.drawing {
     width: 100vw;
     height: 100vh;
     position: relative;
@@ -34,7 +32,6 @@ html, body {
     -o-animation: load 3s infinite linear;
     animation: load 3s infinite linear;
 }
-
 
 @-webkit-keyframes load {
     0% {

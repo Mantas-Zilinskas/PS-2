@@ -43,8 +43,6 @@ body.dark-mode button.btn.btn-start.btn-lg {
     text-shadow: 0 0 0 transparent, 0 0 10px #27cb00, 0 0 20px rgb(213 212 212 / 0%), 0 0 40px #27cb00, 0 0 100px #27cb00, 0 0 200px #27cb00, 0 0 300px #27cb00, 0 0 500px #27cb00;
 }
 
-/*notdark*/
-
 button.btn.btn-next.btn-lg {
     font-size: 24px;
     color: #bf8c14;

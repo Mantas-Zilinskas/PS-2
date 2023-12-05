@@ -41,10 +41,10 @@ namespace WebAplicationTestMVC.Services
             List<FlashcardDTO> flashcardDTOs = flashcards.Select(f => new FlashcardDTO(f.Id, f.Question, f.Answer, f.SetName)).ToList();
             return flashcardDTOs;
         }
-        // Add this method to your FlashcardService to convert flashcards to DTOs
+       
         public async Task<List<FlashcardDTO>> GetAllFlashcardsAsDTOs()
         {
-            var flashcards = await _FlashCardRepository.GetAll(); // Modify as necessary to get all flashcards
+            var flashcards = await _FlashCardRepository.GetAll(); 
             return flashcards.Select(fc => new FlashcardDTO(fc.Id, fc.Question, fc.Answer, fc.SetName)).ToList();
         }
 

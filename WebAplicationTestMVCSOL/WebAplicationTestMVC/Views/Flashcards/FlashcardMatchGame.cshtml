@@ -43,7 +43,7 @@
         </div>
     </div>
 </div>
-<!-- Add a button to restart or go to the main page after no flashcards left -->
+
 <div id="noFlashcardsMessage" style="display: none;">
     <p>No more flashcards left.</p>
     <button id="restartOrMainPageButton">Restart or Go to Main Page</button>
@@ -52,33 +52,31 @@
 
 
 <script>
-    // Your existing game code
+
     const draggables = document.querySelectorAll('.draggable');
     const droppables = document.querySelectorAll('.droppable');
     const scoreElement = document.getElementById('score');
     const noFlashcardsMessage = document.getElementById('noFlashcardsMessage');
     const restartOrMainPageButton = document.getElementById('restartOrMainPageButton');
 
-    let score = 0; // Initialize the score
+    let score = 0; 
     let flashcardsLeft = draggables.length;
 
-    // Function to reset the game elements and score
+
     function resetGame() {
-        // Reset score and update display
+
         score = 0;
         scoreElement.textContent = 'Score: 0';
         window.location.href = '/Flashcards/FlashcardMatchGame';
-        // Reset flashcards state
+
         draggables.forEach(draggable => {
             draggable.style.display = '';
             draggable.classList.remove('correct-answer', 'incorrect-answer', 'dropped');
         });
         droppables.forEach(droppable => droppable.style.display = '');
 
-        // Reset flashcards count
         flashcardsLeft = draggables.length;
 
-        // Hide no flashcards message
         noFlashcardsMessage.style.display = 'none';
     }
 
@@ -111,28 +109,25 @@
             e.preventDefault();
             const draggable = document.querySelector('.dragging');
             if (draggable && draggable.getAttribute('data-flashcard-id') === droppable.getAttribute('data-flashcard-id')) {
-                // Logic for a correct match
+
                 droppable.appendChild(draggable);
                 draggable.classList.add('correct-answer', 'dropped');
                 score++;
                 scoreElement.textContent = `Score: ${score}`;
                 flashcardsLeft--;
 
-                // Check if the game is finished
                 if (flashcardsLeft === 0) {
                     openScoreModal(score);
                 }
             } else if (draggable) {
-                // Logic for an incorrect match
                 draggable.classList.add('shake');
                 setTimeout(() => {
                     draggable.classList.remove('shake');
-                }, 500); // Shake duration
+                }, 500); 
             }
         });
     });
 
-    // Function to open the modal with the score
     function openScoreModal(score) {
         const modalScore = document.getElementById('modal-score');
         modalScore.textContent = `Score: ${score}`;
@@ -140,27 +135,23 @@
         scoreModal.style.display = 'block';
     }
 
-    // Function to close the modal
     function closeScoreModal() {
         const scoreModal = document.getElementById('scoreModal');
         scoreModal.style.display = 'none';
     }
 
-    // Event listener for the restart button
     const restartButton = document.getElementById('restartButton');
     restartButton.addEventListener('click', () => {
         closeScoreModal();
         resetGame();
     });
 
-    // Event listener for the main page button
     const mainPageButton = document.getElementById('mainPageButton');
     mainPageButton.addEventListener('click', () => {
         closeScoreModal();
         window.location.href = '/';
     });
 
-    // Event listener for the restart or go to the main page button after no flashcards left
     restartOrMainPageButton.addEventListener('click', () => {
         closeScoreModal();
         resetGame();
