@@ -11,14 +11,17 @@ namespace WebAplicationTestMVC.Controllers
         private readonly IStudySetService _StudySetService;
         private readonly IWebHostEnvironment _WebHostEnvironment;
         private readonly IExcelService _ExcelService;
+        private readonly IApiService _ApiService;
 
         public StudySetController(IFlashcardService flashcardService, IStudySetService studySetService,
-                                  IWebHostEnvironment hostingEnvironment, IExcelService excelService)
+                                  IWebHostEnvironment hostingEnvironment, IExcelService excelService, 
+                                  IApiService apiService)
         {
             _FlashcardService = flashcardService;
             _StudySetService = studySetService;
             _WebHostEnvironment = hostingEnvironment;
             _ExcelService = excelService;
+            _ApiService = apiService;
         }
 
         public async Task<IActionResult> StudySets(string studySetName)
@@ -78,6 +81,12 @@ namespace WebAplicationTestMVC.Controllers
             }
 
             return PartialView("_StudySetListPartial", filteredSets);
+        }
+
+        public async Task<IActionResult> StudySetStats(string setName)
+        {
+            var stats = await _ApiService.GetStats(setName);
+            return View(stats);
         }
 
         public async Task<IActionResult> ExportDB(string setName)

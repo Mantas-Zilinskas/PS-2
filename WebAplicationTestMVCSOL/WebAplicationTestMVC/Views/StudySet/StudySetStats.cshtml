@@ -1,0 +1,66 @@
+﻿@using WebAplicationTestMVC.Utilities
+@model WebAplicationTestMVC.Models.StatsViewModel
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Flashcards</title>
+        <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/rsc.css" asp-append-version="true" />
+        <div class="waveWrapper waveAnimation">
+            <div class="waveWrapperInner bgTop">
+                <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+            </div>
+            <div class="waveWrapperInner bgMiddle">
+                <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+            </div>
+            <div class="waveWrapperInner bgBottom">
+                <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+            </div>
+        </div>
+
+        <style>
+            #stats-container {
+                perspective: 1000px;
+                width: 75em;
+                height: 20em;
+                margin: 50px auto;
+                position: relative;
+                border: groove;
+                border-radius: 50px;
+            }
+
+            .stats-footer {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <hr class="soften" />
+        <div id="stats-container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4>Total attempts: @Model.TotalAttempts</h4>
+                    <h4>Total time: @Model.TotalTime</h4>
+                    <h4>Total correct Answers: @Model.TotalCorrectAnswers</h4>
+                    <h4>Total wrong Answers: @Model.TotalWrongAnswers</h4>
+                    <h4>Average Time: @Model.AvgTime</h4>
+                    <h4>Average correct answers: @Model.AvgCorrectAnswers</h4>
+                    <h4>Average wrong answers: @Model.AvgWrongAnswers</h4>
+                    <h4>Correct/Wrong ratio: @Model.CorrectWrongRatio</h4>
+                </div>
+            <div class="col-sm-6"></div>
+            </div>
+        </div>
+
+        <div class="stats-footer"></div>
+
+        <hr class="soften" />
+    </body>
+</html>

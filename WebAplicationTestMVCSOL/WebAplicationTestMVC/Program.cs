@@ -37,6 +37,7 @@ namespace WebAplicationTestMVC
                  services.AddScoped<IFlashcardService, FlashcardService>();
                  services.AddScoped<IStudySetService, StudySetService>();
                  services.AddScoped<IExcelService, ExcelService>();
+                 services.AddScoped<IApiService, ApiService>();
              })
              .Configure(app =>
              {
