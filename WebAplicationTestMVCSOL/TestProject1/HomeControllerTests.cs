@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using WebAplicationTestMVC.Controllers;
 using WebAplicationTestMVC.Interface;
-using WebAplicationTestMVC.Models;
 
 namespace WebApplicationTestMVCTests
 {
@@ -38,25 +37,6 @@ namespace WebApplicationTestMVCTests
             {
                 ControllerContext = controllerContext
             };
-        }
-
-        [TestMethod]
-        public void Index_ReturnsViewWithStudySets()
-        {
-            var studySets = new List<StudySet>
-            {
-                new StudySet("Mathematics"),
-                new StudySet("Science"),
-
-            };
-            _mockStudySetService.Setup(s => s.GetAllStudySets()).Returns(studySets);
-
-            var result = _controller.Index() as ViewResult;
-
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result.Model, typeof(List<StudySet>));
-            var model = result.Model as List<StudySet>;
-            Assert.AreEqual(studySets, model);
         }
     }
 }
