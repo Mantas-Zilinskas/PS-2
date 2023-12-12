@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
-using WebAplicationTestMVC.Models;
-using Microsoft.EntityFrameworkCore; 
-using Microsoft.Extensions.Logging; 
+﻿using Microsoft.EntityFrameworkCore; 
 
 namespace WebAplicationTestMVC.Middleware
 {

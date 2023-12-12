@@ -1,50 +1,89 @@
-﻿using Moq;
-using WebAplicationTestMVC.Interface;
-using WebAplicationTestMVC.Models;
+﻿using WebAplicationTestMVC.Models;
 using WebAplicationTestMVC.Services;
+using Xunit;
+using Assert = Xunit.Assert;
 
-namespace WebApplicationTestMVCTests
+public class StudySetServiceTests
 {
-    [TestClass]
-    public class StudySetServiceTests
+    [Fact]
+    public async Task GetAllStudySets_ReturnsListOfStudySets()
     {
-        private Mock<IStudySetRepository> mockRepository;
-        private StudySetService service;
-
-        [TestInitialize]
-        public void SetUp()
+        // Arrange
+        var studySets = new List<StudySet>
         {
-            mockRepository = new Mock<IStudySetRepository>();
-            service = new StudySetService(null, mockRepository.Object);
-        }
+            new StudySet("Set 1"),
+            new StudySet("Set 2"),
+            new StudySet("Set 3"),
+        };
 
-        [TestMethod]
-        public void GetAllStudySets_ReturnsAllStudySets()
+        var mockRepository = new MockStudySetRepository(studySets);
+        var service = new StudySetService(null, mockRepository);
+
+        // Act
+        var result = await service.GetAllStudySets();
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(studySets.Count, result.Count);
+    }
+
+    [Fact]
+    public async Task AddNewStudySet_WithUniqueName_AddsStudySet()
+    {
+        // Arrange
+        var studySetName = "New Set";
+        var mockRepository = new MockStudySetRepository(new List<StudySet>());
+        var service = new StudySetService(null, mockRepository);
+
+        // Act
+        var result = await service.AddNewStudySet(studySetName);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(studySetName, result.StudySetName);
+    }
+
+    [Fact]
+    public async Task AddNewStudySet_WithDuplicateName_AppendsCounter()
+    {
+        // Arrange
+        var studySetName = "Duplicate Set";
+        var existingSets = new List<StudySet>
         {
+            new StudySet("Duplicate Set"),
+            new StudySet("Duplicate Set (1)"),
+        };
 
-            var expectedStudySets = new List<StudySet>
-            {
-                new StudySet("Mathematics") { DateCreated = DateTime.Now.AddDays(-10), Id = 1 },
-                new StudySet("Science") { DateCreated = DateTime.Now.AddDays(-5), Id = 2 },
-                new StudySet("History") { DateCreated = DateTime.Now, Id = 3 }
-            };
+        var mockRepository = new MockStudySetRepository(existingSets);
+        var service = new StudySetService(null, mockRepository);
 
-            mockRepository.Setup(repo => repo.GetAll()).Returns(expectedStudySets);
+        // Act
+        var result = await service.AddNewStudySet(studySetName);
 
-            var result = service.GetAllStudySets();
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("Duplicate Set (2)", result.StudySetName);
+    }
 
-            Assert.AreEqual(expectedStudySets, result);
-        }
-
-        [TestMethod]
-        public void AddNewStudySet_AddsStudySetWhenNotExisting()
+    [Fact]
+    public async Task GetStudySetByName_WithValidName_ReturnsStudySet()
+    {
+        // Arrange
+        var studySetName = "Existing Set";
+        var existingSets = new List<StudySet>
         {
-            var studySetName = "New Study Set";
-            mockRepository.Setup(repo => repo.GetByName(studySetName)).Returns((StudySet)null);
+            new StudySet("Another Set"),
+            new StudySet("Existing Set"),
+        };
 
-            service.AddNewStudySet(studySetName);
+        var mockRepository = new MockStudySetRepository(existingSets);
+        var service = new StudySetService(null, mockRepository);
 
-            mockRepository.Verify(repo => repo.Add(It.Is<StudySet>(s => s.StudySetName == studySetName)), Times.Once);
-        }
+        // Act
+        var result = await service.GetStudySetByName(studySetName);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(studySetName, result.StudySetName);
     }
 }

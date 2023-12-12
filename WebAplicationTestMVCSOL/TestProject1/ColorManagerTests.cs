@@ -36,7 +36,7 @@ namespace WebApplicationTestMVCTests
         public void AssignUniqueColor_AssignsColorsAndSetsCookies()
         {
             mockResponse.Setup(r => r.Cookies.Append(It.IsAny<string>(), It.IsAny<string>()));
-            
+
             ColorManager.AssignUniqueColor(studySets, mockHttpContext.Object);
 
             foreach (var studySet in studySets)

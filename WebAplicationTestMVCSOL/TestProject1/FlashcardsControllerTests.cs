@@ -22,7 +22,7 @@ namespace WebApplicationTestMVCTests
         }
 
         [TestMethod]
-        public void RandomizedAndSystemCheck_ReturnsViewWithFlashcards()
+        public async Task RandomizedAndSystemCheck_ReturnsViewWithFlashcards()
         {
             var setName = "TestSet";
             var time = 5;
@@ -38,10 +38,10 @@ namespace WebApplicationTestMVCTests
                 new FlashcardDTO("2", "What is the capital of France?", "Paris", setName)
             };
 
-            _mockFlashcardService.Setup(s => s.GetAllFlashcardsBySetName(setName)).Returns(flashcards);
+            _mockFlashcardService.Setup(s => s.GetAllFlashcardsBySetName(setName)).ReturnsAsync(flashcards);
             _mockFlashcardService.Setup(s => s.FlashcardsToDTOs(flashcards)).Returns(flashcardDTOs);
-           
-            var result = _controller.RandomizedAndSystemCheck(setName, time) as ViewResult;
+
+            var result = await _controller.RandomizedAndSystemCheck(setName, time) as ViewResult;
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result.Model, typeof(List<FlashcardDTO>));
@@ -55,6 +55,22 @@ namespace WebApplicationTestMVCTests
                 Assert.AreEqual(flashcardDTOs[i].SetName, model[i].SetName);
             }
         }
+
+        [TestMethod]
+        public async Task CountDown_ReturnsDecrementedTime()
+        {
+            int initialTime = 10;
+
+            var result = await _controller.CountDown(initialTime) as OkObjectResult;
+
+            // to check that the result is not null and is of type OkObjectResult
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+            var returnedTime = result.Value;
+            Assert.AreEqual(initialTime - 1, returnedTime);
+        }
+
         [TestMethod]
         public void AddFlashcard_ReturnsViewWithNewStudySetModel()
         {
@@ -66,20 +82,6 @@ namespace WebApplicationTestMVCTests
             Assert.IsInstanceOfType(result.Model, typeof(StudySet));
             var model = result.Model as StudySet;
             Assert.AreEqual(studySetName, model.StudySetName);
-        }
-        [TestMethod]
-        public async Task CountDown_ReturnsDecrementedTime()
-        {
-            int initialTime = 10;
-
-            var result = await _controller.CountDown(initialTime) as OkObjectResult;
-
-            // to check that the result is not null and is of type OkObjectResult
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
-            
-            var returnedTime = result.Value;
-            Assert.AreEqual(initialTime - 1, returnedTime);
         }
     }
 }
