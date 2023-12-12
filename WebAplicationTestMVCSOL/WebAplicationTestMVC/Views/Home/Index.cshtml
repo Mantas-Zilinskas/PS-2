@@ -1,5 +1,8 @@
 ﻿@model List<WebAplicationTestMVC.Models.StudySet>
-
+@{
+    ViewData["Title"] = "Index";
+    var studySetCount = ViewBag.StudySetCount;
+}
 <!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
@@ -153,5 +156,6 @@
     </div>
 
     @await Html.PartialAsync("_ModalPartial")
+    <p>Total number of StudySets Loaded from database: @studySetCount</p>
 </body>
 </html>
