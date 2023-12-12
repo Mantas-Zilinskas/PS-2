@@ -3,7 +3,12 @@
     "",
     "\\WebAplicationTestMVCSOL",
     "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC",
+    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Controllers",
+    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Data",
+    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Interface",
     "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Models",
+    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Repositories",
+    "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Services",
     "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Utilities"
   ],
   "SelectedNode": "\\WebAplicationTestMVCSOL\\WebAplicationTestMVC\\Models\\StudySet.cs",

@@ -10,8 +10,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<StudySet> StudySets { get; set; }
     public DbSet<Flashcard> Flashcards { get; set; }
     public DbSet<FavoriteStudySet> FavoriteStudySets { get; set; }
-    public DbSet<ArchivedStudySet> ArchivedStudySets { get; set; }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

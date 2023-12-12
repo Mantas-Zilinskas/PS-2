@@ -1,223 +1,36 @@
-﻿@model List<WebAplicationTestMVC.Models.StudySet>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Flashcards</title>
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/loader.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/css/site.css" />
+    <link rel="stylesheet" href="/css/loader.css" />
+    <link rel="stylesheet" href="/css/calendar.css" />
+
     <style>
-        .question-text {
-            font-size: 28px;
+ 
+
+        .button-bar {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        #myForm {
-            display: none;
+        .button-bar button {
+            margin: 0 10px;
         }
-
-        #search{
-            text-align: end;
-        }
-
-        .star-container {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-
-        .star-icon {
-            font-size: 30px;
-            color: white;
-        }
-
-        .star-active {
-            color: gold;
-        }
-
-        .archived-container {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            cursor: pointer;
-        }
-
-        .archived-icon {
-            font-size: 20px;
-            color: white;
-        }
-
-        .archived-active {
-            color: brown;
-        }
-
     </style>
 </head>
-
 <body>
+    <div id="calendar"></div>
+    <script src="/js/calendar.js"></script>
 
-    <div class="container">
-        <h2>Study sets</h2>
-        <form class="search-container" method="post" asp-controller="StudySet" asp-action="SearchStudySet">
-            <input class="search-input" type="text" name="studySetName" placeholder="Search for study set" />
-            <button class="search-button" type="submit">&#x1F50E;&#xFE0E;</button>
-        </form>
+
+    <div class="button-bar">
+        <a class="btn btn-info" asp-area="" asp-controller="StudySet" asp-action="StudySetsLibrary"> Study sets library </a>
+        <a class="btn btn-info" asp-area="" asp-controller="StudySet" asp-action="FavoriteStudySet"> Favorites </a>
     </div>
 
-    <div class="col-md-6 text-end">
-        <form class="filter-container" method="post" asp-controller="StudySet" asp-action="GetFilteredStudySets">
-            <select id="filterDropdown" class="form-control">
-                <option value="all">All</option>
-                <option value="lastWeek">Last Week</option>
-                <option value="lastMonth">Last Month</option>
-                <option value="newerToOlder">Newer to Older</option>
-                <option value="olderToNewer">Older to Newer</option>
-            </select>
-        </form>
-
-    </div>
-    <div class="waveWrapper waveAnimation">
-        <div class="waveWrapperInner bgTop">
-            <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
-        </div>
-        <div class="waveWrapperInner bgMiddle">
-            <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
-        </div>
-        <div class="waveWrapperInner bgBottom">
-            <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
-        </div>
-    </div>
-    <br>
-    <br />
-
-    <div>
-        <button id="createStudySet" class="btn btn-info">+ Create Study Set</button>
-        <button id="showFormButton" class="btn btn-info">+ Import Flashcard Set</button>
-        <form id="myForm" method="post" enctype="multipart/form-data" asp-controller="StudySet" asp-action="ImportDB">
-            <label for="file">Upload flashcards:</label>
-            <input type="file" name="file" id="file" required accept=".xlsx" />
-            <button type="submit" class="btn btn-warning">Import</button>
-        </form>
-    </div>
-    
-    <br>
-    <br />
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <div id="honeycomb"></div>
-  
-    <script>
-
-        function toggleStar(event, studySetId) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            var starIcon = event.currentTarget.querySelector('.star-icon');
-            starIcon.classList.toggle('star-active');
-
-            $.ajax({
-                url: '/StudySet/ToggleFavorite',
-                type: 'POST',
-                data: { studySetId: studySetId },
-                success: function (response) {
-                    console.log('Favorite status updated');
-                },
-                error: function () {
-                    alert('Error updating favorite status');
-                }
-            });
-        }
-
-        function toggleArchived(event, studySetId) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            var archivedIcon = event.currentTarget.querySelector('.archived-icon');
-            archivedIcon.classList.toggle('archived-active');
-        }
-
-        $(document).ready(function () {
-            
-            $("#createStudySetForm").submit(function (e) {
-                e.preventDefault(); 
-                var form = this;
-                var studySetName = form.querySelector('input[name="studySetName"]').value;
-
-                if (studySetName) {
-                   
-                    $.post(form.action, { studySetName: studySetName }, function (data) {
-                     
-                        console.log(data);
-                       
-                        location.reload();
-                    });
-                } else {
-                    alert('Please enter a name for the study set.');
-                }
-            });
-
-            $("#showFormButton").click(function () {
-                var form = $("#myForm");
-                form.toggle();
-            });
-
-            $("#filterDropdown").on('change', function () {
-                var selectedFilter = $(this).val();
-                applyFilter(selectedFilter);
-            });
-
-            function applyFilter(filterType) {
-                $.post('/StudySet/GetFilteredStudySets', { filter: filterType }, function (data) {
-                    $('.row').empty(); 
-                    $('.row').append(data); 
-                });
-            }
-         
-            $("#createStudySet").click(function () {
-                $('#myModal').modal('show');
-            });
-
-            $("#saveStudySet").click(function () {
-                var studySetName = $("#name").val();
-
-                if (studySetName) {
-                 
-                    var studySets = JSON.parse(localStorage.getItem('studySets') || '[]');
-                    studySets.push(studySetName);
-                    localStorage.setItem('studySets', JSON.stringify(studySets));
-                  
-                    $('#myModal').modal('hide');
-                } else {
-                    alert('Please enter a name for the study set.');
-                }
-            });
-        });
-    </script>
-
-    <div class="row">
-
-        @foreach (var studySet in Model)
-        {
-            <div class="col-sm- set-box" style="position: relative; background-color: @(studySet.Color.ToString().ToLower());">
-                <div class="star-container" onclick="toggleStar(event, @studySet.Id)">
-                    <i class="star-icon">★</i>
-                </div>
-
-                <div class="archived-container" onclick="toggleArchived(event, @studySet.Id)">
-                    <i class="archived-icon">🢃</i>
-                </div>
-
-                <a style="text-decoration: none;" asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@studySet.StudySetName">
-                    <div class="set-name">@studySet.StudySetName</div>
-                </a>
-            </div>
-        }
-    </div>
-
-    @await Html.PartialAsync("_ModalPartial")
 </body>
 </html>

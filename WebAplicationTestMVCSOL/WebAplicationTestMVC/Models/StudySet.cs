@@ -10,7 +10,8 @@ namespace WebAplicationTestMVC.Models
         public DateTime DateCreated { get; set; } 
         public List<Flashcard> Flashcards { get; set; }
         public TimeSpan StudyTime { get; set; }
-
+        //fix WebApplicationTestMVCTests
+        //fix this
         public StudySet(string studySetName)
         {
             StudySetName = studySetName;

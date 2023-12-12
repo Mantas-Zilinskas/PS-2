@@ -21,12 +21,12 @@ namespace WebAplicationTestMVC.Controllers
 
         public IActionResult StudySets(string studySetName)
         {
-        List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(studySetName);
+            List<Flashcard> flashcards = _FlashcardService.GetAllFlashcardsBySetName(studySetName);
 
-        StudySet studySet = new StudySet(studySetName);
-        studySet.Flashcards = flashcards;
-
-        return View(studySet);
+            StudySet studySet = new StudySet(studySetName);
+            studySet.Flashcards = flashcards;
+    
+            return View(studySet);
         }
 
         public IActionResult FavoriteStudySet()
@@ -49,17 +49,32 @@ namespace WebAplicationTestMVC.Controllers
 
         public IActionResult CreateStudySet(string studySetName)
         {
-            _StudySetService.AddNewStudySet(studySetName);
-            return RedirectToAction("Index", "Home");
+                _StudySetService.AddNewStudySet(studySetName);
+                return RedirectToAction("StudySetsLibrary");
         }
+
 
         public IActionResult SearchStudySet(string studySetName)
         {
-            var regexPattern = new Regex(studySetName, RegexOptions.IgnoreCase);
+            if (string.IsNullOrWhiteSpace(studySetName))
+            {
+                return RedirectToAction("StudySetsLibrary");
+            }
+                var regexPattern = new Regex(studySetName, RegexOptions.IgnoreCase);
+                var foundStudySets = _StudySetService.GetAllStudySets()
+                    .Where(s => regexPattern.IsMatch(s.StudySetName))
+                    .ToList();
 
-            var foundStudySets = _StudySetService.GetAllStudySets();
+                return View("StudySetsLibrary", foundStudySets);
+        }
 
-            return View("~/Views/Home/Index.cshtml", foundStudySets.Where(s => regexPattern.IsMatch(s.StudySetName)).ToList());
+        public IActionResult StudySetsLibrary()
+        {
+            List<StudySet> studySets = _StudySetService.GetAllStudySets();
+   
+            ColorManager.AssignUniqueColor(studySets, HttpContext);
+
+            return View("StudySetsLibrary", studySets);
         }
 
         [HttpPost]

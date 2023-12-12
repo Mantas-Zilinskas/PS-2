@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebAplicationTestMVC.Models.StudySet>
 
 @{
-    ViewData["Title"] = "Favorite Study Sets";
+
 }
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
+    <title>Favorite Study Sets</title>
     <link href="~/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" />
@@ -28,28 +28,19 @@
     </div>
 </div>
 
-<div class="container-fav">
-    <h2>Favorite Study Sets</h2>
-    <div class="row">
-        @foreach (var studySet in Model)
+    <div class="container-fav">
+        <h2>Favorite Study Sets</h2>
+  
+        @foreach (var favoriteStudySet in Model)
         {
-                <div class="col-sm- set-box">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">@studySet.StudySetName</h5>
-                        <p class="card-text">Created on: @studySet.DateCreated.ToShortDateString()</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="removeFromFavorites(@studySet.Id)">Remove from Favorites</button>
-                                <a href="@Url.Action("StudySets", "StudySet", new { studySetName = studySet.StudySetName })" class="btn btn-sm btn-outline-secondary">View</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-sm- set-box" style="position: relative; background-color: @(favoriteStudySet.Color.ToString().ToLower());">
+                <a style="text-decoration: none;" asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@favoriteStudySet.StudySetName">
+                    <div class="set-name">@favoriteStudySet.StudySetName</div>
+                </a>
             </div>
         }
     </div>
-</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

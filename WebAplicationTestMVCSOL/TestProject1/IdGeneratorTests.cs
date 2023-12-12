@@ -8,10 +8,10 @@ namespace WebApplicationTestMVCTests
         [TestMethod]
         public void GenerateId_CompareResult_LT()
         {
-            string seed1 = "Apple";
-            string seed2 = "Banana";
+            var seed1 = "Apple";
+            var seed2 = "Banana";
 
-            string id = IdGenerator.GenerateId(seed1, seed2);
+            var id = IdGenerator.GenerateId(seed1, seed2);
 
             Assert.IsNotNull(id);
             StringAssert.Contains(id, "LT");
@@ -20,11 +20,11 @@ namespace WebApplicationTestMVCTests
         [TestMethod]
         public void GenerateId_CompareResult_GT()
         {
-            string seed1 = "Banana";
-            string seed2 = "Apple";
+            var seed1 = "Banana";
+            var seed2 = "Apple";
 
             // Act
-            string id = IdGenerator.GenerateId(seed1, seed2);
+            var id = IdGenerator.GenerateId(seed1, seed2);
 
             Assert.IsNotNull(id);
             StringAssert.Contains(id, "GT");
@@ -33,11 +33,11 @@ namespace WebApplicationTestMVCTests
         [TestMethod]
         public void GenerateId_CompareResult_EQ()
         {
-            string seed1 = "Apple";
-            string seed2 = "Apple";
+            var seed1 = "Apple";
+            var seed2 = "Apple";
 
             // Act
-            string id = IdGenerator.GenerateId(seed1, seed2);
+            var id = IdGenerator.GenerateId(seed1, seed2);
 
             Assert.IsNotNull(id);
             StringAssert.Contains(id, "EQ");
@@ -48,9 +48,9 @@ namespace WebApplicationTestMVCTests
         public void GenerateId_NullSeed1_ThrowsException()
         {
             string seed1 = null;
-            string seed2 = "Banana";
+            var seed2 = "Banana";
 
-            string id = IdGenerator.GenerateId(seed1, seed2);
+            IdGenerator.GenerateId(seed1, seed2);
 
             // Expecting ArgumentNullException
         }
@@ -59,11 +59,11 @@ namespace WebApplicationTestMVCTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void GenerateId_NullSeed2_ThrowsException()
         {
-            string seed1 = "Apple";
+            var seed1 = "Apple";
             string seed2 = null;
 
             // Act
-            string id = IdGenerator.GenerateId(seed1, seed2);
+            var id = IdGenerator.GenerateId(seed1, seed2);
 
             // Expecting ArgumentNullException
         }

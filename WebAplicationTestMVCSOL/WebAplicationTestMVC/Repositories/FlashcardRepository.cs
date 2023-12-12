@@ -18,6 +18,7 @@ namespace WebAplicationTestMVC.Repository
             _context.Flashcards.Add(flashcard);
             _context.SaveChanges();
         }
+        //get by filter
         public List<Flashcard> GetAllBySetName(string setName)
         {
             return _context.Flashcards.Where(f => f.SetName == setName).ToList();
