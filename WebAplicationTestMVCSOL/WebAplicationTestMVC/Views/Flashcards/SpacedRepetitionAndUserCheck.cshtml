@@ -91,7 +91,7 @@
                     background-color: #f1f1f1;
                 }
 
-        #three-items, .btn-warning, .btn-success {
+        #three-items, .btn-warning, #success-button {
             display: none;
         }
     </style>
@@ -132,39 +132,42 @@
     <div class="flashcard-footer">
         <button type="button" class="btn btn-start btn-lg" onclick="startLearning()">Start</button>
         <button type="button" class="btn btn-warning btn-lg" onclick="showNext(false)">Bad</button>
-        <button type="button" class="btn btn-success btn-lg" onclick="showNext(true)">Good</button>
+        <button type="button" class="btn btn-success btn-lg" id="success-button" onclick="showNext(true)">Good</button>
     </div>
     <hr class="soften" />
     <script src="static/js/jquery-2.1.0.min.js"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/flashcard-ahhh.js"></script>
     <script>
+        let setName = "@ViewBag.setName"
         let currentIndex = -1;
         let cards = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
-        var studyStartTime;
-        let isWaitingForGood = false;
         cards.forEach(card => card.goodCount = 0);
+        var studyStartTime;
+        let time = 0;
+        let isWaitingForGood = false;
+        let correctAnswers = 0;
+        let wrongAnswers = -1;
         let cardTime = @ViewBag.time;
         let flag = true;
         let cardFlag = true;
+        let addAttempt = true;
 
         function startLearning() {
+            console.log("aaaa");
             $('#time').text("Total time: 0");
-            $.post("/Flashcards/GetCurrentTime").done(function (data) {
-                studyStartTime = data;
-                shuffle(cards);
-                $('.btn-start').hide();
-                $('.btn-warning, .btn-success, #three-items').show();
-                currentIndex = 0;
-                count();
+            shuffle(cards);
+            $('.btn-start').hide();
+            $('.btn-warning, #success-button, #three-items').show();
+            currentIndex = 0;
+            incrementTime();
 
-                if (cardTime > 0) {
-                    $('#card-time').text("remaining time: " + cardTime);
-                    decrement();
-                }
+            if (cardTime > 0) {
+                $('#card-time').text("remaining time: " + cardTime);
+                decrementTime();
+            }
 
-                showNext();
-            });
+            showNext();
         }
 
         function shuffle(array) {
@@ -182,9 +185,11 @@
 
             if (isGood) {
                 cards[currentIndex].goodCount += 1;
+                correctAnswers++;
             } else {
                 let badCard = cards[currentIndex];
                 cards.splice(currentIndex, 1); 
+                wrongAnswers++;
 
                 if (cards.length >= 4) {
                     let newPosition = currentIndex + 3;
@@ -204,6 +209,10 @@
                     studyEndTime = new Date();
                     const studyTime = 'You have finished the cards.'
                     alert(studyTime);
+                    if (addAttempt) { 
+                        submitAttempt();
+                        addAttempt = false;
+                    }
                     return; 
                 } else {
                     currentIndex = 0;
@@ -216,32 +225,41 @@
             }
         }
 
-        async function count() {
-            $.post("/Flashcards/CountUp", {
-                startTime: studyStartTime
-            }).done(function (data) {
-                time = data;
-                $('#time').text("Total time: " + time);
-                if (flag) {
-                    count();
-                }
+        async function submitAttempt() {
+            $.post("/StudySet/SubmitAttempt", {
+                setName: setName,
+                time: time,
+                correctAnswers: correctAnswers,
+                wrongAnswers: wrongAnswers
             });
         }
 
-        async function decrement() {
-            $.post("/Flashcards/CountDown", {
-                time: cardTime
-            }).done(function (data) {
+        async function incrementTime() {
+            while (flag) {
+                time++;
+                $('#time').text("Total time: " + time);
+                await delay(1000);
+            }
+        }
+
+        async function decrementTime() {
+            while (cardFlag) {
+                await delay(1000);
                 if (flag && cardFlag) {
 
-                    if (data < 0) {
+                    if (cardTime == 0) {
                         showNext(false);
                     } else
                         cardTime--;
 
                     $('#card-time').text("remaining time: " + cardTime);
-                    decrement();
                 }
+            }
+        }
+
+        function delay(milliseconds) {
+            return new Promise(resolve => {
+                setTimeout(resolve, milliseconds);
             });
         }
 

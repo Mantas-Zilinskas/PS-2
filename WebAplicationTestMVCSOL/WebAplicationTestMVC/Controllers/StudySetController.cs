@@ -11,14 +11,17 @@ namespace WebAplicationTestMVC.Controllers
         private readonly IStudySetService _StudySetService;
         private readonly IWebHostEnvironment _WebHostEnvironment;
         private readonly IExcelService _ExcelService;
+        private readonly IApiService _ApiService;
 
         public StudySetController(IFlashcardService flashcardService, IStudySetService studySetService,
-                                  IWebHostEnvironment hostingEnvironment, IExcelService excelService)
+                                  IWebHostEnvironment hostingEnvironment, IExcelService excelService, 
+                                  IApiService apiService)
         {
             _FlashcardService = flashcardService;
             _StudySetService = studySetService;
             _WebHostEnvironment = hostingEnvironment;
             _ExcelService = excelService;
+            _ApiService = apiService;
         }
 
         public async Task<IActionResult> StudySets(string studySetName)
@@ -78,6 +81,30 @@ namespace WebAplicationTestMVC.Controllers
             }
 
             return PartialView("_StudySetListPartial", filteredSets);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitAttempt(string setName,int time, int correctAnswers, int wrongAnswers)
+        {
+            await _ApiService.AddAttempt(setName, time, correctAnswers, wrongAnswers);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteStats(string setName) 
+        {
+            await _ApiService.DeleteAttempts(setName);
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> StudySetStats(string setName)
+        {
+            ViewBag.setName = setName;
+
+            var stats = await _ApiService.GetStats(setName);
+            return View(stats);
         }
 
         public async Task<IActionResult> ExportDB(string setName)

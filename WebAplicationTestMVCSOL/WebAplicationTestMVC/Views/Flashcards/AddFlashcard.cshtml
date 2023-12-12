@@ -35,3 +35,24 @@
         </div>
     }
 }
+</br>
+<button class="btn btn-primary" onclick="Fill()">Auto Fill</button>
+
+<script>
+    async function Fill() { 
+        try {
+            const response = await fetch('https://opentdb.com/api.php?amount=1&category=9&difficulty=easy&type=multiple');
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+
+            $('#question').val("");
+            $('#answer').val("");
+            $('#question').val(data.results[0].question);
+            $('#answer').val(data.results[0].correct_answer);
+        } catch (error) {
+            console.error('Error fetching data:', error.message);
+        }
+    }
+</script>

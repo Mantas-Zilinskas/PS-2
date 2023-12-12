@@ -145,8 +145,12 @@
     <script src="static/js/flashcard-ahhh.js"></script>
     <script>
         let cardTime = @ViewBag.time;
+        let setName = "@ViewBag.setName"
         var studyStartTime;
         let time = 0;
+        let wrongAnswers = 0;
+        let correctAnswers = 0;
+        let addAttempt = true;
         let flag = true;
         let cardFlag = true;
         let currentIndex = -1;
@@ -163,50 +167,16 @@
                 $('.btn-start').hide();
                 $('.btn-submit, #three-items, #answer-Input').show();
                 currentIndex = 0;
-                count();
+                incrementTime();
 
                 if (cardTime > 0) { 
                     $('#card-time').text("remaining time: " + cardTime);
-                    decrement();
+                    decrementTime();
                 }
 
                 showNext();
             });
         }
-
-        async function count() {
-            $.post("/Flashcards/CountUp", {
-                startTime: studyStartTime
-            }).done(function (data) {
-                time = data;
-                $('#time').text("Total time: " + time);
-                if (flag) {
-                    count();
-                }
-            });
-        }
-
-        async function decrement() {
-            $.post("/Flashcards/CountDown", {
-                time: cardTime
-            }).done(function (data) {
-                if (flag && cardFlag) {
-                    if (data < 0) {
-                        let badCard = cards[currentIndex];
-                        cards.push(badCard);
-                        cards.splice(currentIndex, 1);
-                        showNext();
-                        cardTime = @ViewBag.time;
-
-                    } else
-                        cardTime = data;
-
-                    $('#card-time').text("remaining time: " + cardTime);
-                    decrement();
-                }
-            });
-        }
-
 
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -228,11 +198,13 @@
                     $('#answer-status').css({ "color": "green" });
                     $('#answer-text').hide();
                     $('#answer-content').show();
+                    correctAnswers++;
 
                     cards[currentIndex].goodCount += 1;
                 } else {
                     $('#answer-status').text("Wrong");
                     $('#answer-status').css({ "color": "red" });
+                    wrongAnswers++;
 
                     let badCard = cards[currentIndex];
                     cards.splice(currentIndex, 1);
@@ -264,7 +236,6 @@
                 cardTime = @ViewBag.time;
                 cardFlag = true;
                 $('#card-time').text("remaining time: " + cardTime);
-                decrement();
             }
 
             $('#answer-content').hide();
@@ -280,22 +251,65 @@
                     cardFlag = false;
                     const studyTime = 'You have finished the cards.'
                     alert(studyTime);
-
+                    if (addAttempt) { 
+                        submitAttempt();  
+                        addAttempt = false;
+                    }
                     return;
                 }
             }
 
-            if (currentIndex < cards.length) {
-                $('#question-text').text(cards[currentIndex].Question);
-                $('#answer-text').text("Correct answer: " + cards[currentIndex].Answer);
-                $('.btn-submit, #answer-Input').show();
-                $('.btn-next, #your-answer').hide();
-                document.getElementById("answer-Input").value = "";
-            } else {
-                flag = false;
-                studyEndTime = new Date();
-                sendStudyDurationToServer();
+            $('#question-text').text(cards[currentIndex].Question);
+            $('#answer-text').text("Correct answer: " + cards[currentIndex].Answer);
+            $('.btn-submit, #answer-Input').show();
+            $('.btn-next, #your-answer').hide();
+            document.getElementById("answer-Input").value = "";
+        }
+
+        async function submitAttempt() {
+            $.post("/StudySet/SubmitAttempt", {
+                setName: setName,
+                time: time,
+                correctAnswers: correctAnswers,
+                wrongAnswers: wrongAnswers
+            });
+        }
+
+        async function incrementTime() {
+            while (flag) {
+                time++;
+                $('#time').text("Total time: " + time);
+                await delay(1000);
             }
+        }
+
+        async function decrementTime() {
+            while(flag){
+                await delay(100);
+                while (cardFlag && flag) {
+                    await delay(1000);
+                    if (flag && cardFlag) {
+                        if (cardTime == 0) {
+                            let badCard = cards[currentIndex];
+                            cards.push(badCard);
+                            cards.splice(currentIndex, 1);
+                            showNext();
+                            wrongAnswers++;
+                            cardTime = @ViewBag.time;
+
+                        } else
+                            cardTime--;
+
+                        $('#card-time').text("remaining time: " + cardTime);
+                    }
+                }
+            }
+        }
+
+        function delay(milliseconds) {
+            return new Promise(resolve => {
+                setTimeout(resolve, milliseconds);
+            });
         }
 
         function editFlashcard() {
