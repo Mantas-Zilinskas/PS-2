@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore; // Add this line for Entity Framework Core
+using Microsoft.EntityFrameworkCore;
 using WebAplicationTestMVC.Services;
 using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Repository;
-
+using WebAplicationTestMVC.Middleware;
 namespace WebAplicationTestMVC
 {
     public class Program
@@ -58,7 +58,8 @@ namespace WebAplicationTestMVC
                  app.UseStaticFiles();
                  app.UseRouting();
                  app.UseAuthorization();
-
+                 app.UseMiddleware<DatabaseMiddleware>();
+                 app.UseDatabaseMiddleware();
                  app.UseSession();
 
                  app.UseEndpoints(endpoints =>

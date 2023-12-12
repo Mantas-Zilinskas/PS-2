@@ -78,8 +78,6 @@
     --neon-border-color: #2695ff;
 }
 
-
-
 .flashcard {
     backdrop-filter: blur(100px);
 
@@ -103,7 +101,6 @@
     .flashcard :focus {
         outline: none;
     }
-
 
 /*darkmode*/
 @import url('https://fonts.googleapis.com/css?family=Warnes&display=swap');
@@ -365,7 +362,6 @@ body.dark-mode .question-content {
     background-color: #6c757d; 
     border-color: #6c757d; 
 }
-
 
 input[type="number"] {
     width: 100%; 
