@@ -9,9 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Pacifico&family=Poppins:ital@1&family=Roboto+Condensed:ital@1&family=Roboto:wght@300&display=swap" rel="stylesheet">
 
-
+    <link rel="stylesheet" href="~/css/calendar.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/loader.css" asp-append-version="true" />
+
     <script>
  
         function toggleDarkMode() {
@@ -56,12 +57,20 @@
                         <input type="checkbox" id="darkModeCheckbox" onchange="toggleDarkMode();">
                         <span class="slider round"></span>
                     </label>
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16" onclick="toggleCalendar()">
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                    </svg>
+                    <div id="calendar">
+                    </div>
+
+
                 </div>
             </form>
 
-
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-
+               
             <div class="container-header">
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -90,6 +99,7 @@
                                          alt="Logo1" class="nav-logo">
 
                                     Library</a>
+
                             </li>
 
                             <li class="nav-item">
@@ -128,6 +138,15 @@
   
     @await RenderSectionAsync("Scripts", required: false)
       <script>
+        function toggleCalendar() {
+            var calendar = document.getElementById('calendar');
+            if (calendar.style.display === 'none' || calendar.style.display === '') {
+                calendar.style.display = 'block';
+            } else {
+                calendar.style.display = 'none';
+            }
+        }
+
     function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -176,6 +195,7 @@
             });
         });
     </script>
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+    <script src="~/js/calendar.js"></script>
 </body>
 </html>

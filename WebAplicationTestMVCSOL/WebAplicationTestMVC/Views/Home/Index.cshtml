@@ -1,5 +1,8 @@
 ﻿@model List<WebAplicationTestMVC.Models.StudySet>
-
+@{
+    ViewData["Title"] = "Index";
+    var studySetCount = ViewBag.StudySetCount;
+}
 <!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
@@ -21,15 +24,10 @@
         #search{
             text-align: end;
         }
-      
-
     </style>
 </head>
-
-
-
 <body>
-
+ 
     <div class="container">
         <h2>Study sets</h2>
         <form class="search-container" method="post" asp-controller="StudySet" asp-action="SearchStudySet">
@@ -63,7 +61,6 @@
     </div>
     <br>
     <br />
-
     <div>
         <button id="createStudySet" class="btn btn-info">+ Create Study Set</button>
         <button id="showFormButton" class="btn btn-info">+ Import Flashcard Set</button>
@@ -75,14 +72,13 @@
     </div>
     
     <br>
-    <br />
+    <br/>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <div id="honeycomb"></div>
   
     <script>
-
         $(document).ready(function () {
             
             $("#createStudySetForm").submit(function (e) {
@@ -151,7 +147,7 @@
             </a>
         }
     </div>
-
     @await Html.PartialAsync("_ModalPartial")
+    <p>Total number of StudySets Loaded from database: @studySetCount</p>
 </body>
 </html>

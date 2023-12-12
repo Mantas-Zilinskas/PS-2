@@ -17,6 +17,8 @@ namespace WebAplicationTestMVC.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var studySetCount = HttpContext.Items["StudySetCount"] as int?;
+            ViewBag.StudySetCount = studySetCount ?? 0;
             List<StudySet> studySets = await _StudySetService.GetAllStudySets();
             ColorManager.AssignUniqueColor(studySets, HttpContext);
 

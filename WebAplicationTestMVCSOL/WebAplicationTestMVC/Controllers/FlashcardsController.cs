@@ -73,7 +73,6 @@ namespace WebAplicationTestMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitNewFlashcard(string question, string answer, string studySetName)
         {
-
             var flashcardId = IdGenerator.GenerateId(question, answer);
             var studySet = await _StudySetService.GetStudySetByName(studySetName);
             if (studySet != null)
