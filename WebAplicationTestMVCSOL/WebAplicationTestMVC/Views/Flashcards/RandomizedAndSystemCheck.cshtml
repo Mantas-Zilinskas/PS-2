@@ -1,5 +1,6 @@
 ﻿@using Newtonsoft.Json;
 @{
+    string setName = ViewBag.setName;
 }
 @model List<WebAplicationTestMVC.Models.FlashcardDTO>
 
@@ -143,63 +144,35 @@
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/flashcard-ahhh.js"></script>
     <script>
+        let setName = "@ViewBag.setName";
+        console.log(setName);
         let cardTime = @ViewBag.time;
         var studyStartTime;
         let time = 0;
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
         let cardFlag = true;
-        let flag = true;
+        let incFlag = true;
+        let addAttempt = true;
         let currentIndex = -1;
         let cards = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
 
         function startLearning() {
             $('#time').text("Total time: 0");
-            $.post("/Flashcards/GetCurrentTime").done(function (data) { 
+            $.post("/Flashcards/GetCurrentTime").done(function (data) {
                 studyStartTime = data;
                 shuffle(cards);
                 $('.btn-start').hide();
                 $('.btn-submit, #three-items, #answer-Input').show();
                 currentIndex = 0;
-                count();
+                increment();
 
-                if (cardTime > 0) { 
+                if (cardTime > 0) {
                     $('#card-time').text("remaining time: " + cardTime);
                     decrement();
                 }
 
                 showNext();
-            });
-        }
-
-        async function count() {
-            $.post("/Flashcards/CountUp", {
-                startTime: studyStartTime
-            }).done(function (data) {
-                time = data;
-                $('#time').text("Total time: " + time);
-                if (flag) { 
-                    count();
-                }
-            });
-        }
-
-        async function decrement() {
-            $.post("/Flashcards/CountDown", {
-                time: cardTime
-            }).done(function (data) {
-                if (flag && cardFlag) {
-                    if (data < 0) { 
-                        let badCard = cards[currentIndex];
-                        cards.push(badCard);
-                        cards.splice(currentIndex, 1);
-                        showNext();
-                        cardTime = @ViewBag.time;
-
-                    }else
-                         cardTime = data;
-
-                    $('#card-time').text("remaining time: " + cardTime);
-                        decrement();
-                }
             });
         }
 
@@ -223,6 +196,7 @@
                     $('#answer-text').hide();
                     $('#answer-content').show();
                     currentIndex++;
+                    correctAnswers++;
                 } else {
                     answerStatus.textContent = "Wrong";
                     answerStatus.className = "wrong-answer"; 
@@ -231,6 +205,7 @@
                     let badCard = cards[currentIndex];
                     cards.push(badCard);
                     cards.splice(currentIndex, 1);
+                    wrongAnswers++
                 }
 
                 $('#your-answer').text("Your answer: " + userInput);
@@ -238,12 +213,10 @@
                 $('.btn-submit, #answer-Input').hide();
                 $('.btn-next').show();
                 if (currentIndex >= cards.length) {
-                    flag = false;
+                    incFlag = false;
                 }
             }
         }
-
-
 
         function showNext() {
 
@@ -251,7 +224,6 @@
                 cardTime = @ViewBag.time;
                 cardFlag = true;
                 $('#card-time').text("remaining time: " + cardTime);
-                decrement();
             }
 
             $('#answer-content').hide();
@@ -263,10 +235,60 @@
                 $('.btn-next, #your-answer').hide();
                 document.getElementById("answer-Input").value = "";
             } else {
-                flag = false;
-                const studyTime = 'You have finished the cards.'
-                alert(studyTime);
+                incFlag = false;
+                const prompt = 'You have finished the cards.'
+                alert(prompt);
+                if (addAttempt) {
+                    addAttempt = false;
+                    submitAttempt();
+                }
             }
+        }
+        
+        async function submitAttempt() { 
+            $.post("/StudySet/SubmitAttempt", {
+                setName: setName,
+                time: time,
+                correctAnswers: correctAnswers,
+                wrongAnswers: wrongAnswers
+            });
+        }
+
+        async function increment() {
+            while (incFlag) {
+                time++;
+                $('#time').text("Total time: " + time);
+                await delay(1000);
+            }
+        }
+
+        async function decrement() {
+            while (incFlag) {
+                await delay(100);
+                while (cardFlag) {
+                    await delay(1000);
+                    if (incFlag && cardFlag) {
+                        if (cardTime == 0) {
+                            let badCard = cards[currentIndex];
+                            cards.push(badCard);
+                            cards.splice(currentIndex, 1);
+                            showNext();
+                            wrongAnswers++;
+                            cardTime = @ViewBag.time;
+
+                        } else
+                            cardTime--;
+
+                        $('#card-time').text("remaining time: " + cardTime);
+                    }
+                }
+            }
+        }
+
+        function delay(milliseconds) {
+            return new Promise(resolve => {
+                setTimeout(resolve, milliseconds);
+            });
         }
 
         function editFlashcard() {

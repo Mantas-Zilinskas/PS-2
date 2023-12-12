@@ -12,9 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestForWA", "TestProject1\TestForWA.csproj", "{98D350F4-1863-42CA-9A60-DF7912503671}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1.QuestionApi", "WebApplication1.QuestionApi\WebApplication1.QuestionApi.csproj", "{89F10DB1-422D-4EDE-9D6E-73D68EA7B833}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationTestMVC.LeaderboardAPI", "WebApplicationTestMVC.LeaderboardAPI\WebApplicationTestMVC.LeaderboardAPI.csproj", "{71117BB5-5287-4676-93A5-A5215AAACB15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplicationTestMVC.LeaderboardAPI", "WebApplicationTestMVC.LeaderboardAPI\WebApplicationTestMVC.LeaderboardAPI.csproj", "{71117BB5-5287-4676-93A5-A5215AAACB15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +28,6 @@ Global
 		{98D350F4-1863-42CA-9A60-DF7912503671}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98D350F4-1863-42CA-9A60-DF7912503671}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98D350F4-1863-42CA-9A60-DF7912503671}.Release|Any CPU.Build.0 = Release|Any CPU
-		{89F10DB1-422D-4EDE-9D6E-73D68EA7B833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89F10DB1-422D-4EDE-9D6E-73D68EA7B833}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89F10DB1-422D-4EDE-9D6E-73D68EA7B833}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89F10DB1-422D-4EDE-9D6E-73D68EA7B833}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71117BB5-5287-4676-93A5-A5215AAACB15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71117BB5-5287-4676-93A5-A5215AAACB15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71117BB5-5287-4676-93A5-A5215AAACB15}.Release|Any CPU.ActiveCfg = Release|Any CPU

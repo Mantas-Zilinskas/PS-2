@@ -34,8 +34,8 @@ namespace WebApplicationTestMVC.LeaderboardAPI.Controllers
             await _attemptService.DeleteAttempt(setName);
         }
 
-        [HttpPost("AddAttempt/Add")]
-        public async Task AddAttempt(AttemptDTO attempt)
+        [HttpPost("AddAttempt")]
+        public async Task AddAttempt([FromBody] AttemptDTO attempt)
         {
             await _attemptService.AddAttempt(attempt);
         }

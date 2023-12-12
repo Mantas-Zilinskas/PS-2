@@ -15,14 +15,43 @@ namespace WebAplicationTestMVC.Services
             client.BaseAddress = uri;
         }
 
-        public Task AddAttempt(int time, int correctsAnswers, int wrongAnswers)
+        public async Task AddAttempt(string setName, int time, int correctsAnswers, int wrongAnswers)
         {
-            throw new NotImplementedException();
+            var postData = new
+            {
+                SetName = setName,
+                Time = time,
+                WrongAnswers = wrongAnswers,
+                CorrectAnswers = correctsAnswers
+            };
+
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(postData), System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync(client.BaseAddress + "Attempt/AddAttempt", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseContent);
+            }
+            else
+            {
+                Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+            }
         }
 
-        public Task DeleteAttempts(string setName)
+        public async Task DeleteAttempts(string setName)
         {
-            throw new NotImplementedException();
+            HttpResponseMessage response = await client.DeleteAsync(client.BaseAddress + "Attempt/DeleteBySetName/" + setName);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Delete request successful");
+            }
+            else
+            {
+                Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+            }
         }
 
         public async Task<StatsViewModel?> GetStats(string setName)

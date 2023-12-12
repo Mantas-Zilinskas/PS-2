@@ -20,6 +20,7 @@ namespace WebAplicationTestMVC.Controllers
         public async Task<IActionResult> RandomizedAndSystemCheck(string setName, int time)
         {
             ViewBag.time = time;
+            ViewBag.setName = setName;
             List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(setName);
             
             return View(_FlashcardService.FlashcardsToDTOs(flashcards));
@@ -28,6 +29,7 @@ namespace WebAplicationTestMVC.Controllers
         public async Task<IActionResult> RandomizedAndUserCheck(string setName, int time)
         {
             ViewBag.time = time;
+            ViewBag.setName = setName;
             List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(setName);
             return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
@@ -35,6 +37,7 @@ namespace WebAplicationTestMVC.Controllers
         public async Task<IActionResult> SpacedRepetitionAndSystemCheck(string setName, int time)
         {
             ViewBag.time = time;
+            ViewBag.setName = setName;
             List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(setName);
             return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }
@@ -42,6 +45,7 @@ namespace WebAplicationTestMVC.Controllers
         public async Task<IActionResult> SpacedRepetitionAndUserCheck(string setName, int time)
         {
             ViewBag.time = time;
+            ViewBag.setName = setName;
             List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(setName);
             return View(_FlashcardService.FlashcardsToDTOs(flashcards));
         }

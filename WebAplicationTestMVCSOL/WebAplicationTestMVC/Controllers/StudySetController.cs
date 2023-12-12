@@ -83,8 +83,26 @@ namespace WebAplicationTestMVC.Controllers
             return PartialView("_StudySetListPartial", filteredSets);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SubmitAttempt(string setName,int time, int correctAnswers, int wrongAnswers)
+        {
+            await _ApiService.AddAttempt(setName, time, correctAnswers, wrongAnswers);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteStats(string setName) 
+        {
+            await _ApiService.DeleteAttempts(setName);
+
+            return Ok();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> StudySetStats(string setName)
         {
+            ViewBag.setName = setName;
+
             var stats = await _ApiService.GetStats(setName);
             return View(stats);
         }
