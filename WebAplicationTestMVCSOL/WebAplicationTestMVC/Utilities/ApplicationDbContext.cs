@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebAplicationTestMVC.Interceptors;
 using WebAplicationTestMVC.Models;
 public class ApplicationDbContext : DbContext
 {
@@ -24,5 +25,10 @@ public class ApplicationDbContext : DbContext
         .WithMany(s => s.Flashcards)
         .HasForeignKey(f => f.StudySetId)
         .OnDelete(DeleteBehavior.ClientSetNull); 
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(new StudySetCapitalizationInterceptor());
+        base.OnConfiguring(optionsBuilder);
     }
 }

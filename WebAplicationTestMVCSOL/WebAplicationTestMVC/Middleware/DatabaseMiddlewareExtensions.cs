@@ -1,6 +1,4 @@
-﻿
-
-namespace WebAplicationTestMVC.Middleware
+﻿namespace WebAplicationTestMVC.Middleware
 {
     public static class DatabaseMiddlewareExtensions
     {

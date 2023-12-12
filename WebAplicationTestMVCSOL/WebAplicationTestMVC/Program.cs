@@ -3,6 +3,7 @@ using WebAplicationTestMVC.Services;
 using WebAplicationTestMVC.Interface;
 using WebAplicationTestMVC.Repository;
 using WebAplicationTestMVC.Middleware;
+using WebAplicationTestMVC.Interceptors;
 namespace WebAplicationTestMVC
 {
     public class Program
@@ -11,7 +12,6 @@ namespace WebAplicationTestMVC
         {
             CreateHostBuilder(args).Build().Run();
         }
-
         public static IHostBuilder CreateHostBuilder(string[] args) =>
      Host.CreateDefaultBuilder(args)
          .ConfigureWebHostDefaults(webBuilder =>
@@ -25,13 +25,12 @@ namespace WebAplicationTestMVC
                      options.Cookie.HttpOnly = true;
                      options.Cookie.IsEssential = true;
                  });
-
-                
                  services.AddDbContext<ApplicationDbContext>(options =>
-                     options.UseSqlite(hostContext.Configuration.GetConnectionString("DefaultConnection")));
-
+                 {
+                     options.UseSqlite(hostContext.Configuration.GetConnectionString("DefaultConnection"));
+                     options.AddInterceptors(new StudySetCapitalizationInterceptor());
+                 });
                  services.AddControllersWithViews();
-
                  services.AddScoped<IFlashcardRepository, FlashcardRepository>();
                  services.AddScoped<IStudySetRepository, StudySetRepository>();
                  services.AddScoped<IFlashcardService, FlashcardService>();
@@ -61,7 +60,6 @@ namespace WebAplicationTestMVC
                  app.UseMiddleware<DatabaseMiddleware>();
                  app.UseDatabaseMiddleware();
                  app.UseSession();
-
                  app.UseEndpoints(endpoints =>
                  {
                      endpoints.MapControllerRoute(
