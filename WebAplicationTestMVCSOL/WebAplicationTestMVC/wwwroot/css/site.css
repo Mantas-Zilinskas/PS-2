@@ -15,8 +15,6 @@ body.dark-mode {
     font-style: normal;
 }
 
-
-
 body.dark-mode h2 {
     display: block;
     position: absolute;
@@ -603,8 +601,6 @@ h2 {
         }
     }
 }
-
-
 
 button.btn.btn-success {
     background-color: #457b9d;

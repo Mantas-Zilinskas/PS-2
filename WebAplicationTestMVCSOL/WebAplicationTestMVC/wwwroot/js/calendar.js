@@ -15,7 +15,6 @@
             }, 500);
         }
     }
-
     Calendar.prototype.draw = function () {
 
         this.drawHeader();
@@ -77,7 +76,6 @@
             this.month.className = 'month new';
         }
     }
-
     Calendar.prototype.backFill = function () {
         var clone = this.current.clone();
         var dayOfWeek = clone.day();
@@ -90,7 +88,6 @@
             this.drawDay(clone.add('days', 1));
         }
     }
-
     Calendar.prototype.fowardFill = function () {
         var clone = this.current.clone().add('months', 1).subtract('days', 1);
         var dayOfWeek = clone.day();
@@ -110,7 +107,6 @@
             clone.add('days', 1);
         }
     }
-
     Calendar.prototype.getWeek = function (day) {
         if (!this.week || day.day() === 0) {
             this.week = createElement('div', 'week');
@@ -134,7 +130,6 @@
         outer.appendChild(events);
         this.week.appendChild(outer);
     }
-
     Calendar.prototype.drawEvents = function (day, element) {
         if (day.month() === this.current.month()) {
             var todaysEvents = this.events.reduce(function (memo, ev) {
@@ -150,7 +145,6 @@
             });
         }
     }
-
     Calendar.prototype.getDayClass = function (day) {
         classes = ['day'];
         if (day.month() !== this.current.month()) {
@@ -207,7 +201,6 @@
 
         arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 27 + 'px';
     }
-
     Calendar.prototype.renderEvents = function (events, ele) {
 
         var currentWrapper = ele.querySelector('.events');
@@ -253,7 +246,6 @@
             ele.appendChild(wrapper);
         }
     }
-
     Calendar.prototype.drawLegend = function () {
         var legend = createElement('div', 'legend');
         var calendars = this.events.map(function (e) {
@@ -270,13 +262,11 @@
         });
         this.el.appendChild(legend);
     }
-
     Calendar.prototype.nextMonth = function () {
         this.current.add('months', 1);
         this.next = true;
         this.draw();
     }
-
     Calendar.prototype.prevMonth = function () {
         this.current.subtract('months', 1);
         this.next = false;
