@@ -7,5 +7,6 @@ namespace WebAplicationTestMVC.Interface
         Task<List<StudySet>> GetAll();
         Task<StudySet> GetByName(string studySetName);
         Task Add(StudySet studySet);
+        Task DeleteAllByStudySetName(string studySetName);
     }
 }

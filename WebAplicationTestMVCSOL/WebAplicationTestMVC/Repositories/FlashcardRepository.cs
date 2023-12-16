@@ -19,6 +19,13 @@ namespace WebAplicationTestMVC.Repository
             await _context.Flashcards.AddAsync(flashcard);
             _context.SaveChanges();
         }
+
+        public async Task DeleteAllBySetName(string setName)
+        {
+            await _context.Flashcards.Where(a => a.SetName == setName).ExecuteDeleteAsync();
+            _context.SaveChanges();
+        }
+
         public async Task<List<Flashcard>> GetAllBySetName(string setName)
         {
             return await _context.Flashcards.Where(f => f.SetName == setName).ToListAsync();

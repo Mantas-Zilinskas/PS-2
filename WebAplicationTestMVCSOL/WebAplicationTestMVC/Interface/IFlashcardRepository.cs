@@ -6,5 +6,6 @@ namespace WebAplicationTestMVC.Interface
     {
         Task<List<Flashcard>> GetAllBySetName(string setName);
         Task Add(Flashcard flashcard);
+        Task DeleteAllBySetName(string setName);
     }
 }
