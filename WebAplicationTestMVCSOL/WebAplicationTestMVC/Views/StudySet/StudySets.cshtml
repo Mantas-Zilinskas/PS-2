@@ -140,10 +140,16 @@
     <div class="row flashcard-container">
         @foreach (var flashcard in Model.Flashcards)
         {
-            <div class="col-md-12 flashcard">
+            <div class="col-sm-8 flashcard">
                 <div class="question-label">Question:</div>
                 <div class="question-content">@flashcard.Question</div>
             </div>
+            <a class="col-sm-1 flashcard" asp-area="" asp-controller="Flashcards" asp-action="DeleteFlashcard" asp-route-id="@flashcard.Id" asp-route-studySetName="@Model.StudySetName">
+                <div class="question-content">Delete</div>
+            </a>
+            <a class="col-sm-1 flashcard" asp-area="" asp-controller="Flashcards" asp-action="EditFlashcard" asp-route-id="@flashcard.Id">
+                <div class="question-content">Edit</div>
+            </a>
         }
     </div>
 

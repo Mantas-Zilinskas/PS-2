@@ -1,0 +1,38 @@
+﻿@model WebAplicationTestMVC.Models.FlashcardDTO
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<h1>Make a Flashcard</h1>
+<div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+        <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+        <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+        <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+</div>
+@using (Html.BeginForm("SubmitEditFlashcard", "Flashcards"))
+{
+    <label class="QuestionAnsw" for="question">FlashCard Question:</label>
+    <br>
+    <textarea id="question" name="question" rows="7" cols="100" placeholder="@Model.Question" required></textarea>
+    <br>
+    <br>
+    <label class="answerQues" for="answer">FlashCard Answer:</label>
+    <br>
+    <textarea id="answer" name="answer" rows="7" cols="100" placeholder="@Model.Answer" required></textarea>
+    <br>
+    <br>
+    <input type="hidden" id="studySetName" name="studySetName" value="@Model.SetName" />
+    <input type="hidden" id="id" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-primary">Update</button>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+}
+
