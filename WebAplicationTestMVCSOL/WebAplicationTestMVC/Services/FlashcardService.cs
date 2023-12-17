@@ -41,5 +41,32 @@ namespace WebAplicationTestMVC.Services
             List<FlashcardDTO> flashcardDTOs = flashcards.Select(f => new FlashcardDTO(f.Id, f.Question, f.Answer, f.SetName)).ToList();
             return flashcardDTOs;
         }
+
+        public FlashcardDTO FlashcardsToDTOs(Flashcard flashcard)
+        {
+            FlashcardDTO flashcardDTO = new FlashcardDTO(flashcard.Id, flashcard.Question, flashcard.Answer, flashcard.SetName);
+
+            return flashcardDTO;
+        }
+
+        public async Task DeleteAllFlashcardsBySetName(string setName)
+        {
+            await _FlashCardRepository.DeleteAllBySetName(setName);
+        }
+
+        public async Task DeleteFlashcardById(string id)
+        {
+            await _FlashCardRepository.DeleteFlashcardById(id);
+        }
+
+        public async Task<Flashcard> GetFlashcardById(string id)
+        {
+            return await _FlashCardRepository.GetFlashcardById(id);
+        }
+
+        public async Task EditFlashcard(string id, string question, string answer)
+        {
+            await _FlashCardRepository.EditFlashcard(id, question, answer);
+        }
     }
 }

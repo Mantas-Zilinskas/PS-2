@@ -74,6 +74,31 @@ namespace WebAplicationTestMVC.Controllers
             return Ok(time);
         }
 
+        public async Task<IActionResult> DeleteFlashcard(string id, string studySetName) {
+
+            await _FlashcardService.DeleteFlashcardById(id);
+            List<Flashcard> flashcards = await _FlashcardService.GetAllFlashcardsBySetName(studySetName);
+            StudySet studySet = new StudySet(studySetName);
+            studySet.Flashcards = flashcards;
+
+            return View("~/Views/StudySet/StudySets.cshtml", studySet);
+        }
+
+        public async Task<IActionResult> EditFlashcard(string id) {
+
+            var flashcard = await _FlashcardService.GetFlashcardById(id);
+
+            return View(_FlashcardService.FlashcardsToDTOs(flashcard));
+        }
+
+        public async Task<IActionResult> SubmitEditFlashcard(string id,string question, string answer, string studySetName) {
+
+            await _FlashcardService.EditFlashcard(id, question, answer); 
+
+            StudySet studySet = await _StudySetService.GetStudySetByName(studySetName);
+            return View("~/Views/StudySet/StudySets.cshtml", studySet);
+        }
+
         [HttpPost]
         public async Task<IActionResult> SubmitNewFlashcard(string question, string answer, string studySetName)
         {

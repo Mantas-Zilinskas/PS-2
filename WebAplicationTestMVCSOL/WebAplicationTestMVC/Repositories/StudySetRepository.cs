@@ -18,6 +18,13 @@ namespace WebAplicationTestMVC.Repository
            await _context.StudySets.AddAsync(studySet);
             _context.SaveChanges();
         }
+
+        public async Task DeleteAllByStudySetName(string studySetName)
+        {
+            await _context.StudySets.Where(a => a.StudySetName == studySetName).ExecuteDeleteAsync();
+            _context.SaveChanges();
+        }
+
         public async Task<List<StudySet>> GetAll()
         {
             return await _context.StudySets.ToListAsync();

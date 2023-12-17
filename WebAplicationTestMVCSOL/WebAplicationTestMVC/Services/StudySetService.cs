@@ -63,5 +63,10 @@ namespace WebAplicationTestMVC.Services
 
             return orderFilter(allStudySets).ToList();
         }
+
+        public async Task DeleteStudySetByName(string studySetName)
+        {
+            await _StudySetRepository.DeleteAllByStudySetName(studySetName);
+        }
     }
 }

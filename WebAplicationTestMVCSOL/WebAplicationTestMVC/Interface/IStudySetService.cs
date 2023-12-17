@@ -10,5 +10,6 @@ namespace WebAplicationTestMVC.Interface
         Task<StudySet> GetStudySetByName(string studySetName);
         Task<List<StudySet>> GetByDateFilter(StudySetDateFilter filter);
         Task<List<StudySet>> GetAllOrderedBy(StudySetOrderFilter orderFilter);
+        Task DeleteStudySetByName(string studySetName);
     }
 }

@@ -56,6 +56,15 @@ namespace WebAplicationTestMVC.Controllers
             return View("~/Views/Home/Index.cshtml", foundStudySets.Where(s => regexPattern.IsMatch(s.StudySetName)).ToList());
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> DeleteStudySet(string studySetName) {
+            await _FlashcardService.DeleteAllFlashcardsBySetName(studySetName);
+            await _StudySetService.DeleteStudySetByName(studySetName);
+            await _ApiService.DeleteAttempts(studySetName);
+
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public async Task<IActionResult> GetFilteredStudySets(string filter)
         {
