@@ -1,8 +1,7 @@
-﻿@model List<WebAplicationTestMVC.Models.StudySet>
-@{
-    ViewData["Title"] = "Index";
-    var studySetCount = ViewBag.StudySetCount;
+﻿@{
+    Layout = null;
 }
+
 <!DOCTYPE html>
 <html manifest="cache.manifest">
 <head>
@@ -12,47 +11,22 @@
     <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/loader.css" asp-append-version="true" />
-    <style>
-        .question-text {
-            font-size: 28px;
-        }
-
-        #myForm {
-            display: none;
-        }
-
-        #search{
-            text-align: end;
-        }
-      
-
-    </style>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" /> 
+    <!-- Existing head content -->
+    <link href='https://fullcalendar.io/releases/fullcalendar/3.10.0/fullcalendar.min.css' rel='stylesheet' />
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='https://fullcalendar.io/releases/fullcalendar/3.10.0/lib/moment.min.js'></script>
+    <script src='https://fullcalendar.io/releases/fullcalendar/3.10.0/fullcalendar.min.js'></script>
 </head>
+<style>
+    #cloud-intro {
+        position: unset;
+        height: 26.4%;
+    }
 
-
-
+</style>
 <body>
-
-    <div class="container">
-        <h2>Study sets</h2>
-        <form class="search-container" method="post" asp-controller="StudySet" asp-action="SearchStudySet">
-            <input class="search-input" type="text" name="studySetName" placeholder="Search for study set" />
-            <button class="search-button" type="submit">&#x1F50E;&#xFE0E;</button>
-        </form>
-    </div>
-
-    <div class="col-md-6 text-end">
-        <form class="filter-container" method="post" asp-controller="StudySet" asp-action="GetFilteredStudySets">
-            <select id="filterDropdown" class="form-control">
-                <option value="all">All</option>
-                <option value="lastWeek">Last Week</option>
-                <option value="lastMonth">Last Month</option>
-                <option value="newerToOlder">Newer to Older</option>
-                <option value="olderToNewer">Older to Newer</option>
-            </select>
-        </form>
-
-    </div>
+<div id="cloud-intro">
     <div class="waveWrapper waveAnimation">
         <div class="waveWrapperInner bgTop">
             <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
@@ -64,99 +38,152 @@
             <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
         </div>
     </div>
-    <br>
-    <br />
+    <main class="site-wrapper">
 
-    <div>
-        <button id="createStudySet" class="btn btn-info">+ Create Study Set</button>
-        <button id="showFormButton" class="btn btn-info">+ Import Flashcard Set</button>
-        <form id="myForm" method="post" enctype="multipart/form-data" asp-controller="StudySet" asp-action="ImportDB">
-            <label for="file">Upload flashcards:</label>
-            <input type="file" name="file" id="file" required accept=".xlsx" />
-            <button type="submit" class="btn btn-warning">Import</button>
-        </form>
-    </div>
-    
-    <br>
-    <br />
+        <div id='calendar'>
+        </div>
+        <div class="pt-table desktop-768">
+        
+            <div class="pt-tablecell page-home relative">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <div id="honeycomb"></div>
-  
-    <script>
+                <div class="overlay"></div>
 
+                <div class="container1">
+                    <div class="row">
+                        <div class="
+                col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8
+              ">
+                            <div class="hexagon-menu clear">
+                                <div class="hexagon-item">
+                                    <div class="hex-item">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                    <div class="hex-item">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                        <a asp-area="" asp-controller="StudySet" asp-action="StudySets">
+                                        <div class="hex-content">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i class="fa fa-braille"></i>
+                                                </span>
+                                                <span class="title">FlashCards</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200"
+                                                 height="200"
+                                                 width="174"
+                                                 version="1.1"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z"
+                                                      fill="orange"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="hexagon-item">
+                                    <div class="hex-item">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                    <div class="hex-item">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                    <a asp-area="" asp-controller="Home" asp-action="Home">
+                                        <div class="hex-content">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i class="fa fa-braille"></i>
+                                                </span>
+                                                <span class="title">StudySets</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200"
+                                                 height="200"
+                                                 width="174"
+                                                 version="1.1"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z"
+                                                      fill="orange"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="hexagon-item">
+                                    <div class="hex-item">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                    <div class="hex-item">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                       <a asp-area="" asp-controller="Flashcards" asp-action="AddFlashcard">
+                                        <div class="hex-content">
+                                            <span class="hex-content-inner">
+                                                <span class="icon">
+                                                    <i class="fa fa-braille"></i>
+                                                </span>
+                                                <span class="title">Create Flashcard!</span>
+                                            </span>
+                                            <svg viewBox="0 0 173.20508075688772 200"
+                                                 height="200"
+                                                 width="174"
+                                                 version="1.1"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z"
+                                                      fill="orange"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+<script>
         $(document).ready(function () {
-            
-            $("#createStudySetForm").submit(function (e) {
-                e.preventDefault(); 
-                var form = this;
-                var studySetName = form.querySelector('input[name="studySetName"]').value;
-
-                if (studySetName) {
-                   
-                    $.post(form.action, { studySetName: studySetName }, function (data) {
-                     
-                        console.log(data);
-                       
-                        location.reload();
-                    });
-                } else {
-                    alert('Please enter a name for the study set.');
-                }
-            });
-           
-            $("#showFormButton").click(function () {
-                var form = $("#myForm");
-                form.toggle();
-            });
-
-            $("#filterDropdown").on('change', function () {
-                var selectedFilter = $(this).val();
-                applyFilter(selectedFilter);
-            });
-
-            function applyFilter(filterType) {
-                $.post('/StudySet/GetFilteredStudySets', { filter: filterType }, function (data) {
-                    $('.row').empty(); 
-                    $('.row').append(data); 
-                });
-            }
-         
-            $("#createStudySet").click(function () {
-                $('#myModal').modal('show');
-            });
-
-            $("#saveStudySet").click(function () {
-                var studySetName = $("#name").val();
-
-                if (studySetName) {
-                 
-                    var studySets = JSON.parse(localStorage.getItem('studySets') || '[]');
-                    studySets.push(studySetName);
-                    localStorage.setItem('studySets', JSON.stringify(studySets));
-                  
-                    $('#myModal').modal('hide');
-                } else {
-                    alert('Please enter a name for the study set.');
-                }
+            $('#calendar').fullCalendar({
+                // Calendar options go here
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: [
+                    // Predefined events can be added here
+                ],
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    var title = prompt('Event Title:');
+                    var eventData;
+                    if (title) {
+                        eventData = {
+                            title: title,
+                            start: start,
+                            end: end
+                        };
+                        $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                    }
+                    $('#calendar').fullCalendar('unselect');
+                },
             });
         });
+
     </script>
-    
-    <div class="row">
-
-        @foreach (var studySet in Model)
-        {
-            <a class="col-sm- set-box"
-               style="background-color: @(studySet.Color.ToString().ToLower());text-decoration: none;"
-               asp-area="" asp-controller="StudySet" asp-action="StudySets" asp-route-studySetName="@studySet.StudySetName">
-                <div class="set-name">@studySet.StudySetName</div>
-            </a>
-        }
-    </div>
-
-    @await Html.PartialAsync("_ModalPartial")
-    <p>Total number of StudySets Loaded from database: @studySetCount</p>
-</body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+<script src="~/js/calendar.js"></script>
 </html>
