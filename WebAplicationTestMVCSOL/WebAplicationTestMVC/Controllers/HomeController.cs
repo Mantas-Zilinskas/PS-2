@@ -14,16 +14,21 @@ namespace WebAplicationTestMVC.Controllers
         {
             _StudySetService = studySetService;
         }
+        
+            public async Task<IActionResult> Index()
+            {
+                return View();
+            }
 
-        public async Task<IActionResult> Index()
-        {
-            var studySetCount = HttpContext.Items["StudySetCount"] as int?;
-            ViewBag.StudySetCount = studySetCount ?? 0;
-            List<StudySet> studySets = await _StudySetService.GetAllStudySets();
-            ColorManager.AssignUniqueColor(studySets, HttpContext);
+            public async Task<IActionResult> Home()
+            {
+                var studySetCount = HttpContext.Items["StudySetCount"] as int?;
+                ViewBag.StudySetCount = studySetCount ?? 0;
+                List<StudySet> studySets = await _StudySetService.GetAllStudySets();
+                ColorManager.AssignUniqueColor(studySets, HttpContext);
 
-            return View(studySets);
-        }
+                return View(studySets);
+            }
 
         public IActionResult Privacy()
         {
